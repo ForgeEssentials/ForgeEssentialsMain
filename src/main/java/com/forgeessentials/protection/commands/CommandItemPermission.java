@@ -3,7 +3,14 @@ package com.forgeessentials.protection.commands;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.world.item.ItemStack;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.forgeessentials.api.APIRegistry;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import com.forgeessentials.api.permissions.FEPermissions;
 import com.forgeessentials.api.permissions.Zone;
 import com.forgeessentials.core.commands.ForgeEssentialsCommandBuilder;
@@ -13,12 +20,6 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.Commands;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
-import org.jetbrains.annotations.NotNull;
 
 public class CommandItemPermission extends ForgeEssentialsCommandBuilder
 {

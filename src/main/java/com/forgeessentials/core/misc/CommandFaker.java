@@ -2,22 +2,22 @@ package com.forgeessentials.core.misc;
 
 import java.util.UUID;
 
+import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.forgeessentials.api.APIRegistry;
 import com.forgeessentials.util.output.logger.LoggingHandler;
 import com.mojang.authlib.GameProfile;
-
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
-
-import org.jetbrains.annotations.NotNull;
 
 public class CommandFaker implements CommandSource
 {

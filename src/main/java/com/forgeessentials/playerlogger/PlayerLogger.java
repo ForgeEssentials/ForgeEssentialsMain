@@ -27,14 +27,35 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.spi.PersistenceUnitInfo;
 import javax.sql.rowset.serial.SerialBlob;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.CommandEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.BlockEvent.EntityMultiPlaceEvent;
+import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
+import net.minecraftforge.event.world.ExplosionEvent;
+import net.minecraftforge.eventbus.api.Event.Result;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.loading.FMLEnvironment;
+
 import org.hibernate.jpa.HibernatePersistenceProvider;
 
 import com.forgeessentials.commons.selections.Point;
 import com.forgeessentials.commons.selections.WorldArea;
 import com.forgeessentials.commons.selections.WorldPoint;
 import com.forgeessentials.core.misc.TaskRegistry;
-import com.forgeessentials.playerlogger.persistenceProviders.HibernatePersistenceUnitInfo;
-import com.forgeessentials.playerlogger.persistenceProviders.PersistenceSelector;
 import com.forgeessentials.playerlogger.entity.Action;
 import com.forgeessentials.playerlogger.entity.Action01Block;
 import com.forgeessentials.playerlogger.entity.Action02Command;
@@ -55,6 +76,8 @@ import com.forgeessentials.playerlogger.event.LogEventPlace;
 import com.forgeessentials.playerlogger.event.LogEventPlayerEvent;
 import com.forgeessentials.playerlogger.event.LogEventPlayerPositions;
 import com.forgeessentials.playerlogger.event.LogEventPostInteract;
+import com.forgeessentials.playerlogger.persistenceProviders.HibernatePersistenceUnitInfo;
+import com.forgeessentials.playerlogger.persistenceProviders.PersistenceSelector;
 import com.forgeessentials.util.ServerUtil;
 import com.forgeessentials.util.events.ServerEventHandler;
 import com.forgeessentials.util.events.player.PlayerPostInteractEvent;
@@ -64,30 +87,6 @@ import com.forgeessentials.util.output.logger.LoggingHandler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import net.minecraft.world.level.GameType;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BedItem;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.PlayerHeadItem;
-import net.minecraftforge.common.util.BlockSnapshot;
-import net.minecraftforge.event.CommandEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.event.world.BlockEvent.EntityMultiPlaceEvent;
-import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
-import net.minecraftforge.event.world.ExplosionEvent;
-import net.minecraftforge.eventbus.api.Event.Result;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 
 public class PlayerLogger extends ServerEventHandler implements Runnable
 {
@@ -457,8 +456,7 @@ public class PlayerLogger extends ServerEventHandler implements Runnable
         {
             if (tileEntity == null)
                 return null;
-            CompoundTag nbt = new CompoundTag();
-            tileEntity.save(nbt);
+            CompoundTag nbt = tileEntity.saveWithFullMetadata();
             nbt.putString("ENTITY_CLASS", tileEntity.getClass().getName());
             ByteBuf buf = Unpooled.buffer();
             writeTag(buf, nbt);

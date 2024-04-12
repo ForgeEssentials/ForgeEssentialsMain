@@ -22,7 +22,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.commands.arguments.EntityArgument;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandTPA extends ForgeEssentialsCommandBuilder

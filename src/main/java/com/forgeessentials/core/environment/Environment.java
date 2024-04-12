@@ -1,9 +1,5 @@
 package com.forgeessentials.core.environment;
 
-import com.forgeessentials.core.ForgeEssentials;
-import com.forgeessentials.util.output.ChatOutputHandler;
-import com.forgeessentials.util.output.logger.LoggingHandler;
-
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
@@ -11,7 +7,11 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.CrashReportCallables;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
+import com.forgeessentials.core.ForgeEssentials;
+import com.forgeessentials.util.output.ChatOutputHandler;
+import com.forgeessentials.util.output.logger.LoggingHandler;
 
 public class Environment
 {

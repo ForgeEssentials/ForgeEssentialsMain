@@ -2,10 +2,26 @@ package com.forgeessentials.permissions;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.ForgeConfig;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.Builder;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.server.permission.events.PermissionGatherEvent.Handler;
+import net.minecraftforge.server.permission.handler.IPermissionHandler;
+import net.minecraftforge.server.permission.handler.IPermissionHandlerFactory;
+import net.minecraftforge.server.permission.nodes.PermissionNode;
 
 import org.apache.commons.io.FileUtils;
 
 import com.forgeessentials.api.APIRegistry;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import com.forgeessentials.api.permissions.FEPermissions;
 import com.forgeessentials.core.ForgeEssentials;
 import com.forgeessentials.core.commands.registration.FECommandManager;
@@ -32,17 +48,8 @@ import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStartingEvent
 import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStoppingEvent;
 import com.forgeessentials.util.output.logger.LoggingHandler;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.Builder;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
-import net.minecraftforge.server.permission.PermissionAPI;
-
 @FEModule(name = "Permissions", parentMod = ForgeEssentials.class, canDisable = false, version=ForgeEssentials.CURRENT_MODULE_VERSION)
-public class ModulePermissions extends ConfigLoaderBase
+public class ModulePermissions extends ConfigLoaderBase implements IPermissionHandlerFactory
 {
     private static ForgeConfigSpec PERMISSIONS_CONFIG;
     public static final ConfigData data = new ConfigData("Permissions", PERMISSIONS_CONFIG,
@@ -67,13 +74,18 @@ public class ModulePermissions extends ConfigLoaderBase
 
     public static boolean fullcommandNode = false;
 
+    private final String handlerId = "forgeessentials";
+    @SubscribeEvent
+    public void handlerFactory(Handler event) {
+        event.addPermissionHandler(new ResourceLocation(handlerId), this);
+        ForgeConfig.SERVER.permissionHandler.set(handlerId);
+    }
     public ModulePermissions()
     {
         // Earliest initialization of permission system possible
         permissionHelper = new ZonedPermissionHelper();
         APIRegistry.perms = permissionHelper;
-        PermissionAPI.setPermissionHandler(permissionHelper);
-
+        MinecraftForge.EVENT_BUS.register(this);
         if (ModList.get().isLoaded("ftblib"))
         {
             try
@@ -294,5 +306,10 @@ public class ModulePermissions extends ConfigLoaderBase
     public static PermissionScheduler getPermissionScheduler()
     {
         return permissionScheduler;
+    }
+
+    @Override public IPermissionHandler create(Collection<PermissionNode<?>> collection)
+    {
+        return permissionHelper;
     }
 }

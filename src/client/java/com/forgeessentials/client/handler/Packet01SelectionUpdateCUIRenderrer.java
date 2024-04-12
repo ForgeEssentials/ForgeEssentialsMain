@@ -1,5 +1,11 @@
 package com.forgeessentials.client.handler;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+
 import com.forgeessentials.commons.selections.Selection;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -9,12 +15,6 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-
 public class Packet01SelectionUpdateCUIRenderrer
 {
     private static final float ALPHA = .25f;
@@ -22,7 +22,7 @@ public class Packet01SelectionUpdateCUIRenderrer
 
 
     @SubscribeEvent
-    public void render(RenderWorldLastEvent event)
+    public void render(RenderLevelStageEvent event)
     {
         Minecraft instance = Minecraft.getInstance();
         LocalPlayer player = instance.player;
@@ -35,7 +35,7 @@ public class Packet01SelectionUpdateCUIRenderrer
 
 	    final Tesselator tessellator = Tesselator.getInstance();
 	    BufferBuilder bufferbuilder = tessellator.getBuilder();
-	    final PoseStack matrixStack = event.getMatrixStack();
+	    final PoseStack matrixStack = event.getPoseStack();
 	    Vec3 projectedView = instance.gameRenderer.getMainCamera().getPosition();
 	
 	    matrixStack.pushPose();

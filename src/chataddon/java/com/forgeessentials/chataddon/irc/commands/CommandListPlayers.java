@@ -3,11 +3,11 @@ package com.forgeessentials.chataddon.irc.commands;
 import java.util.Arrays;
 import java.util.Collection;
 
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import org.pircbotx.hooks.events.MessageEvent;
 
 import com.forgeessentials.chataddon.irc.IrcCommand;
-
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 
 public class CommandListPlayers implements IrcCommand
 {

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import com.forgeessentials.util.ServerUtil;
 import com.forgeessentials.util.output.logger.LoggingHandler;
-
-import net.minecraft.world.level.Level;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
-import net.minecraft.server.level.ServerLevel;
 
 public interface NamedWorldHandler
 {

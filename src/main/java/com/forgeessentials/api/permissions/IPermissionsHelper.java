@@ -4,13 +4,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.SortedSet;
 
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.server.permission.handler.IPermissionHandler;
+
 import com.forgeessentials.api.UserIdent;
 import com.forgeessentials.commons.selections.WorldArea;
 import com.forgeessentials.commons.selections.WorldPoint;
-
-import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
-import net.minecraftforge.server.permission.IPermissionHandler;
 
 /**
  * {@link IPermissionsHelper} is the primary access-point to the permissions-system.
@@ -432,6 +431,8 @@ public interface IPermissionsHelper extends IPermissionHandler
      * @param ident
      */
     SortedSet<GroupEntry> getStoredPlayerGroups(UserIdent ident);
+
+    void registerNode(String permCavemap, DefaultPermissionLevel all, String allowCavemaps);
 
     // ---------------------------------------------------------------------------
 

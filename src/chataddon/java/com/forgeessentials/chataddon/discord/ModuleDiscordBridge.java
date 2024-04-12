@@ -5,23 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.forgeessentials.api.APIRegistry;
-import com.forgeessentials.chataddon.FEChatAddons;
-import com.forgeessentials.core.ForgeEssentials;
-import com.forgeessentials.core.commands.registration.FECommandManager;
-import com.forgeessentials.core.config.ConfigBase;
-import com.forgeessentials.core.config.ConfigData;
-import com.forgeessentials.core.config.ConfigSaver;
-import com.forgeessentials.core.misc.Translator;
-import com.forgeessentials.core.moduleLauncher.FEModule;
-import com.forgeessentials.util.CommandUtils;
-import com.forgeessentials.util.CommandUtils.CommandInfo;
-import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStartedEvent;
-import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStoppingEvent;
-import com.forgeessentials.util.events.player.FEPlayerEvent.NoPlayerInfoEvent;
-import com.forgeessentials.util.output.ChatOutputHandler;
-import com.forgeessentials.util.output.logger.LoggingHandler;
-
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -43,7 +26,24 @@ import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
+import com.forgeessentials.api.APIRegistry;
+import com.forgeessentials.chataddon.FEChatAddons;
+import com.forgeessentials.core.ForgeEssentials;
+import com.forgeessentials.core.commands.registration.FECommandManager;
+import com.forgeessentials.core.config.ConfigBase;
+import com.forgeessentials.core.config.ConfigData;
+import com.forgeessentials.core.config.ConfigSaver;
+import com.forgeessentials.core.misc.Translator;
+import com.forgeessentials.core.moduleLauncher.FEModule;
+import com.forgeessentials.util.CommandUtils;
+import com.forgeessentials.util.CommandUtils.CommandInfo;
+import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStartedEvent;
+import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStoppingEvent;
+import com.forgeessentials.util.events.player.FEPlayerEvent.NoPlayerInfoEvent;
+import com.forgeessentials.util.output.ChatOutputHandler;
+import com.forgeessentials.util.output.logger.LoggingHandler;
 
 @FEModule(name = "DiscordBridge", parentMod = FEChatAddons.class, defaultModule = false, version=ForgeEssentials.CURRENT_MODULE_VERSION)
 public class ModuleDiscordBridge implements ConfigSaver

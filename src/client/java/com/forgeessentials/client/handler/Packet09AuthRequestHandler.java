@@ -1,11 +1,11 @@
 package com.forgeessentials.client.handler;
 
-import com.forgeessentials.client.ForgeEssentialsClient;
-import com.forgeessentials.commons.network.packets.Packet09AuthRequest;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
+
+import com.forgeessentials.client.ForgeEssentialsClient;
+import com.forgeessentials.commons.network.packets.Packet09AuthRequest;
 
 public class Packet09AuthRequestHandler extends Packet09AuthRequest
 {

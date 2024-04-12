@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.function.Supplier;
 
-import com.forgeessentials.multiworld.v2.provider.BiomeProviderHolderBase;
-import com.forgeessentials.multiworld.v2.provider.FEBiomeProvider;
-
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.CheckerboardColumnBiomeSource;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
+import com.forgeessentials.multiworld.v2.provider.BiomeProviderHolderBase;
+import com.forgeessentials.multiworld.v2.provider.FEBiomeProvider;
 
 @FEBiomeProvider(providerName = "minecraft:checkerboard")
 public class MinecraftCheckerboardBiomeProviderHolder extends BiomeProviderHolderBase {

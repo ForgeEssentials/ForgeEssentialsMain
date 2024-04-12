@@ -1,12 +1,12 @@
 package com.forgeessentials.client.handler;
 
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.network.NetworkEvent;
+
 import com.forgeessentials.client.ForgeEssentialsClient;
 import com.forgeessentials.commons.network.packets.Packet01SelectionUpdate;
 import com.forgeessentials.commons.selections.Point;
 import com.forgeessentials.commons.selections.Selection;
-
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class Packet01SelectionUpdateHandler extends Packet01SelectionUpdate
 {

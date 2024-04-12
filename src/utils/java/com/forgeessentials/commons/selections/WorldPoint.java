@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.extensions.IForgeLevel;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
+import net.minecraftforge.server.ServerLifecycleHooks;
 
 import com.google.gson.annotations.Expose;
 
@@ -30,7 +30,7 @@ public class WorldPoint extends Point
     @Expose(serialize = false)
     protected Level world;
 
-    private static WorldPoint NULL = new WorldPoint("overworld", 0, 0, 0);
+    public static WorldPoint NULL = new WorldPoint("overworld", 0, 0, 0);
     // ------------------------------------------------------------
 
     public WorldPoint(String dim2, int x, int y, int z)

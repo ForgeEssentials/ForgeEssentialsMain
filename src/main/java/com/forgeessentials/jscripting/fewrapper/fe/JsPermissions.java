@@ -5,10 +5,9 @@ import java.util.Collection;
 import java.util.List;
 
 import com.forgeessentials.api.APIRegistry;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import com.forgeessentials.api.permissions.Zone;
 import com.forgeessentials.jscripting.wrapper.mc.entity.JsPlayerEntity;
-
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
 
 /**
  * @tsd.static Permissions

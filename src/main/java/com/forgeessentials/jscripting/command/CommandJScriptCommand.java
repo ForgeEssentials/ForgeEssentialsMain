@@ -2,6 +2,12 @@ package com.forgeessentials.jscripting.command;
 
 import javax.script.ScriptException;
 
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import com.forgeessentials.core.commands.ForgeEssentialsCommandBuilder;
 import com.forgeessentials.core.commands.registration.FECommandParsingException;
 import com.forgeessentials.jscripting.ScriptInstance;
@@ -20,11 +26,6 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.Commands;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
-import org.jetbrains.annotations.NotNull;
 
 public class CommandJScriptCommand extends ForgeEssentialsCommandBuilder
 {

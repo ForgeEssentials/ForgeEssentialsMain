@@ -1,13 +1,13 @@
 package com.forgeessentials.client.handler;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.network.NetworkEvent;
+
 import com.forgeessentials.client.ForgeEssentialsClient;
 import com.forgeessentials.commons.network.NetworkUtils;
 import com.forgeessentials.commons.network.packets.Packet06AuthLogin;
 import com.forgeessentials.commons.network.packets.Packet08AuthReply;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class Packet06AuthLoginHandler extends Packet06AuthLogin
 {

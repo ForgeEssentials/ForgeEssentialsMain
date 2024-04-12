@@ -2,24 +2,10 @@ package com.forgeessentials.auth;
 
 import java.util.UUID;
 
-import com.forgeessentials.api.APIRegistry;
-import com.forgeessentials.commons.network.NetworkUtils;
-import com.forgeessentials.commons.network.packets.Packet06AuthLogin;
-import com.forgeessentials.commons.network.packets.Packet09AuthRequest;
-import com.forgeessentials.util.CommandUtils;
-import com.forgeessentials.util.CommandUtils.CommandInfo;
-import com.forgeessentials.util.events.ServerEventHandler;
-import com.forgeessentials.util.events.player.FEPlayerEvent.ClientHandshakeEstablished;
-import com.forgeessentials.util.events.player.PlayerAuthLoginEvent;
-import com.forgeessentials.util.events.player.PlayerAuthLoginEvent.Success.Source;
-import com.forgeessentials.util.events.player.PlayerMoveEvent;
-import com.forgeessentials.util.output.ChatOutputHandler;
-import com.forgeessentials.util.output.logger.LoggingHandler;
-
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.ServerChatEvent;
@@ -33,7 +19,21 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
+import com.forgeessentials.api.APIRegistry;
+import com.forgeessentials.commons.network.NetworkUtils;
+import com.forgeessentials.commons.network.packets.Packet06AuthLogin;
+import com.forgeessentials.commons.network.packets.Packet09AuthRequest;
+import com.forgeessentials.util.CommandUtils;
+import com.forgeessentials.util.CommandUtils.CommandInfo;
+import com.forgeessentials.util.events.ServerEventHandler;
+import com.forgeessentials.util.events.player.FEPlayerEvent.ClientHandshakeEstablished;
+import com.forgeessentials.util.events.player.PlayerAuthLoginEvent;
+import com.forgeessentials.util.events.player.PlayerAuthLoginEvent.Success.Source;
+import com.forgeessentials.util.events.player.PlayerMoveEvent;
+import com.forgeessentials.util.output.ChatOutputHandler;
+import com.forgeessentials.util.output.logger.LoggingHandler;
 
 public class AuthEventHandler extends ServerEventHandler
 {

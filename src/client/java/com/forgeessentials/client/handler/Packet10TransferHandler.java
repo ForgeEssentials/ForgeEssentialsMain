@@ -1,10 +1,10 @@
 package com.forgeessentials.client.handler;
 
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.network.NetworkEvent;
+
 import com.forgeessentials.client.ForgeEssentialsClient;
 import com.forgeessentials.commons.network.packets.Packet10ClientTransfer;
-
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class Packet10TransferHandler extends Packet10ClientTransfer
 {

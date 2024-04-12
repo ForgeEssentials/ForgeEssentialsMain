@@ -3,7 +3,14 @@ package com.forgeessentials.playerlogger;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.Builder;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+
 import com.forgeessentials.api.APIRegistry;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import com.forgeessentials.core.ForgeEssentials;
 import com.forgeessentials.core.commands.registration.FECommandManager;
 import com.forgeessentials.core.config.ConfigData;
@@ -19,13 +26,6 @@ import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerAboutToStartE
 import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStartedEvent;
 import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStoppedEvent;
 import com.forgeessentials.util.output.logger.LoggingHandler;
-
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.Builder;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
 
 @FEModule(name = "PlayerLogger", parentMod = ForgeEssentials.class, defaultModule = false, version=ForgeEssentials.CURRENT_MODULE_VERSION)
 public class ModulePlayerLogger implements ConfigSaver

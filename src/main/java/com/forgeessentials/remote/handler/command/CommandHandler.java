@@ -1,6 +1,12 @@
 package com.forgeessentials.remote.handler.command;
 
+import net.minecraft.commands.CommandRuntimeException;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import com.forgeessentials.api.APIRegistry;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import com.forgeessentials.api.remote.FERemoteHandler;
 import com.forgeessentials.api.remote.GenericRemoteHandler;
 import com.forgeessentials.api.remote.RemoteRequest;
@@ -10,12 +16,6 @@ import com.forgeessentials.core.misc.TaskRegistry;
 import com.forgeessentials.remote.RemoteCommandSender;
 import com.forgeessentials.remote.RemoteMessageID;
 import com.mojang.brigadier.ParseResults;
-
-import net.minecraft.commands.CommandRuntimeException;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
 
 @FERemoteHandler(id = RemoteMessageID.COMMAND)
 public class CommandHandler extends GenericRemoteHandler<String>

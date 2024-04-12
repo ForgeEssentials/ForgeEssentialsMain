@@ -15,13 +15,35 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.UUID;
 import java.util.WeakHashMap;
+import java.util.stream.Collectors;
 
-import javax.annotation.Nullable;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
+import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.server.ServerLifecycleHooks;
+import net.minecraftforge.server.permission.nodes.PermissionDynamicContext;
+import net.minecraftforge.server.permission.nodes.PermissionNode;
+import net.minecraftforge.server.permission.nodes.PermissionTypes;
 
 import com.forgeessentials.api.APIRegistry;
 import com.forgeessentials.api.UserIdent;
 import com.forgeessentials.api.UserIdent.UserIdentInvalidatedEvent;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import com.forgeessentials.api.permissions.FEPermissions;
 import com.forgeessentials.api.permissions.GroupEntry;
 import com.forgeessentials.api.permissions.IPermissionsHelper;
@@ -32,7 +54,6 @@ import com.forgeessentials.api.permissions.ServerZone.PermissionDebugger;
 import com.forgeessentials.api.permissions.WorldZone;
 import com.forgeessentials.api.permissions.Zone;
 import com.forgeessentials.api.permissions.Zone.PermissionList;
-import com.forgeessentials.commons.selections.Point;
 import com.forgeessentials.commons.selections.WarpPoint;
 import com.forgeessentials.commons.selections.WorldArea;
 import com.forgeessentials.commons.selections.WorldPoint;
@@ -44,31 +65,6 @@ import com.forgeessentials.util.events.player.PlayerChangedZone;
 import com.forgeessentials.util.events.player.PlayerMoveEvent;
 import com.forgeessentials.util.output.ChatOutputHandler;
 import com.forgeessentials.util.output.logger.LoggingHandler;
-import com.mojang.authlib.GameProfile;
-
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.BaseComponent;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
-import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
-import net.minecraftforge.server.permission.context.AreaContext;
-import net.minecraftforge.server.permission.context.BlockPosContext;
-import net.minecraftforge.server.permission.context.ContextKeys;
-import net.minecraftforge.server.permission.context.IContext;
-import net.minecraftforge.server.permission.context.PlayerContext;
 
 /**
  * Main permission management class
@@ -770,17 +766,24 @@ public class ZonedPermissionHelper extends ServerEventHandler implements IPermis
     // ------------------------------------------------------------
 
     @Override
-    public boolean hasPermission(GameProfile player, String permissionNode, @Nullable IContext context)
+    public <T> T getPermission(ServerPlayer player, PermissionNode<T> permissionNode, PermissionDynamicContext<?>... context)
     {
         UserIdent ident = null;
-        Level w = context != null ? context.getWorld() : null;
+        Level w = player != null ? player.getLevel() : null;
         String dim = w != null ? w.dimension().location().toString() : "minecraft:overworld";
         WorldPoint loc = null;
         WorldArea area = null;
 
         if (context != null)
         {
-            if (context instanceof AreaContext)
+            for (int i = 0; i < context.length; i++) {
+                var key = context[i].getDynamic();
+                LoggingHandler.felog.debug(key.name());
+                LoggingHandler.felog.debug(context[i].getSerializedValue());
+                
+                //TODO: Figure out how to implement dynamic contexts
+            }
+            /*if (context instanceof AreaContext)
             {
                 AABB areac = context.get(ContextKeys.AREA);
 
@@ -798,30 +801,60 @@ public class ZonedPermissionHelper extends ServerEventHandler implements IPermis
             else if (context instanceof PlayerContext)
             {
                 ident = UserIdent.get(context.getPlayer());
-            }
+            }*/
         }
         if (ident == null)
         {
-            ident = player == null ? null : UserIdent.get(player.getId(), player.getName());
+            ident = player == null ? null : UserIdent.get(player.getUUID(), player.getGameProfile().getName());
         }
 
         SortedSet<GroupEntry> groups = getPlayerGroups(ident);
-        return checkBooleanPermission(
-                getPermission(ident, loc, area, GroupEntry.toList(groups), permissionNode, false));
+        String value = getPermission(ident, loc, area, GroupEntry.toList(groups), permissionNode.getNodeName(), false);
+        T _value = permissionNode.getDefaultResolver().resolve(player, player.getUUID(), context);
+
+        if (_value instanceof Boolean) {
+            return (T) Boolean.valueOf(value);
+        } else if (_value instanceof String) {
+            return (T) value;
+        } else if (_value instanceof Integer) {
+            return (T) Integer.getInteger(value);
+        } else if (_value instanceof Component) {
+            return (T) new TextComponent(value);
+        } else {
+            return null;
+        }
+    }
+
+    @Override public ResourceLocation getIdentifier()
+    {
+        return null;
     }
 
     @Override
-    public Collection<String> getRegisteredNodes()
+    public Set<PermissionNode<?>> getRegisteredNodes()
     {
-        return getRegisteredPermissions().toList();
+        var permList = getRegisteredPermissions();
+        return permList.entrySet().stream().map(key -> new PermissionNode<>(new ResourceLocation(key.getKey()), PermissionTypes.STRING,
+                (serverPlayer, uuid, permissionDynamicContexts) -> key.getValue())).collect(Collectors.toSet());
     }
 
-    @Override
-    public String getNodeDescription(String node)
+    @Override public <T> T getOfflinePermission(UUID uuid, PermissionNode<T> permissionNode, PermissionDynamicContext<?>... permissionDynamicContexts)
     {
-        return getPermissionDescription(node);
-    }
+        String value = rootZone.getPlayerPermission(UserIdent.get(uuid), permissionNode.getNodeName());
+        T _value = permissionNode.getDefaultResolver().resolve((ServerPlayer)null, uuid, permissionDynamicContexts);
 
+        if (_value instanceof Boolean) {
+            return (T) Boolean.valueOf(value);
+        } else if (_value instanceof String) {
+            return (T) value;
+        } else if (_value instanceof Integer) {
+            return (T) Integer.getInteger(value);
+        } else if (_value instanceof Component) {
+            return (T) new TextComponent(value);
+        } else {
+            return null;
+        }
+    }
     // ------------------------------------------------------------
     // -- Zones
     // ------------------------------------------------------------

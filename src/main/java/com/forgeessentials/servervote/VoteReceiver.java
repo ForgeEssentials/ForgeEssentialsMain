@@ -44,14 +44,14 @@ import javax.crypto.Cipher;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import com.forgeessentials.core.ForgeEssentials;
 import com.forgeessentials.util.output.logger.LoggingHandler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 
 /**
  * Like 90% copied from Votifier github: <a href="https://github.com/vexsoftware/votifier">...</a> I only changed the init code and the event stuff.

@@ -1,6 +1,6 @@
 package com.forgeessentials.jscripting.fewrapper;
 
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 
 public class JsPermissionLevel
 {

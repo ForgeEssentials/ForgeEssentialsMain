@@ -1,11 +1,11 @@
 package com.forgeessentials.client.handler;
 
-import com.forgeessentials.client.ForgeEssentialsClient;
-import com.forgeessentials.commons.network.packets.Packet05Noclip;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
+
+import com.forgeessentials.client.ForgeEssentialsClient;
+import com.forgeessentials.commons.network.packets.Packet05Noclip;
 
 public class Packet05NoClipHandler extends Packet05Noclip
 {

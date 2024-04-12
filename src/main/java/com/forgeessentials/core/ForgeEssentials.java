@@ -6,10 +6,41 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.Builder;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.CommandEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.event.server.ServerStoppedEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.IExtensionPoint;
+import net.minecraftforge.fml.ModContainer;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.forgespi.language.IModInfo;
+
 import org.apache.logging.log4j.Level;
 
 import com.forgeessentials.api.APIRegistry;
 import com.forgeessentials.api.UserIdent;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import com.forgeessentials.commons.BuildInfo;
 import com.forgeessentials.commons.events.RegisterPacketEvent;
 import com.forgeessentials.commons.network.NetworkUtils;
@@ -61,37 +92,6 @@ import com.forgeessentials.util.selections.CommandWand;
 import com.forgeessentials.util.selections.SelectionHandler;
 import com.google.gson.JsonParseException;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.Builder;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.CommandEvent;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.IExtensionPoint;
-import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.fmlserverevents.FMLServerAboutToStartEvent;
-import net.minecraftforge.fmlserverevents.FMLServerStartedEvent;
-import net.minecraftforge.fmlserverevents.FMLServerStartingEvent;
-import net.minecraftforge.fmlserverevents.FMLServerStoppedEvent;
-import net.minecraftforge.fmlserverevents.FMLServerStoppingEvent;
-import net.minecraftforge.forgespi.language.IModInfo;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
 
 /**
  * Main mod class
@@ -299,7 +299,7 @@ public class ForgeEssentials
     }
 
     @SubscribeEvent
-    public void serverPreInit(FMLServerAboutToStartEvent e)
+    public void serverPreInit(ServerAboutToStartEvent e)
     {
         BuildInfo.startVersionChecks(MODID);
     	LoggingHandler.felog.info("Registered " + FECommandManager.getTotalCommandNumber() + " commands");
@@ -319,7 +319,7 @@ public class ForgeEssentials
     }
 
     @SubscribeEvent
-    public void serverStarting(FMLServerStartingEvent e)
+    public void serverStarting(ServerStartingEvent e)
     {
         LoggingHandler.felog.info("ForgeEssentials ServerStarting");
         BlockModListFile.makeModList();
@@ -340,7 +340,7 @@ public class ForgeEssentials
     }
 
     @SubscribeEvent
-    public void serverStarted(FMLServerStartedEvent e)
+    public void serverStarted(ServerStartedEvent e)
     {
         LoggingHandler.felog.info("ForgeEssentials ServerStarted");
         MinecraftForge.EVENT_BUS.post(new FEModuleServerStartedEvent(e));
@@ -360,7 +360,7 @@ public class ForgeEssentials
     }
 
     @SubscribeEvent
-    public void serverStopping(FMLServerStoppingEvent e)
+    public void serverStopping(ServerStoppingEvent e)
     {
         LoggingHandler.felog.info("ForgeEssentials ServerStopping");
         MinecraftForge.EVENT_BUS.post(new FEModuleServerStoppingEvent(e));
@@ -368,7 +368,7 @@ public class ForgeEssentials
     }
 
     @SubscribeEvent
-    public void serverStopped(FMLServerStoppedEvent e)
+    public void serverStopped(ServerStoppedEvent e)
     {
         LoggingHandler.felog.info("ForgeEssentials ServerStopped");
         try

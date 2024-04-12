@@ -17,7 +17,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.BaseComponent;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandTimedMessages extends ForgeEssentialsCommandBuilder

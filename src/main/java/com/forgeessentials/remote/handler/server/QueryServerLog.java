@@ -3,6 +3,7 @@ package com.forgeessentials.remote.handler.server;
 import java.util.List;
 
 import com.forgeessentials.api.APIRegistry;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import com.forgeessentials.api.remote.FERemoteHandler;
 import com.forgeessentials.api.remote.GenericRemoteHandler;
 import com.forgeessentials.api.remote.RemoteRequest;
@@ -10,8 +11,6 @@ import com.forgeessentials.api.remote.RemoteResponse;
 import com.forgeessentials.api.remote.RemoteSession;
 import com.forgeessentials.remote.RemoteMessageID;
 import com.forgeessentials.util.output.logger.LoggingHandler;
-
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
 
 @FERemoteHandler(id = RemoteMessageID.QUERY_SERVER_LOG)
 public class QueryServerLog extends GenericRemoteHandler<Integer>

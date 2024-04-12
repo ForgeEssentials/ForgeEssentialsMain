@@ -25,8 +25,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
+import net.minecraftforge.server.ServerLifecycleHooks;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandTime extends ForgeEssentialsCommandBuilder implements ConfigurableCommand

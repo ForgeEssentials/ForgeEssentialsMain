@@ -2,15 +2,15 @@ package com.forgeessentials.auth;
 
 import java.util.UUID;
 
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.network.NetworkEvent;
+
 import com.forgeessentials.api.APIRegistry;
 import com.forgeessentials.api.UserIdent;
 import com.forgeessentials.commons.network.packets.Packet08AuthReply;
 import com.forgeessentials.util.events.player.PlayerAuthLoginEvent;
 import com.forgeessentials.util.events.player.PlayerAuthLoginEvent.Success.Source;
 import com.forgeessentials.util.output.ChatOutputHandler;
-
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class AuthNetHandler extends Packet08AuthReply
 {

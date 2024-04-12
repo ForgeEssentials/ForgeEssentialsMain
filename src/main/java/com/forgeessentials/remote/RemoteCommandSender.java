@@ -6,6 +6,12 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.WeakHashMap;
 
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraftforge.common.util.FakePlayerFactory;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import com.forgeessentials.api.UserIdent;
 import com.forgeessentials.api.remote.RemoteResponse;
 import com.forgeessentials.api.remote.RemoteSession;
@@ -14,12 +20,6 @@ import com.forgeessentials.util.DoAsCommandSender;
 import com.forgeessentials.util.ServerUtil;
 import com.forgeessentials.util.output.ChatOutputHandler;
 import com.forgeessentials.util.output.logger.LoggingHandler;
-
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraftforge.common.util.FakePlayerFactory;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 
 public class RemoteCommandSender extends DoAsCommandSender
 {

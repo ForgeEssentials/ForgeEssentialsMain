@@ -9,16 +9,16 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import com.forgeessentials.commons.network.packets.Packet07Remote;
-import com.mojang.blaze3d.platform.NativeImage;
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
+
+import com.forgeessentials.commons.network.packets.Packet07Remote;
+import com.mojang.blaze3d.platform.NativeImage;
 
 public class Packet07RemoteHandler extends Packet07Remote
 {

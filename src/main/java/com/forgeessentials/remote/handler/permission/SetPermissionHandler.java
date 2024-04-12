@@ -1,6 +1,7 @@
 package com.forgeessentials.remote.handler.permission;
 
 import com.forgeessentials.api.APIRegistry;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import com.forgeessentials.api.permissions.Zone;
 import com.forgeessentials.api.remote.FERemoteHandler;
 import com.forgeessentials.api.remote.GenericRemoteHandler;
@@ -10,8 +11,6 @@ import com.forgeessentials.api.remote.RemoteSession;
 import com.forgeessentials.permissions.commands.PermissionCommandParser;
 import com.forgeessentials.remote.RemoteMessageID;
 import com.forgeessentials.remote.network.SetPermissionRequest;
-
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
 
 @FERemoteHandler(id = RemoteMessageID.SET_PERMISSION)
 public class SetPermissionHandler extends GenericRemoteHandler<SetPermissionRequest>

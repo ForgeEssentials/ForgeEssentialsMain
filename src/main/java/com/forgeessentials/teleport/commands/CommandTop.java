@@ -19,7 +19,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandTop extends ForgeEssentialsCommandBuilder

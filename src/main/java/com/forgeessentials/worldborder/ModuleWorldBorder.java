@@ -6,7 +6,17 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.loading.FMLEnvironment;
+
 import com.forgeessentials.api.APIRegistry;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import com.forgeessentials.commons.selections.Point;
 import com.forgeessentials.core.ForgeEssentials;
 import com.forgeessentials.core.commands.registration.FECommandManager;
@@ -18,16 +28,6 @@ import com.forgeessentials.util.events.ServerEventHandler;
 import com.forgeessentials.util.events.player.PlayerMoveEvent;
 import com.forgeessentials.util.output.logger.LoggingHandler;
 import com.forgeessentials.worldborder.effect.EffectBlock;
-
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
 
 @FEModule(name = "WorldBorder", parentMod = ForgeEssentials.class, version=ForgeEssentials.CURRENT_MODULE_VERSION)
 public class ModuleWorldBorder extends ServerEventHandler

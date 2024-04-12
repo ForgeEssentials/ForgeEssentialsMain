@@ -1,15 +1,15 @@
 package com.forgeessentials.protection.effect;
 
+import net.minecraft.commands.CommandRuntimeException;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import com.forgeessentials.api.APIRegistry;
 import com.forgeessentials.util.DoAsCommandSender;
 import com.forgeessentials.util.output.logger.LoggingHandler;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.CommandNode;
-
-import net.minecraft.commands.CommandRuntimeException;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 
 public class CommandEffect extends ZoneEffect
 {

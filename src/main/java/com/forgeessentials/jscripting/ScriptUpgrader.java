@@ -14,16 +14,16 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.minecraft.commands.CommandSourceStack;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import com.forgeessentials.core.ForgeEssentials;
 import com.forgeessentials.data.v2.DataManager;
 import com.forgeessentials.util.output.ChatOutputHandler;
 import com.forgeessentials.util.output.logger.LoggingHandler;
-
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
 
 public class ScriptUpgrader
 {

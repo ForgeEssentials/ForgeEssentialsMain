@@ -3,11 +3,11 @@ package com.forgeessentials.client.handler;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.network.NetworkEvent;
+
 import com.forgeessentials.client.ForgeEssentialsClient;
 import com.forgeessentials.commons.network.packets.Packet03PlayerPermissions;
-
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 
 public class Packet03PlayerPermissionsHandler extends Packet03PlayerPermissions

@@ -6,6 +6,8 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import com.forgeessentials.api.APIRegistry;
 import com.forgeessentials.api.UserIdent;
 import com.forgeessentials.api.remote.RemoteHandler;
@@ -19,8 +21,6 @@ import com.forgeessentials.api.remote.RemoteSession;
 import com.forgeessentials.util.output.logger.LoggingHandler;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 
 /**
  *

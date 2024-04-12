@@ -1,12 +1,12 @@
 package com.forgeessentials.util.events;
 
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
+import net.minecraftforge.event.server.ServerLifecycleEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.event.server.ServerStoppedEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.fmlserverevents.FMLServerStartedEvent;
-import net.minecraftforge.fmlserverevents.FMLServerStartingEvent;
-import net.minecraftforge.fmlserverevents.FMLServerStoppedEvent;
-import net.minecraftforge.fmlserverevents.FMLServerStoppingEvent;
-import net.minecraftforge.fmlserverevents.ServerLifecycleEvent;
-import net.minecraftforge.fmlserverevents.FMLServerAboutToStartEvent;
 
 public class FEModuleEvent extends Event
 {
@@ -20,7 +20,7 @@ public class FEModuleEvent extends Event
 
     public static class FEModuleServerAboutToStartEvent extends FEModuleEvent
     {
-        public FEModuleServerAboutToStartEvent(FMLServerAboutToStartEvent event)
+        public FEModuleServerAboutToStartEvent(ServerAboutToStartEvent event)
         {
             this.event = event;
         }
@@ -28,7 +28,7 @@ public class FEModuleEvent extends Event
 
     public static class FEModuleServerStartingEvent extends FEModuleEvent
     {
-        public FEModuleServerStartingEvent(FMLServerStartingEvent event)
+        public FEModuleServerStartingEvent(ServerStartingEvent event)
         {
             this.event = event;
         }
@@ -36,7 +36,7 @@ public class FEModuleEvent extends Event
 
     public static class FEModuleServerStartedEvent extends FEModuleEvent
     {
-        public FEModuleServerStartedEvent(FMLServerStartedEvent event)
+        public FEModuleServerStartedEvent(ServerStartedEvent event)
         {
             this.event = event;
         }
@@ -44,7 +44,7 @@ public class FEModuleEvent extends Event
 
     public static class FEModuleServerStoppingEvent extends FEModuleEvent
     {
-        public FEModuleServerStoppingEvent(FMLServerStoppingEvent event)
+        public FEModuleServerStoppingEvent(ServerStoppingEvent event)
         {
             this.event = event;
         }
@@ -52,7 +52,7 @@ public class FEModuleEvent extends Event
 
     public static class FEModuleServerStoppedEvent extends FEModuleEvent
     {
-        public FEModuleServerStoppedEvent(FMLServerStoppedEvent event)
+        public FEModuleServerStoppedEvent(ServerStoppedEvent event)
         {
             this.event = event;
         }

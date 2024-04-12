@@ -4,6 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import com.forgeessentials.api.UserIdent;
 import com.forgeessentials.commons.selections.Point;
 import com.forgeessentials.commons.selections.WorldArea;
@@ -15,13 +22,6 @@ import com.forgeessentials.playerlogger.entity.Action02Command;
 import com.forgeessentials.playerlogger.entity.Action03PlayerEvent;
 import com.forgeessentials.playerlogger.entity.Action04PlayerPosition;
 import com.forgeessentials.util.output.ChatOutputHandler;
-
-import net.minecraft.world.level.block.Block;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class PlayerLoggerChecker
 {

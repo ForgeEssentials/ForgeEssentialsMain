@@ -2,23 +2,9 @@ package com.forgeessentials.afterlife;
 
 import java.util.ArrayList;
 
-import com.forgeessentials.api.APIRegistry;
-import com.forgeessentials.api.UserIdent;
-import com.forgeessentials.commons.selections.WorldPoint;
-import com.forgeessentials.core.ForgeEssentials;
-import com.forgeessentials.core.commands.CommandFeSettings;
-import com.forgeessentials.core.misc.Translator;
-import com.forgeessentials.core.moduleLauncher.FEModule;
-import com.forgeessentials.util.PlayerUtil;
-import com.forgeessentials.util.ServerUtil;
-import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStartingEvent;
-import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStoppingEvent;
-import com.forgeessentials.util.events.ServerEventHandler;
-import com.forgeessentials.util.output.ChatOutputHandler;
-
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.TickEvent;
@@ -30,8 +16,22 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
+import com.forgeessentials.api.APIRegistry;
+import com.forgeessentials.api.UserIdent;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
+import com.forgeessentials.commons.selections.WorldPoint;
+import com.forgeessentials.core.ForgeEssentials;
+import com.forgeessentials.core.commands.CommandFeSettings;
+import com.forgeessentials.core.misc.Translator;
+import com.forgeessentials.core.moduleLauncher.FEModule;
+import com.forgeessentials.util.PlayerUtil;
+import com.forgeessentials.util.ServerUtil;
+import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStartingEvent;
+import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStoppingEvent;
+import com.forgeessentials.util.events.ServerEventHandler;
+import com.forgeessentials.util.output.ChatOutputHandler;
 
 /**
  * Module to handle death-chest and respawn debuffs.

@@ -9,6 +9,23 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.commands.CommandRuntimeException;
+import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.PlayerList;
+import net.minecraft.server.rcon.RconConsoleSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BaseCommandBlock;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.FakePlayerFactory;
+import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import com.forgeessentials.permissions.ModulePermissions;
 import com.forgeessentials.util.CommandUtils;
 import com.forgeessentials.util.DoAsCommandSender;
@@ -17,23 +34,6 @@ import com.forgeessentials.util.UserIdentUtils;
 import com.forgeessentials.util.output.logger.LoggingHandler;
 import com.google.gson.annotations.Expose;
 import com.mojang.authlib.GameProfile;
-
-import net.minecraft.commands.CommandRuntimeException;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.rcon.RconConsoleSource;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.players.PlayerList;
-import net.minecraft.world.level.BaseCommandBlock;
-import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.common.util.FakePlayerFactory;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 
 public class UserIdent
 {

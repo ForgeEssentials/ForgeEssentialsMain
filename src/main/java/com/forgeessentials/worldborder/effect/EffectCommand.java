@@ -1,5 +1,9 @@
 package com.forgeessentials.worldborder.effect;
 
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import com.forgeessentials.core.commands.registration.FECommandParsingException;
 import com.forgeessentials.scripting.ScriptArguments;
 import com.forgeessentials.util.PlayerInfo;
@@ -8,10 +12,6 @@ import com.forgeessentials.worldborder.WorldBorderEffect;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 
 /**
  * Expected syntax: <interval> <command>

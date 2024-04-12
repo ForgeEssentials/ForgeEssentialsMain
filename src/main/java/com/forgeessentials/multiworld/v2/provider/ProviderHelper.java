@@ -10,24 +10,22 @@ import java.util.TreeMap;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import com.forgeessentials.multiworld.v2.utils.MultiworldException;
-import com.forgeessentials.util.output.logger.LoggingHandler;
-import com.google.common.collect.Iterables;
-
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 import net.minecraftforge.forgespi.language.ModFileScanData;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
+import com.forgeessentials.multiworld.v2.utils.MultiworldException;
+import com.forgeessentials.util.output.logger.LoggingHandler;
+import com.google.common.collect.Iterables;
 
 public class ProviderHelper {
     /**

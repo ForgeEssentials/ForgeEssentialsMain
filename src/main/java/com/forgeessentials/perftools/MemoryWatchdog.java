@@ -2,15 +2,15 @@ package com.forgeessentials.perftools;
 
 import java.util.TimerTask;
 
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import com.forgeessentials.api.APIRegistry;
 import com.forgeessentials.util.ServerUtil;
 import com.forgeessentials.util.output.ChatOutputHandler;
 import com.forgeessentials.util.output.logger.LoggingHandler;
-
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 
 /**
  * Warns those with permission when the memory usage passes a certain percentage threshold

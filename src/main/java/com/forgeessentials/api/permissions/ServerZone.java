@@ -1,7 +1,23 @@
 package com.forgeessentials.api.permissions;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraftforge.server.ServerLifecycleHooks;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -11,12 +27,6 @@ import com.forgeessentials.commons.selections.WorldArea;
 import com.forgeessentials.commons.selections.WorldPoint;
 import com.forgeessentials.data.v2.Loadable;
 import com.google.gson.annotations.Expose;
-
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
-import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
 
 /**
  * {@link ServerZone} contains every player on the whole server. Has second lowest priority with next being {@link RootZone}.

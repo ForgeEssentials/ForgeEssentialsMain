@@ -5,11 +5,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import com.forgeessentials.playerlogger.PlayerLoggerEvent;
 import com.forgeessentials.playerlogger.entity.Action04PlayerPosition;
-
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 
 public class LogEventPlayerPositions extends PlayerLoggerEvent<Object>
 {

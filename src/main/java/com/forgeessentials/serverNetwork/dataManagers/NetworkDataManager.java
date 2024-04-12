@@ -1,9 +1,16 @@
 package com.forgeessentials.serverNetwork.dataManagers;
 
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
-import java.util.Map.Entry;
+
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.server.ServerLifecycleHooks;
 
 import com.forgeessentials.commons.network.NetworkUtils;
 import com.forgeessentials.commons.network.packets.Packet10ClientTransfer;
@@ -11,19 +18,12 @@ import com.forgeessentials.serverNetwork.ModuleNetworking;
 import com.forgeessentials.serverNetwork.packetbase.packets.Packet12ServerPlayerSync;
 import com.forgeessentials.serverNetwork.packetbase.packets.Packet13SharedPlayerTransfer;
 import com.forgeessentials.serverNetwork.packetbase.packets.Packet14ClientPlayerSync;
-import com.forgeessentials.serverNetwork.utils.ServerType;
 import com.forgeessentials.serverNetwork.utils.ConnectionData.ConnectedClientData;
-import com.forgeessentials.util.events.ServerEventHandler;
+import com.forgeessentials.serverNetwork.utils.ServerType;
 import com.forgeessentials.util.PlayerInfo;
 import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerAboutToStartEvent;
 import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStoppedEvent;
-
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
+import com.forgeessentials.util.events.ServerEventHandler;
 
 public class NetworkDataManager extends ServerEventHandler
 {

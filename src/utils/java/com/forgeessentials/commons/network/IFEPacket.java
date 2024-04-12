@@ -1,7 +1,7 @@
 package com.forgeessentials.commons.network;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 
 public interface IFEPacket
 {

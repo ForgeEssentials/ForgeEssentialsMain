@@ -118,7 +118,7 @@ ext.gitCommitHash = repo.log().find().abbreviatedId
 version = "$mod_base.$mod_major.$buildNumber"
 group = "com.forgeessentials"
 archivesBaseName = "forgeessentials"
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 println('Running Tasks: ' +project.gradle.startParameter.taskNames)
 
@@ -193,7 +193,7 @@ project.afterEvaluate {
 
 // Set up forge options
 minecraft {
-	mappings channel: 'official', version: '1.17.1'
+	mappings channel: 'official', version: minecraftVersion
     accessTransformer = file('src/main/resources/META-INF/forgeessentials_at.cfg')
     runs {
 	    client {
@@ -373,7 +373,8 @@ task processSource(type: Sync) {
 
 compileJava {
     excludes = [
-            'com/forgeessentials/jscripting/TsdGenerator.java'
+            'com/forgeessentials/jscripting/TsdGenerator.java',
+            'com/forgeessentials/multiworld/v2/***'
     ]
 }
 

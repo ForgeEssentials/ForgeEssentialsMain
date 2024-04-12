@@ -24,7 +24,7 @@ import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.ChatFormatting;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandTicket extends ForgeEssentialsCommandBuilder

@@ -6,8 +6,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import net.minecraft.server.level.ServerPlayer;
+
 import com.forgeessentials.api.APIRegistry;
 import com.forgeessentials.api.UserIdent;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import com.forgeessentials.api.remote.FERemoteHandler;
 import com.forgeessentials.api.remote.GenericRemoteHandler;
 import com.forgeessentials.api.remote.RemoteRequest;
@@ -19,9 +22,6 @@ import com.forgeessentials.remote.network.QueryPlayerRequest;
 import com.forgeessentials.util.ServerUtil;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
-
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
 
 @FERemoteHandler(id = RemoteMessageID.QUERY_PLAYER)
 public class QueryPlayerHandler extends GenericRemoteHandler<QueryPlayerRequest>

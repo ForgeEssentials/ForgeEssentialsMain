@@ -1,15 +1,15 @@
 package com.forgeessentials.core.mixin.network;
 
+import net.minecraft.network.protocol.status.ServerStatus;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import com.forgeessentials.core.moduleLauncher.ModuleLauncher;
 import com.forgeessentials.serverNetwork.ModuleNetworking;
-
-import net.minecraft.network.protocol.status.ServerStatus;
-import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 
 @Mixin(MinecraftServer.class)
 public class MixinMinecraftServer

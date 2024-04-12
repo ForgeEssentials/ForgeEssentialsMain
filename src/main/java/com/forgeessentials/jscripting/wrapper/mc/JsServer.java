@@ -7,6 +7,14 @@ import java.util.List;
 
 import javax.script.ScriptException;
 
+import net.minecraft.commands.CommandRuntimeException;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.ChatType;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.forgeessentials.api.APIRegistry;
@@ -16,14 +24,6 @@ import com.forgeessentials.util.ServerUtil;
 import com.forgeessentials.util.output.ChatOutputHandler;
 import com.google.gson.JsonParseException;
 import com.mojang.brigadier.ParseResults;
-
-import net.minecraft.commands.CommandRuntimeException;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.network.chat.ChatType;
-import net.minecraft.network.chat.Component;
 
 /**
  * @tsd.interface Server

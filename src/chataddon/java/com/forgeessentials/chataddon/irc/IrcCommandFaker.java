@@ -2,8 +2,6 @@ package com.forgeessentials.chataddon.irc;
 
 import java.util.UUID;
 
-import org.pircbotx.hooks.events.MessageEvent;
-
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
@@ -13,7 +11,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
+import org.pircbotx.hooks.events.MessageEvent;
 
 public class IrcCommandFaker implements CommandSource
 {

@@ -1,10 +1,10 @@
 package com.forgeessentials.compat.worldedit;
 
-import com.forgeessentials.api.APIRegistry;
-import com.sk89q.worldedit.forge.ForgePermissionsProvider;
-
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
+
+import com.forgeessentials.api.APIRegistry;
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
+import com.sk89q.worldedit.forge.ForgePermissionsProvider;
 
 public class PermissionsHandler implements ForgePermissionsProvider
 {

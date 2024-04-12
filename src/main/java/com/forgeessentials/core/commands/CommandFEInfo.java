@@ -1,7 +1,12 @@
 package com.forgeessentials.core.commands;
 
-import org.apache.commons.lang3.StringUtils;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 
+import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
+
+import com.forgeessentials.api.permissions.DefaultPermissionLevel;
 import com.forgeessentials.commons.BuildInfo;
 import com.forgeessentials.core.misc.Translator;
 import com.forgeessentials.core.mixin.FEMixinConfig;
@@ -11,11 +16,6 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.Commands;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
-import org.jetbrains.annotations.NotNull;
 
 public class CommandFEInfo extends ForgeEssentialsCommandBuilder
 {

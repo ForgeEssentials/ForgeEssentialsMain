@@ -2,7 +2,19 @@ package com.forgeessentials.core.mixin.network;
 
 import java.util.List;
 
-import org.apache.logging.log4j.Logger;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.protocol.game.ServerboundSignUpdatePacket;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.server.network.TextFilter;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.MinecraftForge;
+
+import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -12,18 +24,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.forgeessentials.util.events.world.SignEditEvent;
 
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
-import net.minecraft.server.network.TextFilter;
-import net.minecraft.network.protocol.game.ServerboundSignUpdatePacket;
-import net.minecraft.world.level.block.entity.SignBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.common.MinecraftForge;
-
 @Mixin(ServerGamePacketListenerImpl.class)
 public class MixinServerPlayNetHandler
 {
@@ -32,7 +32,7 @@ public class MixinServerPlayNetHandler
     public ServerPlayer player;
     @Final
     @Shadow
-    private static Logger LOGGER;
+    static Logger LOGGER;
 
     /**
      * Post {@link SignEditEvent} to the event bus.

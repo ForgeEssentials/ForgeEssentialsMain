@@ -5,6 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import com.forgeessentials.jscripting.wrapper.JsWrapper;
 import com.forgeessentials.jscripting.wrapper.mc.entity.JsEntity;
 import com.forgeessentials.jscripting.wrapper.mc.entity.JsEntityList;
@@ -12,16 +22,6 @@ import com.forgeessentials.jscripting.wrapper.mc.entity.JsPlayerEntity;
 import com.forgeessentials.jscripting.wrapper.mc.entity.JsPlayerEntityList;
 import com.forgeessentials.jscripting.wrapper.mc.util.JsAxisAlignedBB;
 import com.forgeessentials.util.ServerUtil;
-
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
-import net.minecraft.server.level.ServerLevel;
 
 /**
  * @tsd.static World
