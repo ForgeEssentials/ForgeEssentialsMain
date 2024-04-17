@@ -119,6 +119,7 @@ public class DataManager
         try (FileWriter out = new FileWriter(file))
         {
             toJson(src, out);
+            out.flush();
         }
         catch (Throwable e)
         {
