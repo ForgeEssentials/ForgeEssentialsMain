@@ -122,7 +122,11 @@ public class DiscordHandler extends ConfigLoaderBase
             jda = JDABuilder.createDefault(token)
                     .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                     .build();
-            jda.getPresence().setActivity(Activity.playing(MinecraftServer.getServer().getMOTD()));
+            String motd = MinecraftServer.getServer().getMOTD().replaceAll("§.","");
+            if (motd.length() > 128) {
+                motd = motd.substring(0,128);
+            }
+            jda.getPresence().setActivity(Activity.playing(motd));
             jda.addEventListener(new MessageListener());
         }
     }
@@ -148,7 +152,12 @@ public class DiscordHandler extends ConfigLoaderBase
                 String suffix = String.format("<%s> %s", event.getMember().getEffectiveName(),
                         event.getMessage().getContentDisplay());
                 String msg = selectedChannel.equals(event.getChannel().getName()) ? suffix : String.format("#%s %s", event.getChannel().getName(), suffix);
-                ChatOutputHandler.broadcast(msg, false);
+                try
+                {
+                    ChatOutputHandler.broadcast(msg, false);
+                } catch (Exception e) { //Catch Exceptions to prevent a crash if the server isn't fully loaded yet when a message is received
+                    LoggingHandler.felog.warn("Error caught when receiving message: " + msg + " " + e.getMessage(), e);
+                }
             }
         }
     }
