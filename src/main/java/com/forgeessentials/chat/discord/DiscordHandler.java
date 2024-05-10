@@ -15,13 +15,18 @@ import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.AchievementEvent;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.forgeessentials.api.APIRegistry;
@@ -154,7 +159,13 @@ public class DiscordHandler extends ConfigLoaderBase
                 String msg = selectedChannel.equals(event.getChannel().getName()) ? suffix : String.format("#%s %s", event.getChannel().getName(), suffix);
                 try
                 {
-                    ChatOutputHandler.broadcast(msg, false);
+                    String textFormats = APIRegistry.perms.getGlobalPermissionProperty(ModuleChat.getPermTextformat());
+                    IChatComponent _msg = new ChatComponentText(msg);
+                    if (textFormats != null)
+                    {
+                        ChatOutputHandler.applyFormatting(_msg.getChatStyle(), ChatOutputHandler.enumChatFormattings(textFormats));
+                    }
+                    ChatOutputHandler.broadcast(_msg, false);
                 } catch (Exception e) { //Catch Exceptions to prevent a crash if the server isn't fully loaded yet when a message is received
                     LoggingHandler.felog.warn("Error caught when receiving message: " + msg + " " + e.getMessage(), e);
                 }
@@ -162,8 +173,16 @@ public class DiscordHandler extends ConfigLoaderBase
         }
     }
 
+    private boolean checkMessage(String msg) {
+        return msg.contains("New player EntityPlayerMP");
+    }
+
     public void sendMessage(String msg)
     {
+        if (checkMessage(msg)) {
+            return;
+        }
+
         if (isConnected())
         {
             try
@@ -178,11 +197,20 @@ public class DiscordHandler extends ConfigLoaderBase
                     }
                 }
             } catch (ErrorResponseException e) {
-                LoggingHandler.felog.warn("Error Sending Discord Message: " + e.getMessage(), e);
+                LoggingHandler.felog.warn("Error Sending Discord Message: {}", e.getMessage(), e);
             }
         }
     }
 
+    @SubscribeEvent(priority =  EventPriority.LOWEST)
+    public  void achievementEvent(AchievementEvent event) {
+        LoggingHandler.felog.warn(event.achievement.toString());
+        if (sendMessages && event.entityPlayer instanceof EntityPlayerMP && !((EntityPlayerMP) event.entityPlayer).func_147099_x().hasAchievementUnlocked(event.achievement))
+        {
+            sendMessage(Translator.format("%s has just earned the achievement ***`%s`***", event.entityPlayer.getCommandSenderName(), event.achievement.func_150951_e().getUnformattedText()));
+
+        }
+    }
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void chatEvent(ServerChatEvent event)
     {

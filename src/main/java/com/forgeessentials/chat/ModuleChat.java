@@ -113,6 +113,9 @@ public class ModuleChat
     public DiscordHandler discordHandler;
     /* ------------------------------------------------------------ */
 
+    public static String getPermTextformat() {
+        return ModuleChat.PERM_TEXTFORMAT;
+    }
     @SubscribeEvent
     public void moduleLoad(FEModuleInitEvent e)
     {
