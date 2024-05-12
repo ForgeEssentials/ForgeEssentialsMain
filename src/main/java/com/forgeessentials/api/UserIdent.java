@@ -239,8 +239,14 @@ public class UserIdent
             ident = byUsername.get(player.getCommandSenderName().toLowerCase());
             if (ident != null)
             {
-                ident.uuid = player.getPersistentID();
-                byUuid.put(ident.uuid, ident);
+                if (ident.uuid != player.getPersistentID())
+                {
+                    if (ident.uuid != null) {
+                        byUuid.remove(ident.uuid);
+                    }
+                    ident.uuid = player.getPersistentID();
+                    byUuid.put(ident.uuid, ident);
+                }
             }
             else
                 ident = new UserIdent(player);
@@ -344,10 +350,14 @@ public class UserIdent
                 ident.username = username;
         }
 
-        if (uuid != null && ident instanceof NpcUserIdent)
+        if (ident instanceof NpcUserIdent)
         {
-            if (!uuid.equals(ident.uuid))
+            if (!_uuid.equals(ident.uuid))
+            {
+                byUuid.remove(ident.uuid);
                 ident.uuid = uuid;
+                byUuid.put(ident.uuid, ident);
+            }
         }
 
         if (!(ident instanceof NpcUserIdent))
@@ -604,7 +614,7 @@ public class UserIdent
                     // The string was a username and not a UUID
                 }
             }
-            return username == null ? false : this.username.equalsIgnoreCase((String) other);
+            return username != null && this.username.equalsIgnoreCase((String) other);
         }
         else if (other instanceof UUID)
         {
