@@ -204,9 +204,9 @@ public class DiscordHandler extends ConfigLoaderBase
 
     @SubscribeEvent(priority =  EventPriority.LOWEST)
     public  void achievementEvent(AchievementEvent event) {
-        LoggingHandler.felog.warn(event.achievement.toString());
         if (sendMessages && event.entityPlayer instanceof EntityPlayerMP && !((EntityPlayerMP) event.entityPlayer).func_147099_x().hasAchievementUnlocked(event.achievement))
         {
+            LoggingHandler.felog.debug(event.achievement.toString());
             sendMessage(Translator.format("%s has just earned the achievement ***`%s`***", event.entityPlayer.getCommandSenderName(), event.achievement.func_150951_e().getUnformattedText()));
 
         }
