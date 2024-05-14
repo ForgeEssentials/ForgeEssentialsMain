@@ -215,7 +215,7 @@ public class DiscordHandler extends ConfigLoaderBase
             }
 
             if (playerMap.get(event.entityPlayer.getUniqueID()).contains(event.achievement.statId)) {
-                LoggingHandler.felog.info("Duplicate Entry Detected for {}:{}! {}", event.entityPlayer.getUniqueID(),event.entityPlayer.getCommandSenderName(), event.achievement.statId);
+                LoggingHandler.felog.debug("Duplicate Entry Detected for {}:{}! {}", event.entityPlayer.getUniqueID(),event.entityPlayer.getCommandSenderName(), event.achievement.statId);
                 return;
             }
 
