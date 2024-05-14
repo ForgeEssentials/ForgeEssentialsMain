@@ -1,8 +1,10 @@
 package com.forgeessentials.chat.discord;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -202,10 +204,22 @@ public class DiscordHandler extends ConfigLoaderBase
         }
     }
 
+    HashMap<UUID, HashSet<String>> playerMap = new HashMap<>();
     @SubscribeEvent(priority =  EventPriority.LOWEST)
     public  void achievementEvent(AchievementEvent event) {
         if (sendMessages && event.entityPlayer instanceof EntityPlayerMP && !((EntityPlayerMP) event.entityPlayer).func_147099_x().hasAchievementUnlocked(event.achievement))
         {
+            if (!playerMap.containsKey(event.entityPlayer.getUniqueID()))
+            {
+                playerMap.put(event.entityPlayer.getUniqueID(), new HashSet<>());
+            }
+
+            if (playerMap.get(event.entityPlayer.getUniqueID()).contains(event.achievement.statId)) {
+                LoggingHandler.felog.info("Duplicate Entry Detected for {}:{}! {}", event.entityPlayer.getUniqueID(),event.entityPlayer.getCommandSenderName(), event.achievement.statId);
+                return;
+            }
+
+            playerMap.get(event.entityPlayer.getUniqueID()).add(event.achievement.statId);
             LoggingHandler.felog.debug(event.achievement.toString());
             sendMessage(Translator.format("%s has just earned the achievement ***`%s`***", event.entityPlayer.getCommandSenderName(), event.achievement.func_150951_e().getUnformattedText()));
 
