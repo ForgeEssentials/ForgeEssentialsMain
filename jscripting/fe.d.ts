@@ -52,6 +52,7 @@ declare namespace fe {
 		parsePlayer(): UserIdent;
 		parsePlayer(mustExist: boolean): UserIdent;
 		parsePlayer(mustExist: boolean, mustBeOnline: boolean): UserIdent;
+		parsePlayer(name: string, mustExist: boolean, mustBeOnline: boolean): UserIdent;
 		parseItem(): mc.item.Item;
 		parseBlock(): mc.world.Block;
 		parsePermission(): string;

@@ -113,6 +113,11 @@ public class JsCommandArgs extends JsWrapper<CommandParserArgs>
         return new JsUserIdent(that.parsePlayer(mustExist, mustBeOnline));
     }
 
+    public JsUserIdent parsePlayer(String name, boolean mustExist, boolean mustBeOnline) throws CommandException
+    {
+        return new JsUserIdent(that.parsePlayer(name, mustExist, mustBeOnline));
+    }
+
     public JsItem parseItem()
     {
         return JsItem.get(that.parseItem());
