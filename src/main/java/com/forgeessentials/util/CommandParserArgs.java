@@ -186,6 +186,23 @@ public class CommandParserArgs
         }
     }
 
+    public UserIdent parsePlayer(String name, boolean mustExist, boolean mustBeOnline) throws CommandException
+    {
+        if (name == null)
+        {
+            return parsePlayer(mustExist, mustBeOnline);
+        }
+        else
+        {
+            UserIdent ident = UserIdent.get(name, null, mustExist);
+            if (mustExist && (ident == null || !ident.hasUuid()))
+                throw new TranslatedCommandException("Player %s not found", name);
+            else if (mustBeOnline && !ident.hasPlayer())
+                throw new TranslatedCommandException("Player %s is not online", name);
+            return ident;
+        }
+    }
+
     public static List<String> completePlayer(String arg)
     {
         Set<String> result = new TreeSet<>();
