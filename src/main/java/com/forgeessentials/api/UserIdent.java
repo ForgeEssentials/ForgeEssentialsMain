@@ -16,6 +16,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
 
+import com.forgeessentials.core.ForgeEssentials;
 import com.forgeessentials.permissions.ModulePermissions;
 import com.forgeessentials.util.ServerUtil;
 import com.forgeessentials.util.UserIdentUtils;
@@ -23,6 +24,7 @@ import com.forgeessentials.util.output.LoggingHandler;
 import com.google.gson.annotations.Expose;
 import com.mojang.authlib.GameProfile;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.Event;
 
 import javax.annotation.Nullable;
@@ -175,7 +177,8 @@ public class UserIdent
                 }
                 return ident;
             }
-            if (username.startsWith("$NPC"))
+
+            if (username.startsWith("$NPC") || username.startsWith("[") || UUID.nameUUIDFromBytes(username.getBytes()).equals(uuid))
             {
                 return new NpcUserIdent(uuid, username);
             }
@@ -221,15 +224,10 @@ public class UserIdent
 
     public static synchronized UserIdent get(EntityPlayer player)
     {
-        return player instanceof EntityPlayerMP ? get((EntityPlayerMP) player) : null;
-    }
-
-    public static synchronized UserIdent get(EntityPlayerMP player)
-    {
         if (player == null)
             throw new IllegalArgumentException();
         
-        if (player instanceof FakePlayer) {
+        if (!(player instanceof EntityPlayerMP) || player instanceof FakePlayer) {
             return getNpc(player.getDisplayName(), ModulePermissions.fakePlayerIsSpecialBunny ? null : player.getPersistentID());
         }
 
@@ -249,7 +247,7 @@ public class UserIdent
                 }
             }
             else
-                ident = new UserIdent(player);
+                ident = new UserIdent((EntityPlayerMP) player);
         }
         else
         {
@@ -326,7 +324,7 @@ public class UserIdent
         if (ident == null)
             ident = byUsername.get(username);
 
-        if (ident == null || !(ident instanceof ServerUserIdent))
+        if (!(ident instanceof ServerUserIdent))
             ident = new ServerUserIdent(_uuid, username);
 
         return (ServerUserIdent) ident;
