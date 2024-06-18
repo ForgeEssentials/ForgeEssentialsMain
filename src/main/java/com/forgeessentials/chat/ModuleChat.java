@@ -539,6 +539,7 @@ public class ModuleChat
                 new Object[] { target.getDisplayName(), message });
         sentMsg.getStyle().setColor(TextFormatting.GRAY).setItalic(Boolean.valueOf(true));
         senderMsg.getStyle().setColor(TextFormatting.GRAY).setItalic(Boolean.valueOf(true));
+        ModuleChat.instance.logChatMessage(sender.getName(), message.getUnformattedText(), target.getName());
         ChatOutputHandler.sendMessage(target, sentMsg);
         ChatOutputHandler.sendMessage(sender, senderMsg);
         CommandReply.messageSent(sender, target);
@@ -570,6 +571,8 @@ public class ModuleChat
         ITextComponent msgBody = new TextComponentString(formatted);
         msgBody.getStyle().setColor(TextFormatting.GRAY);
         msg.appendSibling(msgBody);
+
+        ModuleChat.instance.logChatMessage(sender.getName(), formatted, ("@" + groupName + "@ "));
 
         for (EntityPlayerMP p : ServerUtil.getPlayerList())
         {
