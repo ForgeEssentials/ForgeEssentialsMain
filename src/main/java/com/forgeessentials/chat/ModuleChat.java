@@ -456,9 +456,22 @@ public class ModuleChat
 
     public void logChatMessage(String sender, String message)
     {
+        logChatMessage(sender, message, null);
+    }
+
+    public void logChatMessage(String sender, String message, String recipient)
+    {
+        String logMessage;
         if (logWriter == null)
             return;
-        String logMessage = String.format("[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] %2$s: %3$s", new Date(), sender, message);
+        if (recipient == null)
+        {
+            logMessage = String.format("[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] %2$s: %3$s", new Date(), sender, message);
+        }
+        else
+        {
+            logMessage = String.format("[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] %2$s -> %3$s: %4$s", new Date(), sender, recipient, message);
+        }
         logWriter.write(logMessage + "\n");
     }
 
