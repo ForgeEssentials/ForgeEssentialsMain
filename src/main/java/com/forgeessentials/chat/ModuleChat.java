@@ -245,8 +245,11 @@ public class ModuleChat
             return;
         }
 
-        // Log chat message
-        logChatMessage(event.getPlayer().getName(), event.getMessage());
+        // Log chat message, if config is set
+        if (ChatConfig.logChat)
+        {
+            logChatMessage(event.getPlayer().getName(), event.getMessage());
+        }
 
         // Initialize parameters
         String message = processChatReplacements(event.getPlayer(), censor.filter(event.getMessage(), event.getPlayer()), false);
@@ -475,8 +478,14 @@ public class ModuleChat
         logWriter.write(logMessage + "\n");
     }
 
-    public void setChatLogging(boolean enabled)
+    public void setChatLogging()
     {
+        boolean enabled = false;
+        // if any of the chat logging forms are requested in config, then create a writer
+        if (ChatConfig.logChat || ChatConfig.logGroupChat || ChatConfig.logTells)
+        {
+            enabled = true;
+        }
         if (logWriter != null && enabled)
             return;
         closeLog();
@@ -539,7 +548,10 @@ public class ModuleChat
                 new Object[] { target.getDisplayName(), message });
         sentMsg.getStyle().setColor(TextFormatting.GRAY).setItalic(Boolean.valueOf(true));
         senderMsg.getStyle().setColor(TextFormatting.GRAY).setItalic(Boolean.valueOf(true));
-        ModuleChat.instance.logChatMessage(sender.getName(), message.getUnformattedText(), target.getName());
+        if (ChatConfig.logTells)
+        {
+            ModuleChat.instance.logChatMessage(sender.getName(), message.getUnformattedText(), target.getName());
+        }
         ChatOutputHandler.sendMessage(target, sentMsg);
         ChatOutputHandler.sendMessage(sender, senderMsg);
         CommandReply.messageSent(sender, target);
@@ -572,7 +584,10 @@ public class ModuleChat
         msgBody.getStyle().setColor(TextFormatting.GRAY);
         msg.appendSibling(msgBody);
 
-        ModuleChat.instance.logChatMessage(sender.getName(), formatted, ("@" + groupName + "@ "));
+        if (ChatConfig.logGroupChat)
+        {
+            ModuleChat.instance.logChatMessage(sender.getName(), formatted, ("@" + groupName + "@ "));
+        }
 
         for (EntityPlayerMP p : ServerUtil.getPlayerList())
         {
