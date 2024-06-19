@@ -16,6 +16,8 @@ public class ChatConfig extends ConfigLoaderBase
 
     private static final String CAT_GM = CATEGORY + ".Gamemodes";
 
+    private static final String CAT_LOG = CATEGORY + ".Logging";
+
     public static final String CHAT_FORMAT_HELP = "Format for chat. Always needs to contain all 5 \"%s\" placeholders like the default!";
 
     private static final String MUTEDCMD_HELP = "All commands in here will be blocked if the player is muted.";
@@ -41,6 +43,12 @@ public class ChatConfig extends ConfigLoaderBase
     public static String[] loginMessage;
 
     public static Set<String> mutedCommands = new HashSet<>();
+
+    public static boolean logChat;
+
+    public static boolean logTells;
+
+    public static boolean logGroupChat;
 
     @Override
     public void load(Configuration config, boolean isReload)
@@ -70,7 +78,10 @@ public class ChatConfig extends ConfigLoaderBase
         for (String cmd : config.get("Chat.mute", "mutedCommands", new String[] { "me" }, MUTEDCMD_HELP).getStringList())
             mutedCommands.add(cmd);
 
-        ModuleChat.instance.setChatLogging(config.get(CATEGORY, "LogChat", true, "Log all chat messages").getBoolean(true));
+        logChat = config.get(CAT_LOG, "LogChat", true, "Log all publicly visible chat messages.").getBoolean(true);
+        logGroupChat = config.get(CAT_LOG, "LogGroupChats", true, "Log all chats sent to groups.").getBoolean(true);
+        logTells = config.get(CAT_LOG, "LogTells", true, "Log all /msg, /PM, /tell, and /r chats.").getBoolean(true);
+        ModuleChat.instance.setChatLogging();
     }
 
     @Override
