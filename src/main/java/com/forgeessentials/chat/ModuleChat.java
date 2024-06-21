@@ -544,9 +544,18 @@ public class ModuleChat
                 new Object[] { target.getDisplayName(), message });
         sentMsg.getStyle().setColor(TextFormatting.GRAY).setItalic(Boolean.valueOf(true));
         senderMsg.getStyle().setColor(TextFormatting.GRAY).setItalic(Boolean.valueOf(true));
+        boolean isIRC = (sender.getName().matches("^IRC:(.*)") || target.getName().matches("^IRC:(.*)"));
         if (ChatConfig.logTells)
         {
-            ModuleChat.instance.logChatMessage(sender.getName(), message.getUnformattedText(), target.getName());
+            // if IRC logging is disabled, and the tell message has an IRC user...
+            if (!ChatConfig.logIRC && isIRC)
+            {
+                // ...then do nothing.
+            }
+            else // otherwise, log this tell to file
+            {
+                ModuleChat.instance.logChatMessage(sender.getName(), message.getUnformattedText(), target.getName());
+            }
         }
         ChatOutputHandler.sendMessage(target, sentMsg);
         ChatOutputHandler.sendMessage(sender, senderMsg);
