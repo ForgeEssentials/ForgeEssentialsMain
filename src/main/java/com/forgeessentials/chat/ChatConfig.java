@@ -57,6 +57,8 @@ public class ChatConfig extends ConfigLoaderBase
 
     public static boolean logIRC;
 
+    public static boolean logDiscord;
+
     @Override
     public void load(Configuration config, boolean isReload)
     {
@@ -88,6 +90,7 @@ public class ChatConfig extends ConfigLoaderBase
         coloredTabMenuEnabled = config.getBoolean(CAT_SB, "Enabled", false, "Whether or not to enable the tab menu colors");
 
         logChat = config.get(CAT_LOG, "LogChat", true, "Log all publicly visible chat messages.").getBoolean(true);
+        logDiscord = config.get(CAT_LOG, "LogDiscord", true, "If Discord is enabled, then log Discord chat too.").getBoolean(true);
         logGroupChat = config.get(CAT_LOG, "LogGroupChats", true, "Log all chats sent to groups.").getBoolean(true);
         logIRC = config.get(CAT_LOG, "LogIRC", true, "If IRC is enabled, then log IRC chat too. Excludes /ircpm, unless LogTells is also enabled.").getBoolean(true);
         logTells = config.get(CAT_LOG, "LogTells", true, "Log all /msg, /pm, /tell, /r chats. Includes /ircpm, if LogIRC is also enabled.").getBoolean(true);

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.forgeessentials.chat.ChatConfig;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -142,6 +143,10 @@ public class DiscordHandler extends ConfigLoaderBase
                 String suffix = String.format("<%s> %s", event.getMember().getEffectiveName(),
                         event.getMessage().getContentDisplay());
                 String msg = selectedChannel.equals(event.getChannel().getName()) ? suffix : String.format("#%s %s", event.getChannel().getName(), suffix);
+                if (ChatConfig.logDiscord)
+                {
+                    ModuleChat.instance.logChatMessage("Discord:" + event.getChannel().getName() + ":" + event.getMember().getEffectiveName(), event.getMessage().getContentDisplay());
+                }
                 ChatOutputHandler.broadcast(msg, false);
             }
         }
