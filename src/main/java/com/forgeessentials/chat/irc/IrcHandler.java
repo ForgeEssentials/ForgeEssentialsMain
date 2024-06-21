@@ -314,7 +314,7 @@ public class IrcHandler extends ListenerAdapter<PircBotX> implements ConfigLoade
         String filteredMessage = ModuleChat.censor.filterIRC(message);
         if (ChatConfig.logIRC)
         {
-            ModuleChat.instance.logChatMessage("IRC-" + user.getNick(), filteredMessage);
+            ModuleChat.instance.logChatMessage("IRC:" + user.getNick(), filteredMessage);
         }
         String headerText = String.format(ircHeader, user.getNick());
         ITextComponent header = ModuleChat.clickChatComponent(headerText, Action.SUGGEST_COMMAND, "/ircpm " + user.getNick() + " ");
