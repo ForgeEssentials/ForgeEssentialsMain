@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import com.forgeessentials.chat.ChatConfig;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -214,6 +215,10 @@ public class DiscordHandler extends ConfigLoaderBase
                             }
                             _msg.appendSibling(link);
                         }
+                    }
+                    if (ChatConfig.logDiscord)
+                    {
+                        ModuleChat.instance.logChatMessage("Discord:" + event.getChannel().getName() + ":" + event.getMember().getEffectiveName(), content);
                     }
                     ChatOutputHandler.broadcast(_msg, false);
                 } catch (Exception e) { //Catch Exceptions to prevent a crash if the server isn't fully loaded yet when a message is received
