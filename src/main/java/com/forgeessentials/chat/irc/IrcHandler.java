@@ -312,7 +312,7 @@ public class IrcHandler extends ListenerAdapter<PircBotX> implements ConfigLoade
     private void mcSendMessage(String message, User user)
     {
         String filteredMessage = ModuleChat.censor.filterIRC(message);
-        if (ChatConfig.logChat)
+        if (ChatConfig.logIRC)
         {
             ModuleChat.instance.logChatMessage("IRC-" + user.getNick(), filteredMessage);
         }

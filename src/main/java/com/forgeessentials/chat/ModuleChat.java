@@ -480,12 +480,8 @@ public class ModuleChat
 
     public void setChatLogging()
     {
-        boolean enabled = false;
+        boolean enabled = ChatConfig.logChat || ChatConfig.logGroupChat || ChatConfig.logTells || ChatConfig.logIRC;
         // if any of the chat logging forms are requested in config, then create a writer
-        if (ChatConfig.logChat || ChatConfig.logGroupChat || ChatConfig.logTells)
-        {
-            enabled = true;
-        }
         if (logWriter != null && enabled)
             return;
         closeLog();

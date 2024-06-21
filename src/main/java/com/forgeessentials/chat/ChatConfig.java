@@ -55,6 +55,8 @@ public class ChatConfig extends ConfigLoaderBase
 
     public static boolean logGroupChat;
 
+    public static boolean logIRC;
+
     @Override
     public void load(Configuration config, boolean isReload)
     {
@@ -87,6 +89,7 @@ public class ChatConfig extends ConfigLoaderBase
 
         logChat = config.get(CAT_LOG, "LogChat", true, "Log all publicly visible chat messages.").getBoolean(true);
         logGroupChat = config.get(CAT_LOG, "LogGroupChats", true, "Log all chats sent to groups.").getBoolean(true);
+        logIRC = config.get(CAT_LOG, "LogIRC", true, "If IRC is enabled, then log all IRC chat too.").getBoolean(true);
         logTells = config.get(CAT_LOG, "LogTells", true, "Log all /msg, /PM, /tell, and /r chats.").getBoolean(true);
         ModuleChat.instance.setChatLogging();
     }
