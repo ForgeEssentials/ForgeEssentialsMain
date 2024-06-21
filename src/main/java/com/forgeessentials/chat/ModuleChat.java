@@ -465,12 +465,8 @@ public class ModuleChat
 
     public void setChatLogging()
     {
-        boolean enabled = false;
+        boolean enabled = ChatConfig.logChat || ChatConfig.logGroupChat || ChatConfig.logTells || ChatConfig.logIRC;
         // if any of the chat logging forms are requested in config, then create a writer
-        if (ChatConfig.logChat || ChatConfig.logGroupChat || ChatConfig.logTells)
-        {
-            enabled = true;
-        }
         if (logWriter != null && enabled)
             return;
         closeLog();
@@ -533,10 +529,18 @@ public class ModuleChat
                 new Object[] { target.func_145748_c_(), message });
         sentMsg.getChatStyle().setColor(EnumChatFormatting.GRAY).setItalic(Boolean.valueOf(true));
         senderMsg.getChatStyle().setColor(EnumChatFormatting.GRAY).setItalic(Boolean.valueOf(true));
-
+        boolean isIRC = (sender.getCommandSenderName().matches("^IRC:(.*)") || target.getCommandSenderName().matches("^IRC:(.*)"));
         if (ChatConfig.logTells)
         {
-            ModuleChat.instance.logChatMessage(sender.getCommandSenderName(), message.getUnformattedText(), target.getCommandSenderName());
+            // if IRC logging is disabled, and the tell message has an IRC user...
+            if (!ChatConfig.logIRC && isIRC)
+            {
+                // ...then do nothing.
+            }
+            else // otherwise, log this tell to file
+            {
+                ModuleChat.instance.logChatMessage(sender.getCommandSenderName(), message.getUnformattedText(), target.getCommandSenderName());
+            }
         }
         ChatOutputHandler.sendMessage(target, sentMsg);
         ChatOutputHandler.sendMessage(sender, senderMsg);
