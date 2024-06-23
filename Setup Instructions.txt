@@ -19,4 +19,4 @@ Run to rebuild the Eclipse configuration
 "./gradlew eclipse"
 
 Finally to build launch files for Eclipse
-."/gradlew genEclipseRuns"
+"./gradlew genEclipseRuns"
