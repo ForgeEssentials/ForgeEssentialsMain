@@ -94,7 +94,7 @@ import cpw.mods.fml.relauncher.Side;
  * Main mod class
  */
 
-@Mod(modid = ForgeEssentials.MODID, name = "Forge Essentials", acceptableRemoteVersions = "*", dependencies = BuildInfo.DEPENDENCIES + ";after:WorldEdit")
+@Mod(modid = ForgeEssentials.MODID, name = "Forge Essentials", acceptableRemoteVersions = "*", dependencies = BuildInfo.DEPENDENCIES + ";after:WorldEdit;before:serverutilities")
 public class ForgeEssentials extends ConfigLoaderBase
 {
 
