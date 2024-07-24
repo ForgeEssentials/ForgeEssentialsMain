@@ -78,7 +78,7 @@ public class ModulePermissions extends ConfigLoaderBase
         {
             try
             {
-                MinecraftForge.EVENT_BUS.register(FTBURankConfigHandler.class);
+                MinecraftForge.EVENT_BUS.register(new FTBURankConfigHandler());
                 LoggingHandler.felog.debug("Rank Handler for GTNHFTBLib has been registered");
             }
             catch (NoClassDefFoundError e)
