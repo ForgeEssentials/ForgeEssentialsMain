@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.forgeessentials.chat.ChatConfig;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
@@ -311,8 +312,10 @@ public class IrcHandler extends ListenerAdapter<PircBotX> implements ConfigLoade
     private void mcSendMessage(String message, User user)
     {
         String filteredMessage = ModuleChat.censor.filterIRC(message);
-        ModuleChat.instance.logChatMessage("IRC-" + user.getNick(), filteredMessage);
-
+        if (ChatConfig.logIRC)
+        {
+            ModuleChat.instance.logChatMessage("IRC:" + user.getNick(), filteredMessage);
+        }
         String headerText = String.format(ircHeader, user.getNick());
         ITextComponent header = ModuleChat.clickChatComponent(headerText, Action.SUGGEST_COMMAND, "/ircpm " + user.getNick() + " ");
         ITextComponent messageComponent = ModuleChat.filterChatLinks(ChatOutputHandler.formatColors(filteredMessage));
