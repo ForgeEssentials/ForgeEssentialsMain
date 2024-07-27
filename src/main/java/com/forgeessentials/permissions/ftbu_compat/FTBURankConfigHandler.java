@@ -21,19 +21,17 @@ import com.mojang.authlib.GameProfile;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-public enum FTBURankConfigHandler implements IRankConfigHandler
+public class FTBURankConfigHandler implements IRankConfigHandler
 {
-    INSTANCE;
-
     @SubscribeEvent
-    public static void registerRankConfigHandler(RegisterRankConfigHandlerEvent event)
+    public void registerRankConfigHandler(RegisterRankConfigHandlerEvent event)
     {
         LoggingHandler.felog.debug("registerRankConfigHandler()");
-        if (INSTANCE.isFTBURanksActive())
+        if (this.isFTBURanksActive())
         {
             LoggingHandler.felog.info("Ranks are active...  Not registering configs!");
         } else {
-            event.setHandler(INSTANCE);
+            event.setHandler(this);
         }
     }
 
