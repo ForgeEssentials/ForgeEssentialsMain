@@ -9,6 +9,7 @@ import com.forgeessentials.data.v2.Loadable;
 import com.forgeessentials.util.events.FEPlayerEvent.ClientHandshakeEstablished;
 import com.forgeessentials.util.events.FEPlayerEvent.InventoryGroupChange;
 import com.forgeessentials.util.events.FEPlayerEvent.NoPlayerInfoEvent;
+import com.forgeessentials.util.output.LoggingHandler;
 import com.google.gson.annotations.Expose;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -150,7 +151,12 @@ public class PlayerInfo implements Loadable
      */
     public void save()
     {
-        DataManager.getInstance().save(this, ident.getUuid().toString());
+        if (ident.hasUuid())
+        {
+            DataManager.getInstance().save(this, ident.getUuid().toString());
+        } else {
+            LoggingHandler.felog.fatal("Unable to save player-info for {} because UUID is null!", ident.getUsername());
+        }
     }
 
     public boolean isLoggedIn()

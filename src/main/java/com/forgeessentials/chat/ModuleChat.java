@@ -239,8 +239,11 @@ public class ModuleChat
             return;
         }
 
-        // Log chat message
-        logChatMessage(event.player.getCommandSenderName(), event.message);
+        // Log chat message, if config is set
+        if (ChatConfig.logChat)
+        {
+            logChatMessage(event.player.getCommandSenderName(), event.message);
+        }
 
         // Initialize parameters
         String message = processChatReplacements(event.player, censor.filter(event.message, event.player));
@@ -441,14 +444,29 @@ public class ModuleChat
 
     public void logChatMessage(String sender, String message)
     {
+        logChatMessage(sender, message, null);
+    }
+
+    public void logChatMessage(String sender, String message, String recipient)
+    {
+        String logMessage;
         if (logWriter == null)
             return;
-        String logMessage = String.format("[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] %2$s: %3$s", new Date(), sender, message);
+        if (recipient == null)
+        {
+            logMessage = String.format("[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] %2$s: %3$s", new Date(), sender, message);
+        }
+        else
+        {
+            logMessage = String.format("[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] %2$s -> %3$s: %4$s", new Date(), sender, recipient, message);
+        }
         logWriter.write(logMessage + "\n");
     }
 
-    public void setChatLogging(boolean enabled)
+    public void setChatLogging()
     {
+        boolean enabled = ChatConfig.logChat || ChatConfig.logGroupChat || ChatConfig.logTells || ChatConfig.logIRC;
+        // if any of the chat logging forms are requested in config, then create a writer
         if (logWriter != null && enabled)
             return;
         closeLog();
@@ -511,6 +529,19 @@ public class ModuleChat
                 new Object[] { target.func_145748_c_(), message });
         sentMsg.getChatStyle().setColor(EnumChatFormatting.GRAY).setItalic(Boolean.valueOf(true));
         senderMsg.getChatStyle().setColor(EnumChatFormatting.GRAY).setItalic(Boolean.valueOf(true));
+        boolean isIRC = (sender.getCommandSenderName().matches("^IRC:(.*)") || target.getCommandSenderName().matches("^IRC:(.*)"));
+        if (ChatConfig.logTells)
+        {
+            // if IRC logging is disabled, and the tell message has an IRC user...
+            if (!ChatConfig.logIRC && isIRC)
+            {
+                // ...then do nothing.
+            }
+            else // otherwise, log this tell to file
+            {
+                ModuleChat.instance.logChatMessage(sender.getCommandSenderName(), message.getUnformattedText(), target.getCommandSenderName());
+            }
+        }
         ChatOutputHandler.sendMessage(target, sentMsg);
         ChatOutputHandler.sendMessage(sender, senderMsg);
         CommandReply.messageSent(sender, target);
@@ -543,6 +574,11 @@ public class ModuleChat
         IChatComponent msgBody = new ChatComponentText(formatted);
         msgBody.getChatStyle().setColor(EnumChatFormatting.GRAY);
         msg.appendSibling(msgBody);
+
+        if (ChatConfig.logGroupChat)
+        {
+            ModuleChat.instance.logChatMessage(sender.getCommandSenderName(), formatted, ("@" + groupName + "@ "));
+        }
 
         for (EntityPlayerMP p : ServerUtil.getPlayerList())
         {

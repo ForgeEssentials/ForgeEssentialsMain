@@ -756,9 +756,6 @@ public class ZonedPermissionHelper extends ServerEventHandler implements IPermis
         else if (player != null)
             ident = UserIdent.get(player);
 
-        if (ident == null && player != null)
-            ident = UserIdent.get(player.getUniqueID(), player.getDisplayName());
-
         if (context.getTargetLocationStart() != null)
         {
             if (context.getTargetLocationEnd() != null)
