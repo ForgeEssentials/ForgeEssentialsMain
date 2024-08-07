@@ -168,6 +168,7 @@ ext.serverManifest = manifest {
 	attributes (
 		"TweakClass": "com.forgeessentials.core.preloader.FELaunchHandler",
 		"TweakOrder": "0",
+        "FMLCorePlugin": "com.forgeessentials.core.preloader.FELoadingPlugin",
 		"MixinConfigs": "mixins.forgeessentials.json,mixins.forgeessentials-opt.json",
 		"FMLAT": "forgeessentials_at.cfg",
 	)
