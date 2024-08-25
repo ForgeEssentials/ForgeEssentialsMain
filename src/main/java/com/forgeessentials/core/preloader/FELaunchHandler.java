@@ -7,12 +7,20 @@ import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Set;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 import net.minecraft.launchwrapper.ITweaker;
@@ -109,15 +117,19 @@ public class FELaunchHandler implements ITweaker
         moduleDirectory.mkdirs();
 
         libDirectory = new File(feDirectory, "lib");
-
+        URI uri = null;
         try
         {
-            jarLocation = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
+            uri = getClass().getProtectionDomain().getCodeSource().getLocation().toURI();
+            jarLocation = new File(uri);
         }
         catch (URISyntaxException ex)
         {
-            launchLog.error("Could not get JAR location");
+            launchLog.error("Could not get JAR location for {}", uri);
             ex.printStackTrace();
+        }
+        catch (Exception ex) {
+            launchLog.error("Unknown error attempting to get JAR location at {}",uri.getPath(), ex);
         }
     }
 
@@ -154,8 +166,16 @@ public class FELaunchHandler implements ITweaker
     {
         try
         {
-            FileUtils.deleteDirectory(libDirectory);
-            libDirectory.mkdirs();
+            try
+            {
+                FileUtils.deleteDirectory(libDirectory);
+                libDirectory.mkdirs();
+            } catch (IOException e)
+            {
+                launchLog.error("Unable to delete old libs directory! Will attempt to clean and extract files anyway.");
+
+                FileUtils.cleanDirectory(libDirectory);
+            }
             // TODO Check for other stuff like WorldEdit!
 
             InputStream libArchive = getClass().getResourceAsStream("/libraries.zip");
@@ -202,6 +222,49 @@ public class FELaunchHandler implements ITweaker
 
     /* ------------------------------------------------------------ */
 
+    private boolean checkZipForExclusionsAndFixInvalidClasses(File f, LaunchClassLoader loader) {
+        boolean result = false;
+        try (ZipFile zipFile = new ZipFile(f))
+        {
+            Field classLoaderExceptionsF = LaunchClassLoader.class.getDeclaredField("classLoaderExceptions");
+            classLoaderExceptionsF.setAccessible(true);
+            Set<String> classLoaderExceptions = (Set<String>) classLoaderExceptionsF.get(loader);
+            Enumeration entries = zipFile.entries();
+            Field invalidClassesF = LaunchClassLoader.class.getDeclaredField("invalidClasses");
+            invalidClassesF.setAccessible(true);
+            Set<String> invalidClasses = (Set<String>) invalidClassesF.get(loader);
+
+            Field negativeResourceCacheF = LaunchClassLoader.class.getDeclaredField("negativeResourceCache");
+            negativeResourceCacheF.setAccessible(true);
+            Set<String> negativeResourceCache = (Set<String>) negativeResourceCacheF.get(loader);
+
+            while (entries.hasMoreElements()) {
+                ZipEntry entry = (ZipEntry) entries.nextElement();
+                if (!result)
+                {
+                    for (String exclusion : classLoaderExceptions)
+                    {
+                        if (entry.getName().startsWith(exclusion.replace(".", "/")))
+                        {
+                            result = true;
+                            break;
+                        }
+                    }
+                }
+                String name = entry.getName().replace("/", ".").replace(".class","");
+                if (invalidClasses.contains(name)) {
+                    invalidClasses.remove(name);
+                    negativeResourceCache.remove(name);
+                }
+
+            }
+        }
+        catch (IOException | NoSuchFieldException | IllegalAccessException | ClassCastException e)
+        {
+            throw new RuntimeException(String.format("[ForgeEssentials] Checking library %s: %s", f.getAbsolutePath(), e.getMessage()));
+        }
+        return result;
+    }
     private void loadLibraries(LaunchClassLoader classLoader)
     {
         File[] files = libDirectory.listFiles(JAR_FILTER);
@@ -211,10 +274,19 @@ public class FELaunchHandler implements ITweaker
         {
             try
             {
-                classLoader.addURL(f.toURI().toURL());
-                launchLog.info(String.format("Added library %s to classpath", f.getAbsolutePath()));
+                if (checkZipForExclusionsAndFixInvalidClasses(f, classLoader))
+                {
+                    Method addURL = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+                    addURL.setAccessible(true);
+                    addURL.invoke(classLoader.getClass().getClassLoader(), f.toURI().toURL());
+                    launchLog.info(String.format("Added library %s to parent classpath", f.getAbsolutePath()));
+                } else {
+                    classLoader.addURL(f.toURI().toURL());
+
+                    launchLog.info(String.format("Added library %s to classpath", f.getAbsolutePath()));
+                }
             }
-            catch (MalformedURLException e)
+            catch (MalformedURLException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e)
             {
                 throw new RuntimeException(String.format("[ForgeEssentials] Error adding library %s to classpath: %s", f.getAbsolutePath(), e.getMessage()));
             }
