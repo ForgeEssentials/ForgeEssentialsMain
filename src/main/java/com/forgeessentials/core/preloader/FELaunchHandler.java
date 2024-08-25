@@ -125,11 +125,11 @@ public class FELaunchHandler implements ITweaker
         }
         catch (URISyntaxException ex)
         {
-            launchLog.error("Could not get JAR location for {}", uri);
+            launchLog.error("Could not get JAR location");
             ex.printStackTrace();
         }
         catch (Exception ex) {
-            launchLog.error("Unknown error attempting to get JAR location at {}",uri.getPath(), ex);
+            launchLog.error("Unknown error attempting to get JAR location at {}, Path: {}",uri, uri != null ? uri.getPath() : null, ex);
         }
     }
 
