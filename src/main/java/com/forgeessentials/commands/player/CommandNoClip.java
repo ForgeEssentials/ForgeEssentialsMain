@@ -64,21 +64,31 @@ public class CommandNoClip extends ForgeEssentialsCommandBase
         }
 
         if (!player.capabilities.isFlying && !player.noClip)
+        {
             throw new TranslatedCommandException("You must be flying.");
+        }
+
+        PlayerInfo pi = PlayerInfo.get(player);
+        if (player.noClip && !pi.isNoClip())
+        {
+            throw new TranslatedCommandException("Unable to enable noClip, another mod is using this functionality!");
+        }
 
         if (args.length == 0)
         {
-            if (!player.noClip)
-                player.noClip = true;
-            else
-                player.noClip = false;
+            pi.setNoClip(!pi.isNoClip());
         }
         else
         {
-            player.noClip = Boolean.parseBoolean(args[0]);
+            pi.setNoClip(Boolean.parseBoolean(args[0]));
         }
-        if (!player.noClip)
+
+        player.noClip = pi.isNoClip();
+
+        if (!pi.isNoClip())
+        {
             WorldUtil.placeInWorld(player);
+        }
 
         NetworkUtils.netHandler.sendTo(new Packet5Noclip(player.noClip), player);
         ChatOutputHandler.chatConfirmation(player, "Noclip " + (player.noClip ? "enabled" : "disabled"));
