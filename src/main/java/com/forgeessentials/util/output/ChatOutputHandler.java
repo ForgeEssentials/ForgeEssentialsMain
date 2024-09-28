@@ -17,6 +17,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -154,29 +155,6 @@ public final class ChatOutputHandler
      *
      * @param message
      *            The message to send
-     * @param sendToDiscord
-     *            Broadcast Message to discord
-     */
-    public static void broadcast(TextComponent message, boolean sendToDiscord)
-    {
-        // TODO: merge ITexcComponent and TextComponent methods to avoid duplication
-        for (PlayerEntity p : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers())
-        {
-            ServerLifecycleHooks.getCurrentServer().getPlayerList().broadcastMessage(message, ChatType.CHAT,
-                    p.getGameProfile().getId());
-        }
-
-        if (sendToDiscord && ModuleLauncher.getModuleList().contains("DiscordBridge"))
-        {
-            discordMessageHandler.sendMessage(message.getString());
-        }
-    }
-
-    /**
-     * Sends a message to all clients
-     *
-     * @param message
-     *            The message to send
      */
     public static void broadcast(ITextComponent message)
     {
@@ -193,10 +171,9 @@ public final class ChatOutputHandler
      */
     public static void broadcast(ITextComponent message, boolean sendToDiscord)
     {
-        for (PlayerEntity p : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers())
+        for (ServerPlayerEntity p : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers())
         {
-            ServerLifecycleHooks.getCurrentServer().getPlayerList().broadcastMessage(message, ChatType.CHAT,
-                    p.getGameProfile().getId());
+        	p.sendMessage(message, ChatType.CHAT, Util.NIL_UUID);
         }
 
         if (sendToDiscord && ModuleLauncher.getModuleList().contains("DiscordBridge"))
