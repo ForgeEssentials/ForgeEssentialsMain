@@ -31,7 +31,7 @@ jobs:
         id: download-artifact
         with:
           script: |
-            var artifacts = await github.actions.listWorkflowRunArtifacts({
+            var artifacts = await github.rest.actions.listWorkflowRunArtifacts({
                owner: context.repo.owner,
                repo: context.repo.repo,
                run_id: ${{github.event.workflow_run.id }},
@@ -43,7 +43,7 @@ jobs:
             if (matchArtifacts.length >= 1) {
               var matchArtifact = matchArtifacts[0];
             
-              var download = await github.actions.downloadArtifact({
+              var download = await github.rest.actions.downloadArtifact({
                  owner: context.repo.owner,
                  repo: context.repo.repo,
                  artifact_id: matchArtifact.id,
@@ -98,7 +98,7 @@ jobs:
         id: download-artifact
         with:
           script: |
-            var artifacts = await github.actions.listWorkflowRunArtifacts({
+            var artifacts = await github.rest.actions.listWorkflowRunArtifacts({
                owner: context.repo.owner,
                repo: context.repo.repo,
                run_id: ${{github.event.workflow_run.id }},
@@ -107,7 +107,7 @@ jobs:
               return artifact.name.startsWith("binaries")
             })[0];
             
-            var download = await github.actions.downloadArtifact({
+            var download = await github.rest.actions.downloadArtifact({
                owner: context.repo.owner,
                repo: context.repo.repo,
                artifact_id: matchArtifact.id,
@@ -119,7 +119,7 @@ jobs:
             matchArtifact = artifacts.data.artifacts.filter((artifact) => {
               return artifact.name.startsWith("ts-files")
             })[0];
-            download = await github.actions.downloadArtifact({
+            download = await github.rest.actions.downloadArtifact({
                owner: context.repo.owner,
                repo: context.repo.repo,
                artifact_id: matchArtifact.id,
@@ -127,7 +127,7 @@ jobs:
             });
             fs.writeFileSync('${{github.workspace}}/jscripting.zip', Buffer.from(download.data));
             
-            return await github.repos.getReleaseByTag({
+            return await github.rest.repos.getReleaseByTag({
                owner: context.repo.owner,
                repo: context.repo.repo, 
                tag: '${{ github.event.workflow_run.head_branch }}'
