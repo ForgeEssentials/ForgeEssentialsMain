@@ -10,8 +10,6 @@ on:
       - completed
 env:
   WORKFLOW_GITHUB_REF: ${{ github.event.workflow_run.head_repository.full_name }}/${{ github.event.workflow_run.head_branch }}
-permissions:
-  actions: read
 jobs:
   publish:
 
@@ -29,7 +27,7 @@ jobs:
           distribution: 'adopt'
           cache: gradle
       - name: 'Download artifact'
-        uses: actions/github-script@v3.1.0
+        uses: actions/github-script@v3.2.0
         id: download-artifact
         with:
           script: |
