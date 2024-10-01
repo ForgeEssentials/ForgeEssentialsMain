@@ -25,9 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.check.outputs.canContinue == 'true'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up JDK 8
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: '8'
           distribution: 'adopt'
@@ -36,11 +36,11 @@ jobs:
         run: |
          chmod +x gradlew
          ./gradlew build
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: binaries-${{ env.BUILD_NUMBER }}
           path: ./build/libs/
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: ts-files-${{ github.sha }}
           path: jscripting/*.d.ts
