@@ -27,7 +27,7 @@ jobs:
           distribution: 'adopt'
           cache: gradle
       - name: 'Download artifact'
-        uses: actions/github-script@v4.2.0
+        uses: actions/github-script@v6
         id: download-artifact
         with:
           script: |
@@ -94,7 +94,7 @@ jobs:
           distribution: 'adopt'
           cache: gradle
       - name: 'Download artifact'
-        uses: actions/github-script@v4.2.0
+        uses: actions/github-script@v6
         id: download-artifact
         with:
           script: |
