@@ -176,6 +176,12 @@ public class ModuleJScripting extends ServerEventHandler implements ScriptHandle
 
     public void loadScripts(CommandSource sender)
     {
+    	if(moduleDir==null) {
+    		LoggingHandler.felog.error("FE JScripting moduleDir is null!");
+    		LoggingHandler.felog.error("Probably an issue with JS not being loaded correctly!");
+    		LoggingHandler.felog.error("Skipping loading scripts! REPORT THIS");
+    		return;
+    	}
         Iterator<File> it;
         try {
             it = FileUtils.iterateFiles(moduleDir, new String[] { "js", "ts" }, true);

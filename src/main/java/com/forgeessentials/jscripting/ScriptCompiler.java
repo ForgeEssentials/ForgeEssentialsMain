@@ -51,7 +51,20 @@ public final class ScriptCompiler
         catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
                 | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
         {
-            throw new RuntimeException(e);
+        	try
+            {
+                Class<?> cl = Class.forName("jdk.dynalink.beans.StaticClass", true,
+                        ClassLoader.getSystemClassLoader());
+                Constructor<?> constructor = cl.getDeclaredConstructor(Class.class);
+                constructor.setAccessible(true);
+                return constructor.newInstance(c);
+            }
+            catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
+                    | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1)
+            {
+            	System.out.println(e.getStackTrace());
+                throw new RuntimeException(e1);
+            }
         }
     }
 
