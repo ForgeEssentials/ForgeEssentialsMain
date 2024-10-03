@@ -45,6 +45,7 @@ import com.forgeessentials.chat.command.CommandReply;
 import com.forgeessentials.chat.command.CommandTimedMessages;
 import com.forgeessentials.chat.command.CommandUnmute;
 import com.forgeessentials.chat.discord.DiscordHandler;
+import com.forgeessentials.chat.discord.command.CommandDiscord;
 import com.forgeessentials.chat.irc.IrcHandler;
 import com.forgeessentials.commands.util.ModuleCommandsEventHandler;
 import com.forgeessentials.commons.selections.WorldPoint;
@@ -186,6 +187,8 @@ public class ModuleChat
         FECommandManager.registerCommand(new CommandIrc());
         FECommandManager.registerCommand(new CommandIrcPm());
         FECommandManager.registerCommand(new CommandIrcBot());
+
+        FECommandManager.registerCommand(new CommandDiscord(discordHandler));
 
         APIRegistry.perms.registerPermissionDescription(PERM, "Chat permissions");
         APIRegistry.perms.registerPermission(PERM_CHAT, PermissionLevel.TRUE, "Allow players to use the public chat");

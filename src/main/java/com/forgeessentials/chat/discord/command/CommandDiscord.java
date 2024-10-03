@@ -47,19 +47,31 @@ public class CommandDiscord extends ForgeEssentialsCommandBase
 
     @Override public void processCommandConsole(ICommandSender sender, String[] args)
     {
-        if (args.length > 1)
+        if (args.length >= 1)
         {
             CommandParserArgs _args = new CommandParserArgs(this, args, sender);
             String command = _args.remove();
             if ("select".equals(command))
             {
-                String channel = _args.remove();
-                if (handler.channels.contains(channel)) {
-                    handler.selectedChannel = channel;
-                    ChatOutputHandler.chatConfirmation(sender, Translator.format("Channel #%s selected!"));
+                if (args.length > 1)
+                {
+                    String channel = _args.remove();
+                    if (handler.channels.contains(channel))
+                    {
+                        handler.selectedChannel = channel;
+                        ChatOutputHandler.chatConfirmation(sender, Translator.format("Channel #%s selected!",  channel));
+                    }
+                    else
+                    {
+                        ChatOutputHandler.chatError(sender, Translator.format("Unknown Channel: %s", channel));
+                    }
+                } else if (_args.isTabCompletion) {
+                    addTabCompletionOptions(sender, handler.channels.toArray(new String[0]));
                 } else {
-                    ChatOutputHandler.chatError(sender, Translator.format("Unknown Channel: %s", channel));
+                    ChatOutputHandler.chatError(sender, getCommandUsage(sender));
                 }
+            } else if ("list".equals(command)) {
+                ChatOutputHandler.chatConfirmation(sender, Translator.format("Channels: %s", handler.channels.toString()));
             }
         } else {
             ChatOutputHandler.chatError(sender, getCommandUsage(sender));
@@ -68,6 +80,6 @@ public class CommandDiscord extends ForgeEssentialsCommandBase
 
     @Override public void processCommandPlayer(EntityPlayerMP sender, String[] args)
     {
-
+        processCommandConsole(sender, args);
     }
 }
