@@ -80,7 +80,7 @@ public class JsServer
 
         // Join and split again to fix invalid arguments containing spaces
         String cmdLine = StringUtils.join(strArgs, " ");
-        cmd = cmd + cmdLine;
+        cmd = cmd + " " + cmdLine;
 
         MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
         final ParseResults<CommandSource> command = (ParseResults<CommandSource>) server.getCommands().getDispatcher()
