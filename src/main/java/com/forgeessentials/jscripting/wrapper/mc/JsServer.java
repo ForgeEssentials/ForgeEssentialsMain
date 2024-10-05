@@ -19,8 +19,9 @@ import com.mojang.brigadier.ParseResults;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandSource;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
@@ -79,7 +80,7 @@ public class JsServer
 
         // Join and split again to fix invalid arguments containing spaces
         String cmdLine = StringUtils.join(strArgs, " ");
-        cmd = cmd + cmdLine;
+        cmd = cmd + " " + cmdLine;
 
         MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
         final ParseResults<CommandSource> command = (ParseResults<CommandSource>) server.getCommands().getDispatcher()
@@ -226,9 +227,9 @@ public class JsServer
         {
             ITextComponent component = ITextComponent.Serializer.fromJson(msg);
 
-            for (PlayerEntity p : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers())
+            for (ServerPlayerEntity p : server.getPlayerList().getPlayers())
             {
-                server.getPlayerList().broadcastMessage(component, ChatType.CHAT, p.getGameProfile().getId());
+            	p.sendMessage(component, ChatType.CHAT, Util.NIL_UUID);
             }
         }
         catch (JsonParseException jsonparseexception)
