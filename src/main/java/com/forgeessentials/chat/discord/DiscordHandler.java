@@ -95,10 +95,11 @@ public class DiscordHandler extends ConfigLoaderBase
 
         channels.clear();
         selectedChannelConfig = config.get(CATEGORY, "selectedChannel", "",
-                "The bot will send messages to this channel!  You can switch channels in game with `/discord select (channel)");
-        selectedChannel = selectedChannelConfig.getString();
+                "The bot will send messages to this channel!  You can switch channels in game with `/discord select (channel)`!  Note, this will append to the channel list below!");
+        selectedChannel = selectedChannelConfig.getString().trim();
         for (String channel : config.get(CATEGORY, "channels", new String[] { "general" }, CHANNELS_HELP).getStringList())
         {
+            channel = channel.trim();
             if ("".equals(selectedChannel))
             {
                 selectedChannel = channel;
