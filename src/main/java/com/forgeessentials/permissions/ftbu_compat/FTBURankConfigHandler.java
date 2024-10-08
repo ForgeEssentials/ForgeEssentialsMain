@@ -68,13 +68,13 @@ public enum FTBURankConfigHandler implements IRankConfigHandler
 
     @Override public ConfigValue getConfigValue(MinecraftServer server, GameProfile profile, String node)
     {
-        LoggingHandler.felog.info("Getting Config value " + node + " for player " + profile.getName());
+        LoggingHandler.felog.debug("Getting Config value " + node + " for player " + profile.getName());
         ConfigValue value = ConfigNull.INSTANCE;
 
         RankConfigValueInfo info = getInfo(node);
 
         if (info != null) {
-            LoggingHandler.felog.info("Config Value is not null");
+            LoggingHandler.felog.debug("Config Value is not null");
             UserIdent ident = UserIdent.get(profile);
             value = info.defaultValue.copy();
             WorldPoint point = null;
@@ -83,11 +83,11 @@ public enum FTBURankConfigHandler implements IRankConfigHandler
             }
 
             if (!value.setValueFromString(null, APIRegistry.perms.getUserPermissionProperty(ident, node), false)) {
-                LoggingHandler.felog.info("Failed to set value");
+                LoggingHandler.felog.debug("Failed to set value");
                 return ConfigNull.INSTANCE;
             }
 
-            LoggingHandler.felog.info(node+ " set to " + value.getString());
+            LoggingHandler.felog.debug(node+ " set to " + value.getString());
         }
 
         return value;
