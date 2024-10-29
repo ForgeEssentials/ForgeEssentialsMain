@@ -38,7 +38,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import net.minecraftforge.server.permission.nodes.PermissionDynamicContext;
 import net.minecraftforge.server.permission.nodes.PermissionNode;
-import net.minecraftforge.server.permission.nodes.PermissionTypes;
 
 import com.forgeessentials.api.APIRegistry;
 import com.forgeessentials.api.UserIdent;
@@ -833,9 +832,7 @@ public class ZonedPermissionHelper extends ServerEventHandler implements IPermis
     @Override
     public Set<PermissionNode<?>> getRegisteredNodes()
     {
-        var permList = getRegisteredPermissions();
-        return permList.entrySet().stream().filter(key -> !key.getKey().contains("*")).map(key -> new PermissionNode<>(new ResourceLocation(key.getKey()), PermissionTypes.STRING,
-                (serverPlayer, uuid, permissionDynamicContexts) -> key.getValue())).collect(Collectors.toSet());
+        return Zone.registeredNodes.entrySet().stream().filter(key -> !key.getKey().contains("*")).map(Entry::getValue).collect(Collectors.toSet());
     }
 
     @Override public <T> T getOfflinePermission(UUID uuid, PermissionNode<T> permissionNode, PermissionDynamicContext<?>... permissionDynamicContexts)

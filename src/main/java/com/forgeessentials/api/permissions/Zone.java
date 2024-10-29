@@ -1,7 +1,21 @@
 package com.forgeessentials.api.permissions;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.server.permission.nodes.PermissionNode;
+import net.minecraftforge.server.permission.nodes.PermissionTypes;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -10,8 +24,6 @@ import com.forgeessentials.api.UserIdent;
 import com.forgeessentials.api.UserIdent.UserIdentInvalidatedEvent;
 import com.forgeessentials.commons.selections.WorldArea;
 import com.forgeessentials.commons.selections.WorldPoint;
-
-import net.minecraft.world.entity.player.Player;
 
 /**
  * Zones are used to store permissions in a tree-like hierarchy. Each zone has it's own set of group- and player-permissions. Zones are stored in a tree structure with fixed
@@ -38,24 +50,28 @@ public abstract class Zone
     public static final String PERMISSION_TRUE = "true";
     public static final String ALL_PERMS = '.' + PERMISSION_ASTERIX;
 
-    public static class PermissionList extends HashMap<String, String>
+    public static HashMap<String, PermissionNode<?>> registeredNodes = new HashMap<>();
+
+    public static class PermissionList extends HashMap<String, Object>
     {
         private static final long serialVersionUID = 1L;
 
         public List<String> toList()
         {
             List<String> list = new ArrayList<>();
-            for (Map.Entry<String, String> perm : this.entrySet())
+            for (Entry<String, Object> perm : this.entrySet())
             {
+                PermissionNode<?> node = registeredNodes.get(perm.getKey());
                 if (perm.getValue() == null)
                     continue;
-                if (perm.getValue().equals(PERMISSION_TRUE))
+                if (node.getType().equals(PermissionTypes.BOOLEAN))
                 {
-                    list.add(perm.getKey());
-                }
-                else if (perm.getValue().equals(PERMISSION_FALSE))
-                {
-                    list.add("-" + perm.getKey());
+                    if ((Boolean) perm.getValue())
+                    {
+                        list.add(node.getNodeName());
+                    } else {
+                        list.add("-" + perm.getKey());
+                    }
                 }
                 else
                 {
@@ -77,9 +93,9 @@ public abstract class Zone
                 else if (permParts.length == 1)
                 {
                     if (permission.startsWith("-"))
-                        list.put(permission.substring(1, permission.length()), PERMISSION_FALSE);
+                        list.put(permission.substring(1), false);
                     else
-                        list.put(permission, PERMISSION_TRUE);
+                        list.put(permission, true);
                 }
             }
             return list;
@@ -89,7 +105,7 @@ public abstract class Zone
         {
         }
 
-        public PermissionList(Map<? extends String, ? extends String> clone)
+        public PermissionList(Map<? extends String, ? extends Object> clone)
         {
             super(clone);
         }
@@ -288,7 +304,7 @@ public abstract class Zone
         PermissionList map = getPlayerPermissions(ident);
         if (map != null)
         {
-            return map.get(fixPerms(permissionNode));
+            return map.get(fixPerms(permissionNode)).toString();
         }
         return null;
     }
@@ -315,10 +331,11 @@ public abstract class Zone
     public Boolean checkPlayerPermission(UserIdent ident, String permissionNode)
     {
         PermissionList map = getPlayerPermissions(ident);
-        if (map != null)
+        if (map != null && registeredNodes.get(fixPerms(permissionNode)).getType().equals(PermissionTypes.BOOLEAN))
         {
-            String permValue = map.get(fixPerms(permissionNode));
-            return !PERMISSION_FALSE.equalsIgnoreCase(permValue);
+            Boolean permValue = (Boolean) map.get(fixPerms(permissionNode));
+
+            return permValue;
         }
         return null;
     }
@@ -497,7 +514,7 @@ public abstract class Zone
         PermissionList map = getGroupPermissions(group);
         if (map != null)
         {
-            return map.get(fixPerms(permissionNode));
+            return map.get(fixPerms(permissionNode)).toString();
         }
         return null;
     }
@@ -512,10 +529,10 @@ public abstract class Zone
     public Boolean checkGroupPermission(String group, String permissionNode)
     {
         PermissionList map = getGroupPermissions(group);
-        if (map != null)
+        if (map != null&& registeredNodes.get(fixPerms(permissionNode)).getType().equals(PermissionTypes.BOOLEAN))
         {
-            String permValue = map.get(fixPerms(permissionNode));
-            return !PERMISSION_FALSE.equalsIgnoreCase(permValue);
+            Boolean permValue = (Boolean) map.get(fixPerms(permissionNode));
+            return permValue;
         }
         return null;
     }
