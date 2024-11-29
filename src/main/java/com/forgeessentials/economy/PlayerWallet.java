@@ -30,7 +30,7 @@ public class PlayerWallet implements Wallet
     @Override
     public boolean covers(long value)
     {
-        if (amount < value)
+        if (value < 0 || amount < value)
             return false;
         return true;
     }
@@ -38,7 +38,7 @@ public class PlayerWallet implements Wallet
     @Override
     public boolean withdraw(long value)
     {
-        if (amount < value)
+        if (value < 0 || amount < value)
             return false;
         amount -= value;
         return true;
@@ -47,16 +47,22 @@ public class PlayerWallet implements Wallet
     @Override
     public void add(long amount)
     {
-        this.amount += amount;
+        if (amount > 0)
+        {
+            this.amount += amount;
+        }
     }
 
     @Override
     public void add(double amount)
     {
-        this.fraction += amount;
-        long rest = (long) fraction;
-        this.fraction -= rest;
-        this.amount += rest;
+        if (amount > 0)
+        {
+            this.fraction += amount;
+            long rest = (long) fraction;
+            this.fraction -= rest;
+            this.amount += rest;
+        }
     }
 
     @Override
