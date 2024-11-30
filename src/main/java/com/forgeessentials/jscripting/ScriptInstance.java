@@ -2,13 +2,15 @@ package com.forgeessentials.jscripting;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -39,7 +41,10 @@ import com.forgeessentials.core.misc.TaskRegistry.RunLaterTimerTask;
 import com.forgeessentials.jscripting.command.CommandJScriptCommand;
 import com.forgeessentials.jscripting.wrapper.mc.event.JsEvent;
 import com.forgeessentials.util.output.ChatOutputHandler;
+import com.forgeessentials.util.output.LoggingHandler;
 import com.google.common.base.Charsets;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class ScriptInstance
 {
@@ -130,6 +135,7 @@ public class ScriptInstance
 
     private SimpleBindings getPropertyBindings = new SimpleBindings();
 
+    private static Gson gson = new GsonBuilder().create();
     /* ************************************************************ */
 
     public ScriptInstance(File file) throws IOException, ScriptException
@@ -160,14 +166,26 @@ public class ScriptInstance
     {
         illegalFunctions.clear();
         script = null;
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8)))
+        Path configPath = Paths.get(file.getPath().replace(".js", ".json"));
+        Map config = null;
+        if (Files.exists(configPath))
         {
+            config = gson.fromJson(Files.newBufferedReader(configPath), Map.class);
+        }
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(Files.newInputStream(file.toPath()), Charsets.UTF_8)))
+        {
+            LoggingHandler.felog.warn(config);
             // Load and compile script
             script = ModuleJScripting.getCompilable().compile(reader);
 
             // Initialization of environment and script
             invocable = (Invocable) script.getEngine();
             ScriptCompiler.initEngine(script.getEngine(), this);
+            if (config != null)
+            {
+                script.getEngine().put("config", config);
+            }
             script.eval();
 
             // Get exports
