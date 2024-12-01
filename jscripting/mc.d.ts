@@ -697,12 +697,12 @@ declare class LocalStorage {
 	/**
 	 * When passed a key name, will return that key's value.
 	 */
-	static getItem(key: string): string;
+	static getItem(key: string): any;
 	/**
 	 * When passed a key name and value, will add that key to the storage, or update that key's value if it already exists.
 	 * Returns the previous value for the passed key.
 	 */
-	static setItem(key: string, value: any): string;
+	static setItem(key: string, value: any): any;
 	/**
 	 * When passed a key name, will remove that key from the storage.
 	 * Returns the previous value for the passed key.

@@ -9,13 +9,13 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 import java.util.TimerTask;
@@ -38,13 +38,12 @@ import com.forgeessentials.core.commands.ParserCommandBase;
 import com.forgeessentials.core.misc.FECommandManager;
 import com.forgeessentials.core.misc.TaskRegistry;
 import com.forgeessentials.core.misc.TaskRegistry.RunLaterTimerTask;
+import com.forgeessentials.data.v2.DataManager;
 import com.forgeessentials.jscripting.command.CommandJScriptCommand;
 import com.forgeessentials.jscripting.wrapper.mc.event.JsEvent;
 import com.forgeessentials.util.output.ChatOutputHandler;
 import com.forgeessentials.util.output.LoggingHandler;
 import com.google.common.base.Charsets;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class ScriptInstance
 {
@@ -134,8 +133,6 @@ public class ScriptInstance
     private static Map<Class<?>, ProptertiesInfo<?>> propertyInfos = new HashMap<>();
 
     private SimpleBindings getPropertyBindings = new SimpleBindings();
-
-    private static Gson gson = new GsonBuilder().create();
     /* ************************************************************ */
 
     public ScriptInstance(File file) throws IOException, ScriptException
@@ -160,17 +157,31 @@ public class ScriptInstance
         for (JsEvent<?> eventHandler : eventHandlers.values())
             eventHandler._unregister();
         eventHandlers.clear();
+
+        saveConfig();
     }
 
+    public void saveConfig()
+    {
+        String configPath = file.getPath().replace(".js", ".json");
+        Object cfg = script.getEngine().get("config");
+
+        if (cfg != null) {
+            if (cfg instanceof Bindings) {
+                cfg = ((Bindings) cfg).entrySet().stream().collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+            }
+            DataManager.save(cfg, new File(configPath));
+        }
+    }
     protected void compileScript() throws IOException, ScriptException
     {
         illegalFunctions.clear();
         script = null;
-        Path configPath = Paths.get(file.getPath().replace(".js", ".json"));
+        String configPath = file.getPath().replace(".js", ".json");
         Map config = null;
-        if (Files.exists(configPath))
+        if (Files.exists(Paths.get(configPath)))
         {
-            config = gson.fromJson(Files.newBufferedReader(configPath), Map.class);
+            config = DataManager.load(HashMap.class, new File(configPath));
         }
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(Files.newInputStream(file.toPath()), Charsets.UTF_8)))
