@@ -116,6 +116,13 @@ public class JsFEServer
         return pi == null ? null : pi.getLastLogin();
     }
 
+    public JsUserIdent getUserIdent(UUID playerId) {
+        return new JsUserIdent(UserIdent.get(playerId));
+    }
+
+    public JsPlayerInfo getPlayerInfo(UUID playerId) {
+        return new JsPlayerInfo(PlayerInfo.get(playerId));
+    }
     /**
      * Adds a CoRoutine callback
      *
@@ -148,7 +155,7 @@ public class JsFEServer
                     if ((c.lastCount - c.tickCount) == c.tickStep)
                     {
                         c.lastCount = c.tickCount;
-                        script.tryCallGlobal(c.method, c.sender);
+                        script.tryCallGlobal(c.method, c.sender, c.extraData);
                     }
                     c.tickCount--;
                     if (c.tickCount < 0)
