@@ -448,6 +448,17 @@ declare namespace mc.event.entity.player {
 	
 	class PlayerInteractEvent extends PlayerEvent {
 		constructor();
+		getHand(): int;
+		getItemStack(): mc.item.ItemStack;
+		/**
+		 * If the interaction was on an entity, will be a BlockPos centered on the entity.
+		 * If the interaction was on a block, will be the position of that block.
+		 * Otherwise, will be a BlockPos centered on the player.
+		 * Will never be null.
+		 */
+		getPos(): fe.Point;
+		getFace(): int;
+		getWorld(): mc.world.World;
 	}
 	
 	class PlayerWakeUpEvent extends PlayerEvent {
