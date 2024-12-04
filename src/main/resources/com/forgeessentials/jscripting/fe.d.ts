@@ -174,9 +174,9 @@ declare namespace fe {
 		static addPlayerToGroup(ident: UserIdent, group: string): void;
 		static removePlayerFromGroup(ident: UserIdent, group: string): void;
 		static getPrimaryGroup(ident: UserIdent): string;
+		static getZoneAt(worldPoint: WorldPoint): Zone;
+		static getZonesAt(worldPoint: WorldPoint): java.util.List;
 		constructor();
-		getZoneAt(worldPoint: WorldPoint): Zone;
-		getZonesAt(worldPoint: WorldPoint): java.util.List;
 	}
 	
 	class PlayerInfo extends Wrapper {
