@@ -275,6 +275,21 @@ public class JsFEServer
                         return stack.getThat();
                     }
 
+                    @Override public void onContainerClosed(EntityPlayer playerIn)
+                    {
+                        try
+                        {
+                            script.tryCallGlobal(callbackMethod, JsEntityPlayer.get(playerIn) , -1, -1, "CLOSE",
+                                    JsInventory.get(inventory.getThat()), ItemStack.EMPTY);
+
+                        } catch (ScriptException e) {
+                            e.printStackTrace();
+                        } finally
+                        {
+                            super.onContainerClosed(playerIn);
+                        }
+                    }
+
                     @Override public ItemStack transferStackInSlot(EntityPlayer p_transferStackInSlot_1_, int p_transferStackInSlot_2_)
                     {
                         return ItemStack.EMPTY;
