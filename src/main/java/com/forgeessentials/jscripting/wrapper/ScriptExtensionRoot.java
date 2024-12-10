@@ -57,6 +57,14 @@ public class ScriptExtensionRoot implements ScriptExtension
         engine.put("require", (Function<String, Object>) s -> {
             try
             {
+                if (s.startsWith("./")) {
+                    s = s.substring(2);
+                }
+
+                if (!s.endsWith(".js")) {
+                    s+=".js";
+                }
+
                 ScriptInstance i = ModuleJScripting.getScript(s);
                 return i != null ? i.getExports() : null;
             }
