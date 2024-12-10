@@ -135,6 +135,9 @@ public class ScriptInstance
     private SimpleBindings getPropertyBindings = new SimpleBindings();
     /* ************************************************************ */
 
+    public Bindings getExports() {
+        return exports;
+    }
     public ScriptInstance(File file) throws IOException, ScriptException
     {
         if (!file.exists())
