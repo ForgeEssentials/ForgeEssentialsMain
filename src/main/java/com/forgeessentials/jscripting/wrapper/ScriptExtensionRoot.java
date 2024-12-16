@@ -1,5 +1,6 @@
 package com.forgeessentials.jscripting.wrapper;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
@@ -57,14 +58,11 @@ public class ScriptExtensionRoot implements ScriptExtension
         engine.put("require", (Function<String, Object>) s -> {
             try
             {
-                if (s.startsWith("./")) {
-                    s = s.substring(2);
-                }
-
                 if (!s.endsWith(".js")) {
                     s+=".js";
                 }
-
+                File f = new File(script.getFile().getParent(), s);
+                s = f.getCanonicalPath().replace(ModuleJScripting.getModuleDir().getCanonicalPath(), "").substring(1);
                 ScriptInstance i = ModuleJScripting.getScript(s);
                 return i != null ? i.getExports() : null;
             }
