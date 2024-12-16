@@ -412,6 +412,20 @@ declare namespace mc.event.entity.player {
 	
 	class AnvilRepairEvent extends PlayerEvent {
 		constructor();
+		/**
+		 * Get the output result from the anvil
+		 */
+		getItemResult(): mc.item.ItemStack;
+		/**
+		 * Get the first item input into the anvil
+		 */
+		getItemInput(): mc.item.ItemStack;
+		/**
+		 * Get the second item input into the anvil
+		 */
+		getIngredientInput(): mc.item.ItemStack;
+		getBreakChance(): float;
+		setBreakChance(breakChance: float): void;
 	}
 	
 	class ArrowLooseEvent extends PlayerEvent {
@@ -496,6 +510,8 @@ declare namespace mc.item {
 		getCurrentItem(): ItemStack;
 		getCurrentItemIndex(): int;
 		setCurrentItemIndex(index: int): void;
+		addItemStackToInventory(itemStackIn: ItemStack): boolean;
+		add(index: int, itemStack: ItemStack): boolean;
 	}
 	
 	class Item extends Wrapper {
