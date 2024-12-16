@@ -160,7 +160,7 @@ public class CommandSellprice extends ParserCommandBase
                     {
                         if (ingredient != null)
                         {
-                            ItemStack stack = null;
+                            ItemStack stack = ItemStack.EMPTY;
                             ItemStack[] stacks = ingredient.getMatchingStacks();
                             if (stacks != null && stacks.length > 0)
                             {
@@ -223,7 +223,7 @@ public class CommandSellprice extends ParserCommandBase
                                 for (Ingredient ingredient : getRecipeItems(recipe))
                                     if (ingredient != null)
                                     {
-                                        ItemStack stack = null;
+                                        ItemStack stack = ItemStack.EMPTY;
                                         ItemStack[] stacks = ingredient.getMatchingStacks();
                                         if (stacks != null && stacks.length > 0)
                                         {
