@@ -120,6 +120,10 @@ public class JsFEServer
         return new JsUserIdent(UserIdent.get(playerId));
     }
 
+    public JsUserIdent getUserIdent(String playerName) {
+        return new JsUserIdent(UserIdent.get(playerName));
+    }
+
     public JsPlayerInfo getPlayerInfo(UUID playerId) {
         return new JsPlayerInfo(PlayerInfo.get(playerId));
     }
