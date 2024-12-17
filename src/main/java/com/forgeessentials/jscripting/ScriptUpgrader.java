@@ -438,34 +438,34 @@ public class ScriptUpgrader
                 break;
             case "permcheck":
                 out.append("if (!fe.Permissions.checkPermission(");
-                args.remove(0);
+                out.append(args.remove(0));
                 out.append(", ");
-                args.remove(0);
+                out.append(args.isEmpty() ? true : args.remove(0));
                 out.append(")) return sender.chatError(");
-                out.append(args.isEmpty() ? "You don't have permission to use this command" : StringUtils.join(args, " + ' ' + "));
+                out.append(args.isEmpty() ? "\"You don't have permission to use this command\"" : StringUtils.join(args, " + ' ' + "));
                 out.append(");");
                 break;
             case "permchecksilent":
                 out.append("if (!fe.Permissions.checkPermission(");
-                args.remove(0);
+                out.append(args.remove(0));
                 out.append(", ");
-                args.remove(0);
+                out.append(args.isEmpty() ? true : args.remove(0));
                 out.append(")) return;");
                 break;
             case "!permcheck":
                 out.append("if (fe.Permissions.checkPermission(");
-                args.remove(0);
+                out.append(args.remove(0));
                 out.append(", ");
-                args.remove(0);
+                out.append(args.isEmpty() ? false : args.remove(0));
                 out.append(")) return sender.chatError(");
-                out.append(args.isEmpty() ? "You don't have permission to use this command" : StringUtils.join(args, " + ' ' + "));
+                out.append(args.isEmpty() ? "\"You don't have permission to use this command\"" : StringUtils.join(args, " + ' ' + "));
                 out.append(");");
                 break;
             case "!permchecksilent":
                 out.append("if (fe.Permissions.checkPermission(");
-                args.remove(0);
+                out.append(args.remove(0));
                 out.append(", ");
-                args.remove(0);
+                out.append(args.isEmpty() ? false : args.remove(0));
                 out.append(")) return;");
                 break;
             case "timeout":
