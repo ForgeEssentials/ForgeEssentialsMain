@@ -62,7 +62,12 @@ public class ScriptExtensionRoot implements ScriptExtension
                     s+=".js";
                 }
                 File f = new File(script.getFile().getParent(), s);
-                s = f.getCanonicalPath().replace(ModuleJScripting.getModuleDir().getCanonicalPath(), "").substring(1);
+                String cPath = f.getCanonicalPath();
+                s = cPath.replace(ModuleJScripting.getModuleDir().getCanonicalPath(), "");
+                if (s.equals(cPath)) {
+                    throw new ScriptException("Unable to load script file, reference leads outside scripting folder!", f.getCanonicalPath(), -1);
+                }
+                s = s.substring(1);
                 ScriptInstance i = ModuleJScripting.getScript(s);
                 return i != null ? i.getExports() : null;
             }

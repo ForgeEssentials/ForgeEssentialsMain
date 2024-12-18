@@ -108,6 +108,7 @@ declare namespace fe {
 		getLastLogout(playerId: java.util.UUID): java.util.Date;
 		getLastLogin(playerId: java.util.UUID): java.util.Date;
 		getUserIdent(playerId: java.util.UUID): UserIdent;
+		getUserIdent(playerName: string): UserIdent;
 		getPlayerInfo(playerId: java.util.UUID): PlayerInfo;
 		/**
 		 * Adds a CoRoutine callback
