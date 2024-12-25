@@ -47,22 +47,16 @@ public class PlayerWallet implements Wallet
     @Override
     public void add(long amount)
     {
-        if (amount > 0)
-        {
-            this.amount += amount;
-        }
+        this.amount += amount;
     }
 
     @Override
     public void add(double amount)
     {
-        if (amount > 0)
-        {
-            this.fraction += amount;
-            long rest = (long) fraction;
-            this.fraction -= rest;
-            this.amount += rest;
-        }
+        this.fraction += amount;
+        long rest = (long) fraction;
+        this.fraction -= rest;
+        this.amount += rest;
     }
 
     @Override
