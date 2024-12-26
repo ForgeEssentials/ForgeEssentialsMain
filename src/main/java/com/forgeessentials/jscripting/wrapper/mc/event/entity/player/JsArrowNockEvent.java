@@ -28,7 +28,7 @@ public class JsArrowNockEvent extends JsPlayerEvent<ArrowNockEvent>
     public ActionResult<JsItemStack> getAction()
     {
         ActionResult<ItemStack> action = _event.getAction();
-        return ActionResult.newResult(action.getType(),JsItemStack.get(action.getResult());
+        return ActionResult.newResult(action.getType(),JsItemStack.get(action.getResult()));
     }
 
     public void setAction(ActionResult<JsItemStack> action)
