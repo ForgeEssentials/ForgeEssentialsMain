@@ -160,8 +160,6 @@ public class ScriptInstance
         for (JsEvent<?> eventHandler : eventHandlers.values())
             eventHandler._unregister();
         eventHandlers.clear();
-
-        saveConfig();
     }
 
     public void saveConfig()

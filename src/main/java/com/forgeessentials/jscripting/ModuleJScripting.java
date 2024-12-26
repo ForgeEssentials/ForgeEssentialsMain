@@ -131,8 +131,12 @@ public class ModuleJScripting extends ServerEventHandler implements ScriptHandle
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void save(WorldEvent.Save event) {
         //TODO: Refactor localstorage to only save on world save instead of on every update
-        for (ScriptInstance instance : scripts.values()) {
-            instance.saveConfig();
+        if (event.getWorld() == FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld())
+        {
+            for (ScriptInstance instance : scripts.values())
+            {
+                instance.saveConfig();
+            }
         }
     }
 

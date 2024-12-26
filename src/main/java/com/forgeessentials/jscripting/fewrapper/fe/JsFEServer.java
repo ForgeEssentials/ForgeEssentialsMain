@@ -26,6 +26,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
 
 import com.forgeessentials.api.APIRegistry;
 import com.forgeessentials.api.UserIdent;
+import com.forgeessentials.core.BasicInteraction;
 import com.forgeessentials.jscripting.ScriptInstance;
 import com.forgeessentials.jscripting.command.CommandJScriptCommand;
 import com.forgeessentials.jscripting.wrapper.mc.JsICommandSender;
@@ -217,19 +218,6 @@ public class JsFEServer
 
         }
         return JsInventory.get(inventoryBasic);
-    }
-
-    private abstract class BasicInteraction extends InventoryBasic implements IInteractionObject
-    {
-
-        public BasicInteraction(String p_i1561_1_, boolean p_i1561_2_, IInventory source)
-        {
-            super(p_i1561_1_, p_i1561_2_, ((source.getSizeInventory() - 1) / 9 + 1) * 9);
-            for (int i = 0; i < source.getSizeInventory(); i++)
-            {
-                this.setInventorySlotContents(i, source.getStackInSlot(i));
-            }
-        }
     }
 
     /**
