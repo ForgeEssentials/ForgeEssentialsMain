@@ -64,12 +64,9 @@ public class Kit
         return armor;
     }
 
-    public void giveKit(EntityPlayer player) {
-        giveKit(player, false);
-    }
-    public void giveKit(EntityPlayer player, boolean bypassCooldown)
+    public void giveKit(EntityPlayer player)
     {
-        if (!bypassCooldown && !PermissionAPI.hasPermission(player, CommandKit.PERM_BYPASS_COOLDOWN))
+        if (!PermissionAPI.hasPermission(player, CommandKit.PERM_BYPASS_COOLDOWN))
         {
             PlayerInfo pi = PlayerInfo.get(player.getPersistentID());
             long timeout = pi.getRemainingTimeout("KIT_" + name);

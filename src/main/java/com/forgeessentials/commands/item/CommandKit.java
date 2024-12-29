@@ -14,7 +14,6 @@ import net.minecraftforge.server.permission.DefaultPermissionLevel;
 import org.apache.commons.lang3.StringUtils;
 
 import com.forgeessentials.api.APIRegistry;
-import com.forgeessentials.api.UserIdent;
 import com.forgeessentials.api.permissions.FEPermissions;
 import com.forgeessentials.commands.ModuleCommands;
 import com.forgeessentials.commands.util.Kit;
@@ -37,7 +36,6 @@ public class CommandKit extends ParserCommandBase implements ConfigurableCommand
 {
 
     public static final String PERM = ModuleCommands.PERM + ".kit";
-    public static final String PERM_KITS = PERM +".kits";
     public static final String PERM_ADMIN = ModuleCommands.PERM + ".admin";
     public static final String PERM_BYPASS_COOLDOWN = PERM + ".bypasscooldown";
 
@@ -59,7 +57,7 @@ public class CommandKit extends ParserCommandBase implements ConfigurableCommand
     @Override
     public String getUsage(ICommandSender sender)
     {
-        return "/kit [name] [set|del|give] [cooldown|player]: Use, modify, and give item kits";
+        return "/kit [name] [set|del] [cooldown]: Use and modify item kits";
     }
 
     @Override
@@ -85,14 +83,13 @@ public class CommandKit extends ParserCommandBase implements ConfigurableCommand
     {
         APIRegistry.perms.registerPermission(PERM_ADMIN, DefaultPermissionLevel.OP, "Administer kits");
         APIRegistry.perms.registerPermission(PERM_BYPASS_COOLDOWN, DefaultPermissionLevel.OP, "Bypass kit cooldown");
-        APIRegistry.perms.registerPermission(PERM_KITS + ".*",DefaultPermissionLevel.OP, "Allows permission to use all Kits");
     }
 
     public List<String> getAvailableKits(CommandParserArgs arguments)
     {
         List<String> availableKits = new ArrayList<>();
         for (Kit kit : kits.values())
-            if (arguments.hasPermission(PERM_KITS + "." + kit.getName()))
+            if (arguments.hasPermission(PERM + "." + kit.getName()))
                 availableKits.add(kit.getName());
         return availableKits;
     }
@@ -115,7 +112,7 @@ public class CommandKit extends ParserCommandBase implements ConfigurableCommand
         {
             if (kit == null)
                 throw new TranslatedCommandException("Kit %s does not exist", kitName);
-            if (!arguments.hasPermission(PERM_KITS + "." + kit.getName()))
+            if (!arguments.hasPermission(PERM + "." + kit.getName()))
                 throw new TranslatedCommandException("You are not allowed to use this kit");
             kit.giveKit(arguments.senderPlayer);
             return;
@@ -162,10 +159,6 @@ public class CommandKit extends ParserCommandBase implements ConfigurableCommand
         case "delete":
             removeKit(kit);
             arguments.confirm("Deleted kit %s", kitName);
-            break;
-        case "give":
-            UserIdent player = arguments.parsePlayer(true, true);
-            kit.giveKit(player.getPlayer(), true);
             break;
         default:
             throw new TranslatedCommandException(FEPermissions.MSG_UNKNOWN_SUBCOMMAND, subCommand);
