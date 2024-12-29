@@ -1,6 +1,8 @@
 package com.forgeessentials.core.preloader.mixin.network;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.NetHandlerPlayServer;
 
@@ -31,7 +33,7 @@ public abstract class MixinSimpleChannelHandlerWrapper<REQ extends IMessage, REP
     @Redirect(method = "channelRead0(Lio/netty/channel/ChannelHandlerContext;Lcpw/mods/fml/common/network/simpleimpl/IMessage;)V", at = @At(value = "INVOKE", target = "Lcpw/mods/fml/common/network/simpleimpl/IMessageHandler;onMessage(Lcpw/mods/fml/common/network/simpleimpl/IMessage;Lcpw/mods/fml/common/network/simpleimpl/MessageContext;)Lcpw/mods/fml/common/network/simpleimpl/IMessage;", remap = false), remap = false)
     private REPLY redirectNetworkHandler(IMessageHandler<?, ?> iMessageHandler, REQ message, MessageContext ctx) {
 
-        EntityPlayerMP player = ctx.netHandler instanceof NetHandlerPlayServer ? ctx.getServerHandler().playerEntity : null;
+        EntityPlayer player = ctx.netHandler instanceof NetHandlerPlayServer ? ctx.getServerHandler().playerEntity : Minecraft.getMinecraft().thePlayer;
         if (ctx.side == Side.CLIENT || !ModuleAuth.isEnabled() || ModuleAuth.isAuthenticated(player) || ModuleAuth.isAllowedMethod(message)) {
             return messageHandler.onMessage(message, ctx);
         }
