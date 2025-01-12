@@ -430,10 +430,21 @@ declare namespace mc.event.entity.player {
 	
 	class ArrowLooseEvent extends PlayerEvent {
 		constructor();
+		getBow(): mc.item.ItemStack;
+		getWorld(): mc.world.World;
+		hasAmmo(): boolean;
+		getCharge(): int;
+		setCharge(charge: int): void;
 	}
 	
 	class ArrowNockEvent extends PlayerEvent {
 		constructor();
+		getBow(): mc.item.ItemStack;
+		getWorld(): mc.world.World;
+		getHand(): int;
+		hasAmmo(): boolean;
+		getAction(): net.minecraft.util.ActionResult;
+		setAction(action: net.minecraft.util.ActionResult): void;
 	}
 	
 	class AttackEntityEvent extends PlayerEvent {
