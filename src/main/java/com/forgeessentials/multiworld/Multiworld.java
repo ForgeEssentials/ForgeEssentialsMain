@@ -84,6 +84,10 @@ public class Multiworld
         this(name, provider, worldType, new Random().nextLong());
     }
 
+    private Multiworld() {
+        //This is intentionally empty and only exists so gson will fill in the default values specified in the class!
+    }
+
     public void removeAllPlayersFromWorld()
     {
         WorldServer overworld = MinecraftServer.getServer().worldServerForDimension(0);
