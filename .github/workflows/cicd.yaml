@@ -1,0 +1,46 @@
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request: {}
+  release:
+    types: released
+env:
+  BUILD_NUMBER: 'UNOFFICIAL-${{ github.sha }}'
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: 8BitJonny/gh-get-current-pr@2.2.0
+        id: PR
+    outputs:
+      canContinue: ${{ github.event_name != 'push' || steps.PR.outputs.pr_found != 'true' || steps.PR.outputs.pr_merged_at != null }}
+  build:
+    needs: check
+    runs-on: ubuntu-latest
+    if: needs.check.outputs.canContinue == 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+          cache: gradle
+      - name: Build with Gradle
+        run: |
+          chmod +x gradlew
+          ./gradlew build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: binaries-${{ env.BUILD_NUMBER }}
+          path: ./build/libs/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ts-files-${{ github.sha }}
+          path: jscripting/*.d.ts
