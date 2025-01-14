@@ -1,5 +1,5 @@
 package com.forgeessentials.permissions.ftbu_compat;
-
+/*
 import java.lang.reflect.Field;
 import java.util.Collection;
 
@@ -97,3 +97,4 @@ public class FTBURankConfigHandler implements IRankConfigHandler
         return DefaultRankConfigHandler.INSTANCE.getInfo(node);
     }
 }
+*/
