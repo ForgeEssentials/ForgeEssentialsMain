@@ -1,6 +1,9 @@
 package com.forgeessentials.core.preloader.mixin.block;
 
 import net.minecraft.block.BlockFire;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -18,17 +21,17 @@ public class MixinBlockFire
 {
 
     @Inject(
-        method = "tryCatchFire(Lnet/minecraft/world/World;IIIILjava/util/Random;ILnet/minecraftforge/common/util/ForgeDirection;)V",
+        method = "tryCatchFire(Lnet/minecraft/world/World;Lnet/minecraft/util/BlockPos;Ljava/util/Random;ILnet/minecraft/util/EnumFacing;)V",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/World;setBlock(IIILnet/minecraft/block/Block;II)Z"
+            target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/BlockPos;Lnet/minecraft/block/state/IBlockState;I)Z"
         ),
         cancellable = true
     )
-    public void handleTryCatchFire(World world, int x, int y, int z, int chance, Random random, int argValue1, ForgeDirection face, CallbackInfo ci)
+    public void handleTryCatchFire(World world, BlockPos pos, int chance, Random random, int age, EnumFacing face, CallbackInfo ci)
     {
         //System.out.println("Mixin : Fire destroyed block and spread to below block");
-        if (MinecraftForge.EVENT_BUS.post(new FireEvent.Destroy(world, x, y, z)))
+        if (MinecraftForge.EVENT_BUS.post(new FireEvent.Destroy(world, pos)))
         {
             ci.cancel();
         }
@@ -47,39 +50,39 @@ public class MixinBlockFire
     }
 
     @Inject(
-        method = "tryCatchFire(Lnet/minecraft/world/World;IIIILjava/util/Random;ILnet/minecraftforge/common/util/ForgeDirection;)V",
+    		method = "tryCatchFire(Lnet/minecraft/world/World;Lnet/minecraft/util/BlockPos;Ljava/util/Random;ILnet/minecraft/util/EnumFacing;)V",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/World;setBlockToAir(III)Z"
+            target = "Lnet/minecraft/world/World;setBlockToAir(Lnet/minecraft/util/BlockPos;)Z"
         ),
         cancellable = true
     )
-    public void handleTryCatchFireAir(World world, int x, int y, int z, int chance, Random random, int argValue1, ForgeDirection face, CallbackInfo ci)
+    public void handleTryCatchFireAir(World world, BlockPos pos, int chance, Random random, int age, EnumFacing face, CallbackInfo ci)
     {
         //System.out.println("Mixin : Fire destroyed block");
-        if (MinecraftForge.EVENT_BUS.post(new FireEvent.Destroy(world, x, y, z)))
+        if (MinecraftForge.EVENT_BUS.post(new FireEvent.Destroy(world, pos)))
         {
             ci.cancel();
         }
     }
 
     @Inject(
-        method = "Lnet/minecraft/block/BlockFire;updateTick(Lnet/minecraft/world/World;IIILjava/util/Random;)V",
+        method = "Lnet/minecraft/block/BlockFire;updateTick(Lnet/minecraft/world/World;net/minecraft/block/state/IBlockState;Lnet/minecraft/util/BlockPos;Ljava/util/Random;)V",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/World;setBlock(IIILnet/minecraft/block/Block;II)Z"
+            target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/BlockPos;Lnet/minecraft/block/state/IBlockState;I)Z"
         ),
         cancellable = true,
         locals = LocalCapture.CAPTURE_FAILEXCEPTION
     )
-    public void updateTick(World world, int sourceX, int sourceY, int sourceZ, Random rnd, CallbackInfo ci, boolean isFireSource, int blockMeta,
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand, CallbackInfo ci, boolean isFireSource, int blockMeta,
                            boolean isHighHumidity, byte b0, int x, int z, int y)
     {
         //System.out.println(String.format("Mixin : Fire spreading to other block from [%d,%d,%d] to [%d,%d,%d]", sourceX, sourceY, sourceZ, x, y, z));
-        if (MinecraftForge.EVENT_BUS.post(new FireEvent.Spread(world, x, y, z, sourceX, sourceY, sourceZ)))
-        {
-            ci.cancel();
-        }
+        //if (MinecraftForge.EVENT_BUS.post(new FireEvent.Spread(worldIn, pos, sourceX, sourceY, sourceZ)))
+        //{
+        //    ci.cancel();
+        //}
     }
 
 }

@@ -188,7 +188,7 @@ public class CommandTimedMessages extends ParserCommandBase implements ConfigSav
         broadcastMessage(index);
     }
 
-    public void parseInterval(CommandParserArgs arguments)
+    public void parseInterval(CommandParserArgs arguments) throws CommandException
     {
         if (arguments.isTabCompletion)
             return;
@@ -201,7 +201,7 @@ public class CommandTimedMessages extends ParserCommandBase implements ConfigSav
         ForgeEssentials.getConfigManager().save(ModuleChat.CONFIG_FILE);
     }
 
-    public void parseShuffle(CommandParserArgs arguments)
+    public void parseShuffle(CommandParserArgs arguments) throws CommandException
     {
         if (arguments.isEmpty())
         {

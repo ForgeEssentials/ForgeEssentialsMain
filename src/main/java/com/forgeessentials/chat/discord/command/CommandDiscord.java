@@ -67,7 +67,7 @@ public class CommandDiscord extends ForgeEssentialsCommandBase
                         ChatOutputHandler.chatError(sender, Translator.format("Unknown Channel: %s", channel));
                     }
                 } else if (_args.isTabCompletion) {
-                    addTabCompletionOptions(sender, handler.channels.toArray(new String[0]));
+                    addTabCompletionOptions(sender, handler.channels.toArray(new String[0]), sender.getPosition());
                 } else {
                     ChatOutputHandler.chatError(sender, getCommandUsage(sender));
                 }

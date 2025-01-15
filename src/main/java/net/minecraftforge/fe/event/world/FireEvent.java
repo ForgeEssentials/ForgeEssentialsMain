@@ -8,9 +8,9 @@ import net.minecraftforge.fml.common.eventhandler.Cancelable;
 public class FireEvent extends BlockEvent
 {
 
-    public FireEvent(World world, int x, int y, int z)
+    public FireEvent(World world, BlockPos pos)
     {
-        super(world, new BlockPos(x,y,z), world.getBlockState(new BlockPos(x,y,z)));
+        super(world, pos, world.getBlockState(pos));
     }
 
     /**
@@ -19,9 +19,9 @@ public class FireEvent extends BlockEvent
     @Cancelable
     public static class Destroy extends FireEvent
     {
-        public Destroy(World world, int x, int y, int z)
+        public Destroy(World world, BlockPos pos)
         {
-            super(world, x, y, z);
+            super(world, pos);
         }
     }
 
@@ -34,9 +34,9 @@ public class FireEvent extends BlockEvent
 
         public final int sourceX, sourceY, sourceZ;
 
-        public Spread(World world, int x, int y, int z, int sourceX, int sourceY, int sourceZ)
+        public Spread(World world, BlockPos pos, int sourceX, int sourceY, int sourceZ)
         {
-            super(world, x, y, z);
+            super(world, pos);
             this.sourceX = sourceX;
             this.sourceY = sourceY;
             this.sourceZ = sourceZ;

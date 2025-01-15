@@ -86,4 +86,12 @@ public class FEMixinConfig implements IMixinConfigPlugin
         return injectedPatches;
     }
 
+	@Override
+	public void postApply(String targetClassName,
+			org.objectweb.asm.tree.ClassNode targetClass, String mixinClassName,
+			IMixinInfo mixinInfo) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.forgeessentials.commands.item;
 
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -71,8 +72,7 @@ public class CommandBind extends ParserCommandBase
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public void parse(CommandParserArgs arguments)
+    public void parse(CommandParserArgs arguments) throws CommandException
     {
         if (arguments.isEmpty())
         {
@@ -120,8 +120,8 @@ public class CommandBind extends ParserCommandBase
 
         if (arguments.isTabCompletion)
         {
-            arguments.tabCompletion = MinecraftServer.getServer().getPossibleCompletions(arguments.sender,
-                    arguments.toString().startsWith("/") ? arguments.toString() : "/" + arguments.toString());
+            arguments.tabCompletion = MinecraftServer.getServer().getTabCompletions(arguments.sender,
+                    arguments.toString().startsWith("/") ? arguments.toString() : "/" + arguments.toString(), arguments.sender.getPosition());
             if ("none".startsWith(arguments.peek()))
                 arguments.tabCompletion.add(0, "none");
             return;
@@ -145,7 +145,7 @@ public class CommandBind extends ParserCommandBase
             {
                 if (lore.getStringTagAt(i).startsWith(loreStart))
                 {
-                    lore.func_150304_a(i, loreTag);
+                    lore.set(i, loreTag);
                     arguments.confirm("Bound command to item");
                     return;
                 }

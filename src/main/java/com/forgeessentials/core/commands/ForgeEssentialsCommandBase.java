@@ -112,8 +112,9 @@ public abstract class ForgeEssentialsCommandBase extends CommandBase implements 
         return true;
     }
 
-    protected static boolean canCommandSenderUseCommandException(String msg) throws CommandException
+    protected static boolean canCommandSenderUseCommandException(String msg)
     {
+    	try {
         // Find out if, if canCommandSenderUseCommand was called from within executeCommand method of CommandHandler.
         // Only if it's called from there, it's safe to throw an exception.
         final String className = CommandHandler.class.getName();
@@ -126,6 +127,9 @@ public abstract class ForgeEssentialsCommandBase extends CommandBase implements 
                 break;
             }
         // Just return false instead of an exception
+    	}catch(CommandException e) {
+    		return false;
+    	}
         return false;
     }
 
@@ -214,10 +218,10 @@ public abstract class ForgeEssentialsCommandBase extends CommandBase implements 
         return arraylist;
     }
 
-    public static List<String> getListOfStringsMatchingLastWord(String[] args, Collection<String> possibleMatches)
+    /*public static List<String> getListOfStringsMatchingLastWord(String[] args, Collection<String> possibleMatches)
     {
         return getListOfStringsMatchingLastWord(args[args.length - 1], possibleMatches);
-    }
+    }*/
 
     public static List<String> getListOfStringsMatchingLastWord(String arg, String... possibleMatches)
     {
@@ -252,14 +256,6 @@ public abstract class ForgeEssentialsCommandBase extends CommandBase implements 
         return arraylist;
     }
 
-    @Override
-    public int compareTo(Object o)
-    {
-        if (o instanceof ICommand)
-            return this.compareTo((ICommand) o);
-        return 0;
-    }
-
     /**
      * Parse int with support for relative int.
      *
@@ -268,16 +264,16 @@ public abstract class ForgeEssentialsCommandBase extends CommandBase implements 
      * @param relativeStart
      * @return
      */
-    public static int parseInt(ICommandSender sender, String string, int relativeStart)
+    public static int parseInt(ICommandSender sender, String string, int relativeStart) throws CommandException
     {
         if (string.startsWith("~"))
         {
             string = string.substring(1);
-            return relativeStart + parseInt(sender, string);
+            return relativeStart + parseInt(string);
         }
         else
         {
-            return parseInt(sender, string);
+            return parseInt(string);
         }
     }
 
@@ -289,16 +285,16 @@ public abstract class ForgeEssentialsCommandBase extends CommandBase implements 
      * @param relativeStart
      * @return
      */
-    public static double parseDouble(ICommandSender sender, String string, double relativeStart)
+    public static double parseDouble(ICommandSender sender, String string, double relativeStart) throws CommandException
     {
         if (string.startsWith("~"))
         {
             string = string.substring(1);
-            return relativeStart + parseInt(sender, string);
+            return relativeStart + parseInt(string);
         }
         else
         {
-            return parseInt(sender, string);
+            return parseInt(string);
         }
     }
 

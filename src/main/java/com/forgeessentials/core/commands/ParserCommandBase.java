@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.util.BlockPos;
 
 import com.forgeessentials.util.CommandParserArgs;
 import com.forgeessentials.util.CommandParserArgs.CancelParsingException;
@@ -26,7 +27,7 @@ public abstract class ParserCommandBase extends ForgeEssentialsCommandBase
     }
 
     @Override
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args)
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
     {
         CommandParserArgs arguments = new CommandParserArgs(this, args, sender, true);
         try

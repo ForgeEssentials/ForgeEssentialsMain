@@ -1,6 +1,7 @@
 package net.minecraftforge.fe.event.entity;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
@@ -12,11 +13,7 @@ public class EntityPortalEvent extends EntityEvent
 
     public final World world;
 
-    public final int x;
-
-    public final int y;
-
-    public final int z;
+    public final BlockPos pos;
 
     public final int targetDimension;
 
@@ -26,13 +23,11 @@ public class EntityPortalEvent extends EntityEvent
 
     public final int targetZ;
 
-    public EntityPortalEvent(Entity entity, World world, int x, int y, int z, int targetDimension, int targetX, int targetY, int targetZ)
+    public EntityPortalEvent(Entity entity, World world, BlockPos pos, int targetDimension, int targetX, int targetY, int targetZ)
     {
         super(entity);
         this.world = world;
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        this.pos = pos;
         this.targetDimension = targetDimension;
         this.targetX = targetX;
         this.targetY = targetY;

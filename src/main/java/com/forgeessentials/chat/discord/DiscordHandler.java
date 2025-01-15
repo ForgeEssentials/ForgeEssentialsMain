@@ -34,7 +34,6 @@ import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AchievementEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -260,7 +259,7 @@ public class DiscordHandler extends ConfigLoaderBase
     HashMap<UUID, HashSet<String>> playerMap = new HashMap<>();
     @SubscribeEvent(priority =  EventPriority.LOWEST)
     public  void achievementEvent(AchievementEvent event) {
-        if (sendMessages && !(event.entityPlayer instanceof FakePlayer) && event.entityPlayer instanceof EntityPlayerMP && !((EntityPlayerMP) event.entityPlayer).func_147099_x().hasAchievementUnlocked(event.achievement))
+        if (sendMessages && !(event.entityPlayer instanceof FakePlayer) && event.entityPlayer instanceof EntityPlayerMP && !((EntityPlayerMP) event.entityPlayer).getStatFile().hasAchievementUnlocked(event.achievement))
         {
             if (!playerMap.containsKey(event.entityPlayer.getUniqueID()))
             {
