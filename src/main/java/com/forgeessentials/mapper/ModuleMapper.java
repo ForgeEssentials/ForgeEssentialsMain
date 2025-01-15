@@ -43,9 +43,9 @@ import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerInitEvent;
 import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStopEvent;
 import com.forgeessentials.util.output.LoggingHandler;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+
+
 import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 
 @FEModule(name = "mapper", parentMod = ForgeEssentials.class, canDisable = true)

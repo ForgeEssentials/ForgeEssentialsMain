@@ -21,7 +21,7 @@ import com.forgeessentials.core.misc.Translator;
 import com.forgeessentials.util.DoAsCommandSender;
 import com.forgeessentials.util.output.ChatOutputHandler;
 
-import cpw.mods.fml.common.FMLCommonHandler;
+
 
 public class CommandDoAs extends ForgeEssentialsCommandBase
 {

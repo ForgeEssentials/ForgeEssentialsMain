@@ -16,7 +16,7 @@ import com.forgeessentials.core.misc.TranslatedCommandException;
 import com.forgeessentials.core.misc.Translator;
 import com.forgeessentials.util.output.ChatOutputHandler;
 
-import cpw.mods.fml.common.FMLCommonHandler;
+
 
 public class CommandKill extends ForgeEssentialsCommandBase
 {

@@ -13,8 +13,8 @@ import net.minecraftforge.permission.PermissionLevel;
 import com.forgeessentials.core.commands.ParserCommandBase;
 import com.forgeessentials.util.CommandParserArgs;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+
 import cpw.mods.fml.common.gameevent.TickEvent;
 
 public class CommandTestPlayerlogger extends ParserCommandBase

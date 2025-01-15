@@ -39,11 +39,11 @@ import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStopEvent;
 import com.forgeessentials.util.output.LoggingHandler;
 
 
-import cpw.mods.fml.common.FMLCommonHandler;
+
 
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+
 
 @FEModule(name = "Permissions", parentMod = ForgeEssentials.class, canDisable = false)
 public class ModulePermissions extends ConfigLoaderBase

@@ -2,6 +2,7 @@ package com.forgeessentials.chat.command;
 
 import java.util.List;
 
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.PlayerNotFoundException;
 import net.minecraft.command.WrongUsageException;
@@ -48,7 +49,7 @@ public class CommandIrcPm extends ForgeEssentialsCommandBase
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args)
+    public void processCommand(ICommandSender sender, String[] args) throws CommandException
     {
         if (!IrcHandler.getInstance().isConnected())
             throw new TranslatedCommandException("Not connected to IRC!");
@@ -69,7 +70,7 @@ public class CommandIrcPm extends ForgeEssentialsCommandBase
             }
             else
             {
-                IChatComponent message = func_147176_a(sender, args, 1, !(sender instanceof EntityPlayer));
+                IChatComponent message = getChatComponentFromNthArg(sender, args, 1, !(sender instanceof EntityPlayer));
                 ModuleChat.tell(sender, message, target);
             }
         }

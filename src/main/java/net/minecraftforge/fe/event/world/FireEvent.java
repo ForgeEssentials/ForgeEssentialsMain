@@ -1,16 +1,16 @@
 package net.minecraftforge.fe.event.world;
 
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
-
-import cpw.mods.fml.common.eventhandler.Cancelable;
+import net.minecraftforge.fml.common.eventhandler.Cancelable;
 
 public class FireEvent extends BlockEvent
 {
 
     public FireEvent(World world, int x, int y, int z)
     {
-        super(x, y, z, world, world.getBlock(x, y, z), world.getBlockMetadata(x, y, z));
+        super(world, new BlockPos(x,y,z), world.getBlockState(new BlockPos(x,y,z)));
     }
 
     /**

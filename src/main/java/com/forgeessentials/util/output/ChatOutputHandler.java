@@ -57,7 +57,7 @@ public final class ChatOutputHandler extends ConfigLoaderBase
     public static void sendMessage(ICommandSender recipient, IChatComponent message)
     {
         if (recipient instanceof FakePlayer && ((EntityPlayerMP) recipient).playerNetServerHandler == null)
-            LoggingHandler.felog.info(String.format("Fakeplayer %s: %s", recipient.getCommandSenderName(), message.getUnformattedText()));
+            LoggingHandler.felog.info(String.format("Fakeplayer %s: %s", recipient.getName(), message.getUnformattedText()));
         else
             recipient.addChatMessage(message);
     }

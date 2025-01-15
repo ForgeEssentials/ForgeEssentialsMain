@@ -22,10 +22,10 @@ import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStopEvent;
 import com.forgeessentials.util.output.ChatOutputHandler;
 import com.forgeessentials.util.output.LoggingHandler;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
+
+
+
+
 
 @FEModule(name = "ServerVote", parentMod = ForgeEssentials.class, defaultModule = false)
 public class ModuleServerVote

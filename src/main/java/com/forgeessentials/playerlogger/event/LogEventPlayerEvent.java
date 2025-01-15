@@ -6,7 +6,7 @@ import com.forgeessentials.playerlogger.PlayerLoggerEvent;
 import com.forgeessentials.playerlogger.entity.Action03PlayerEvent;
 import com.forgeessentials.playerlogger.entity.Action03PlayerEvent.PlayerEventType;
 
-import cpw.mods.fml.common.gameevent.PlayerEvent;
+
 
 public class LogEventPlayerEvent extends PlayerLoggerEvent<PlayerEvent>
 {

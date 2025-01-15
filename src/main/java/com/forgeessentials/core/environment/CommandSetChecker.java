@@ -12,7 +12,7 @@ import net.minecraftforge.permission.PermissionManager;
 import com.forgeessentials.util.output.LoggingHandler;
 import com.google.common.collect.HashMultimap;
 
-import cpw.mods.fml.common.FMLCommonHandler;
+
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class CommandSetChecker

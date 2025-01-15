@@ -20,8 +20,8 @@ import com.forgeessentials.remote.handler.chat.PushChatHandler.Request;
 import com.forgeessentials.remote.network.ChatResponse;
 import com.forgeessentials.util.output.ChatOutputHandler.ChatFormat;
 
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+
 
 @FERemoteHandler(id = RemoteMessageID.PUSH_CHAT)
 public class PushChatHandler extends GenericRemoteHandler<Request>

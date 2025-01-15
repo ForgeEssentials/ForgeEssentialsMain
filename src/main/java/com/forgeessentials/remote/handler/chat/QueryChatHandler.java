@@ -22,8 +22,8 @@ import com.forgeessentials.remote.RemoteMessageID;
 import com.forgeessentials.remote.handler.chat.QueryChatHandler.Request;
 import com.forgeessentials.util.output.ChatOutputHandler.ChatFormat;
 
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+
 
 @FERemoteHandler(id = RemoteMessageID.QUERY_CHAT)
 public class QueryChatHandler extends GenericRemoteHandler<Request>

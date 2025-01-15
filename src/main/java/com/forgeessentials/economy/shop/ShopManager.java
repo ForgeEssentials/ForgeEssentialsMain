@@ -51,9 +51,9 @@ import com.forgeessentials.util.output.ChatOutputHandler;
 import com.forgeessentials.util.output.LoggingHandler;
 import com.google.common.reflect.TypeToken;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+
+
 
 public class ShopManager extends ServerEventHandler implements ConfigLoader
 {

@@ -12,7 +12,7 @@ public abstract class ParserCommandBase extends ForgeEssentialsCommandBase
 {
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args)
+    public void processCommand(ICommandSender sender, String[] args) throws CommandException
     {
         CommandParserArgs arguments = new CommandParserArgs(this, args, sender);
         try
@@ -40,6 +40,6 @@ public abstract class ParserCommandBase extends ForgeEssentialsCommandBase
         return arguments.tabCompletion;
     }
 
-    public abstract void parse(CommandParserArgs arguments);
+    public abstract void parse(CommandParserArgs arguments) throws CommandException;
 
 }

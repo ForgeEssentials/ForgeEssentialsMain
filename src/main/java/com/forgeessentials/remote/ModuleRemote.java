@@ -45,8 +45,8 @@ import com.mojang.authlib.GameProfile;
 import cpw.mods.fml.common.discovery.ASMDataTable;
 import cpw.mods.fml.common.discovery.ASMDataTable.ASMData;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+
 
 @FEModule(name = "Remote", parentMod = ForgeEssentials.class, canDisable = true)
 public class ModuleRemote extends ConfigLoaderBase implements RemoteManager

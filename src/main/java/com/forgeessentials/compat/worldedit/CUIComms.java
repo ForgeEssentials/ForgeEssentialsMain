@@ -11,9 +11,9 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import com.forgeessentials.util.selections.SelectionHandler;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+
+
 import cpw.mods.fml.common.gameevent.TickEvent;
 
 /**

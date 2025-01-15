@@ -2,7 +2,7 @@ package com.forgeessentials.jscripting.wrapper.mc.event.fml.common;
 
 import com.forgeessentials.jscripting.wrapper.mc.entity.JsEntityPlayer;
 import com.forgeessentials.jscripting.wrapper.mc.event.JsEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
+
 import net.minecraft.command.ICommandSender;
 
 public class JsPlayerEvent<T extends PlayerEvent> extends JsEvent<T> {

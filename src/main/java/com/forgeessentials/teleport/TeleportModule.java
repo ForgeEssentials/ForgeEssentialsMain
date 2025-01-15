@@ -14,8 +14,8 @@ import com.forgeessentials.teleport.portal.PortalManager;
 import com.forgeessentials.util.events.FEModuleEvent.FEModuleInitEvent;
 import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerInitEvent;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+
 import cpw.mods.fml.common.registry.GameData;
 
 @FEModule(name = "Teleport", parentMod = ForgeEssentials.class)

@@ -26,7 +26,7 @@ import com.forgeessentials.util.output.ChatOutputHandler;
 import com.forgeessentials.util.questioner.Questioner;
 import com.forgeessentials.util.questioner.QuestionerCallback;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 
 /**
  * Kit command with cooldown. Should also put armor in armor slots.

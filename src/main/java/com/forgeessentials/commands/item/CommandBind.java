@@ -11,6 +11,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.permission.PermissionLevel;
 
 import com.forgeessentials.commands.ModuleCommands;
@@ -19,7 +20,7 @@ import com.forgeessentials.core.misc.TranslatedCommandException;
 import com.forgeessentials.util.CommandParserArgs;
 import com.forgeessentials.util.ItemUtil;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 
 public class CommandBind extends ParserCommandBase
 {

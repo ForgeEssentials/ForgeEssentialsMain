@@ -43,7 +43,7 @@ import com.forgeessentials.util.output.LoggingHandler;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
 import cpw.mods.fml.common.network.FMLEmbeddedChannel;
 import cpw.mods.fml.common.network.FMLOutboundHandler;

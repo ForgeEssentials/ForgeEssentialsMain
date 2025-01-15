@@ -55,9 +55,9 @@ import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStopEvent;
 import com.forgeessentials.util.events.ServerEventHandler;
 import com.forgeessentials.util.output.ChatOutputHandler;
 
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
+
+
+
 import cpw.mods.fml.common.registry.GameData;
 
 /**

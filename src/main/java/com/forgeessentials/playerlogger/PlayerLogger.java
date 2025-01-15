@@ -71,11 +71,11 @@ import com.forgeessentials.playerlogger.event.LogEventWorldLoad;
 import com.forgeessentials.util.events.ServerEventHandler;
 import com.forgeessentials.util.output.LoggingHandler;
 
-import cpw.mods.fml.common.FMLCommonHandler;
+
 import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
+
+
+
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.relauncher.Side;

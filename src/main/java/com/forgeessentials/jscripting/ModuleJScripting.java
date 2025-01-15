@@ -39,7 +39,7 @@ import com.forgeessentials.util.events.ServerEventHandler;
 import com.forgeessentials.util.output.ChatOutputHandler;
 import com.forgeessentials.util.output.LoggingHandler;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 
 @FEModule(name = "JScripting", parentMod = ForgeEssentials.class, isCore = false, canDisable = false)
 public class ModuleJScripting extends ServerEventHandler implements ScriptHandler

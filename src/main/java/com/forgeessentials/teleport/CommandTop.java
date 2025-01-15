@@ -15,7 +15,7 @@ import com.forgeessentials.core.commands.ForgeEssentialsCommandBase;
 import com.forgeessentials.core.misc.TeleportHelper;
 import com.forgeessentials.core.misc.TranslatedCommandException;
 
-import cpw.mods.fml.common.FMLCommonHandler;
+
 
 public class CommandTop extends ForgeEssentialsCommandBase
 {

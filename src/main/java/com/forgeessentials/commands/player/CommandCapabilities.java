@@ -20,7 +20,7 @@ import com.forgeessentials.core.misc.TranslatedCommandException;
 import com.forgeessentials.core.misc.Translator;
 import com.forgeessentials.util.output.ChatOutputHandler;
 
-import cpw.mods.fml.common.FMLCommonHandler;
+
 
 /**
  * Allows you to modify a bunch of interesting stuff...

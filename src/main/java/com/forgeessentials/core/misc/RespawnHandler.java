@@ -20,9 +20,9 @@ import com.forgeessentials.api.permissions.GroupEntry;
 import com.forgeessentials.commons.selections.WarpPoint;
 import com.forgeessentials.util.PlayerInfo;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+
+
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 
 public class RespawnHandler

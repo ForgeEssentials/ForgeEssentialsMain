@@ -3,7 +3,7 @@ package com.forgeessentials.core.environment;
 import com.forgeessentials.core.ForgeEssentials;
 import com.forgeessentials.util.output.LoggingHandler;
 
-import cpw.mods.fml.common.FMLCommonHandler;
+
 import cpw.mods.fml.common.Loader;
 
 public class Environment

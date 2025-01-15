@@ -17,7 +17,7 @@ import com.forgeessentials.core.commands.ForgeEssentialsCommandBase;
 import com.forgeessentials.core.misc.Translator;
 import com.forgeessentials.util.output.ChatOutputHandler;
 
-import cpw.mods.fml.common.FMLCommonHandler;
+
 
 public class CommandGameMode extends ForgeEssentialsCommandBase
 {

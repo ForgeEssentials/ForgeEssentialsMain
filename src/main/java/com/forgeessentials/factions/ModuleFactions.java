@@ -23,8 +23,8 @@ import com.forgeessentials.util.events.FEModuleEvent.FEModuleInitEvent;
 import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerInitEvent;
 import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerStopEvent;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+
 
 @FEModule(name = "factions", parentMod = ForgeEssentials.class, canDisable = true)
 public class ModuleFactions extends ConfigLoaderBase

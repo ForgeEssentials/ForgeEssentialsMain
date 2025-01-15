@@ -10,7 +10,7 @@ import com.forgeessentials.util.output.LoggingHandler;
 import com.forgeessentials.util.selections.SelectionHandler;
 import com.sk89q.worldedit.forge.ForgeWorldEdit;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 
 public class WEIntegrationHandler
 {

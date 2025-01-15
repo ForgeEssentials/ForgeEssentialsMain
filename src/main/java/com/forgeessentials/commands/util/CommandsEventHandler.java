@@ -7,7 +7,7 @@ import com.forgeessentials.commands.player.CommandNoClip;
 import com.forgeessentials.util.events.ServerEventHandler;
 import com.google.common.collect.HashMultimap;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 import cpw.mods.fml.common.gameevent.TickEvent;
 
 public class CommandsEventHandler extends ServerEventHandler

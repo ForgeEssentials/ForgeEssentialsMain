@@ -20,7 +20,7 @@ import com.forgeessentials.util.ServerUtil;
 import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerPreInitEvent;
 import com.forgeessentials.util.events.ServerEventHandler;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 
 public class ItemPermissionManager extends ServerEventHandler implements ConfigLoader
 {

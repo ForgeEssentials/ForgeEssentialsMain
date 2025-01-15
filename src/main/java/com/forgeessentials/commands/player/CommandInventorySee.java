@@ -14,7 +14,7 @@ import com.forgeessentials.commands.util.PlayerInvChest;
 import com.forgeessentials.core.commands.ForgeEssentialsCommandBase;
 import com.forgeessentials.core.misc.TranslatedCommandException;
 
-import cpw.mods.fml.common.FMLCommonHandler;
+
 
 /**
  * Opens other player inventory.

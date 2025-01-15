@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import cpw.mods.fml.common.eventhandler.Event;
+
 
 @Mixin(ItemInWorldManager.class)
 public abstract class MixinItemInWorldManager

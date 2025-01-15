@@ -17,7 +17,7 @@ import com.forgeessentials.core.misc.TeleportHelper;
 import com.forgeessentials.core.misc.TranslatedCommandException;
 import com.forgeessentials.util.PlayerUtil;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 
 public class CommandJump extends ForgeEssentialsCommandBase
 {

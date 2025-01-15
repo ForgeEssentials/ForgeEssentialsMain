@@ -35,7 +35,7 @@ import com.forgeessentials.core.environment.Environment;
 import com.forgeessentials.util.output.LoggingHandler;
 import com.google.common.base.Throwables;
 
-import cpw.mods.fml.common.FMLCommonHandler;
+
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 

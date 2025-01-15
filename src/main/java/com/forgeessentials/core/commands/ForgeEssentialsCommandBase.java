@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandHandler;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
@@ -68,7 +69,7 @@ public abstract class ForgeEssentialsCommandBase extends CommandBase implements 
     // Command processing
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args)
+    public void processCommand(ICommandSender sender, String[] args) throws CommandException
     {
         if (sender instanceof EntityPlayerMP)
         {
@@ -84,17 +85,17 @@ public abstract class ForgeEssentialsCommandBase extends CommandBase implements 
         }
     }
 
-    public void processCommandPlayer(EntityPlayerMP sender, String[] args)
+    public void processCommandPlayer(EntityPlayerMP sender, String[] args) throws CommandException
     {
         throw new TranslatedCommandException("Command %s is not implemented for players", getCommandName());
     }
 
-    public void processCommandConsole(ICommandSender sender, String[] args)
+    public void processCommandConsole(ICommandSender sender, String[] args) throws CommandException
     {
         throw new TranslatedCommandException("Command %s is not implemented for console", getCommandName());
     }
 
-    public void processCommandBlock(CommandBlockLogic block, String[] args)
+    public void processCommandBlock(CommandBlockLogic block, String[] args) throws CommandException
     {
         processCommandConsole(block, args);
     }
@@ -112,7 +113,7 @@ public abstract class ForgeEssentialsCommandBase extends CommandBase implements 
         return true;
     }
 
-    protected static boolean canCommandSenderUseCommandException(String msg)
+    protected static boolean canCommandSenderUseCommandException(String msg) throws CommandException
     {
         // Find out if, if canCommandSenderUseCommand was called from within executeCommand method of CommandHandler.
         // Only if it's called from there, it's safe to throw an exception.

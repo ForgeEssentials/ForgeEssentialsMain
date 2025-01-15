@@ -2,7 +2,7 @@ package com.forgeessentials.compat;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Optional.Method;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 import net.minecraft.inventory.IInventory;
 
 import com.forgeessentials.util.events.FEPlayerEvent.InventoryGroupChange;

@@ -16,7 +16,7 @@ import com.forgeessentials.core.misc.TranslatedCommandException;
 import com.forgeessentials.util.PlayerUtil;
 import com.forgeessentials.util.output.ChatOutputHandler;
 
-import cpw.mods.fml.common.FMLCommonHandler;
+
 
 public class CommandSmite extends ForgeEssentialsCommandBase
 {

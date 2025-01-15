@@ -64,7 +64,7 @@ import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerPostInitEvent
 import com.forgeessentials.util.output.ChatOutputHandler;
 import com.forgeessentials.util.output.LoggingHandler;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
