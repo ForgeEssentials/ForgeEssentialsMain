@@ -7,6 +7,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class ContainerCheatyWorkbench extends ContainerWorkbench
@@ -15,7 +16,7 @@ public class ContainerCheatyWorkbench extends ContainerWorkbench
 
     public ContainerCheatyWorkbench(InventoryPlayer par1InventoryPlayer, World par2World)
     {
-        super(par1InventoryPlayer, par2World, 0, 0, 0);
+        super(par1InventoryPlayer, par2World, BlockPos.ORIGIN);
         worldObj = par2World;
     }
 
@@ -40,7 +41,7 @@ public class ContainerCheatyWorkbench extends ContainerWorkbench
         {
             for (int var2 = 0; var2 < 9; ++var2)
             {
-                ItemStack var3 = craftMatrix.getStackInSlotOnClosing(var2);
+                ItemStack var3 = craftMatrix.removeStackFromSlot(var2);
 
                 if (var3 != null)
                 {

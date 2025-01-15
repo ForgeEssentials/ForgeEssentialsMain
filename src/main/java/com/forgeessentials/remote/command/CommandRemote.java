@@ -36,7 +36,7 @@ public class CommandRemote extends ForgeEssentialsCommandBase
     private static final String[] parseMainArgs = { "regen", "setkey", "kick", "start", "stop", "block", "qr" };
 
     @Override
-    public void processCommand(ICommandSender sender, String[] vargs)
+    public void processCommand(ICommandSender sender, String[] vargs) throws CommandException
     {
         CommandParserArgs args = new CommandParserArgs(this, vargs, sender);
         parse(args);
@@ -45,7 +45,7 @@ public class CommandRemote extends ForgeEssentialsCommandBase
     /**
      * @param args
      */
-    public void parse(CommandParserArgs args)
+    public void parse(CommandParserArgs args) throws CommandException
     {
         if (args.isTabCompletion && args.size() == 1)
         {

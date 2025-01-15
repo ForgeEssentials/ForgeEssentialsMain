@@ -3,6 +3,7 @@ package com.forgeessentials.playerlogger;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.permission.PermissionLevel;
 
 import com.forgeessentials.api.APIRegistry;

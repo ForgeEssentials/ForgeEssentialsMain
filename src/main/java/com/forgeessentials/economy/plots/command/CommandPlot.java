@@ -778,7 +778,7 @@ public class CommandPlot extends ParserCommandBase
             if (plot.getOwner().hasPlayer())
             {
                 ChatOutputHandler.chatConfirmation(plot.getOwner().getPlayerMP(), Translator.format("You sold plot \"%s\" to %s for %s", //
-                        plot.getName(), arguments.senderPlayer.getCommandSenderName(), priceStr));
+                        plot.getName(), arguments.senderPlayer.getName(), priceStr));
                 ModuleEconomy.confirmNewWalletAmount(plot.getOwner(), sellerWallet);
             }
             arguments.confirm(Translator.format("%s sold plot \"%s\" to you for %s", //

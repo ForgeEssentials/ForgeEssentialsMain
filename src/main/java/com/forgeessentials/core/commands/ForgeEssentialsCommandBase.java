@@ -16,6 +16,7 @@ import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.permission.PermissionManager;
 import net.minecraftforge.permission.PermissionObject;
 
@@ -24,8 +25,6 @@ import com.forgeessentials.api.UserIdent;
 import com.forgeessentials.api.permissions.FEPermissions;
 import com.forgeessentials.core.misc.TranslatedCommandException;
 import com.forgeessentials.util.output.LoggingHandler;
-
-import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public abstract class ForgeEssentialsCommandBase extends CommandBase implements PermissionObject
 {

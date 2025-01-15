@@ -156,11 +156,11 @@ public class CommandTrade extends ParserCommandBase
                 String message;
                 if (itemStack.stackSize == 1)
                     message = Translator.format("Buy one %s for %s from %s?", itemStack.getDisplayName(), APIRegistry.economy.toString(price),
-                            arguments.sender.getCommandSenderName());
+                            arguments.sender.getName());
                 else
                     message = Translator.format("Buy %d x %s each for %s (total: %s) from %s?", itemStack.stackSize, itemStack.getDisplayName(),
                             APIRegistry.economy.toString(price), APIRegistry.economy.toString(price * itemStack.stackSize),
-                            arguments.sender.getCommandSenderName());
+                            arguments.sender.getName());
                 Questioner.addChecked(buyer.getPlayerMP(), message, buyerHandler, 60);
                 arguments.confirm("Waiting on %s...", buyer.getUsernameOrUuid());
             }

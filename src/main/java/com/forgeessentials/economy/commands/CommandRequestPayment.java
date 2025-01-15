@@ -38,9 +38,9 @@ public class CommandRequestPayment extends ForgeEssentialsCommandBase
         {
             int amount = parseIntWithMin(sender, args[1], 0);
             ChatOutputHandler.chatConfirmation(sender,
-                    Translator.format("You requested %s to pay %s", player.getCommandSenderName(), APIRegistry.economy.toString(amount)));
+                    Translator.format("You requested %s to pay %s", player.getName(), APIRegistry.economy.toString(amount)));
             ChatOutputHandler.chatConfirmation(player,
-                    Translator.format("You have been requested to pay %s by %s", APIRegistry.economy.toString(amount), sender.getCommandSenderName()));
+                    Translator.format("You have been requested to pay %s by %s", APIRegistry.economy.toString(amount), sender.getName()));
         }
     }
 
@@ -59,7 +59,7 @@ public class CommandRequestPayment extends ForgeEssentialsCommandBase
         {
             int amount = parseIntWithMin(sender, args[1], 0);
             ChatOutputHandler.chatConfirmation(sender,
-                    Translator.format("You requested %s to pay %s", player.getCommandSenderName(), APIRegistry.economy.toString(amount)));
+                    Translator.format("You requested %s to pay %s", player.getName(), APIRegistry.economy.toString(amount)));
             ChatOutputHandler
                     .chatConfirmation(player, Translator.format("You have been requested to pay %s by the server", APIRegistry.economy.toString(amount)));
         }

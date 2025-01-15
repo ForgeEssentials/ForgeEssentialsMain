@@ -527,7 +527,7 @@ public class UserIdent
                 return new GameProfile(getOrGenerateUuid(), player.getName());
 
                 /*
-                 * // Safeguard against stupid mods who set UUID to null UserIdent playerIdent = UserIdent.byUsername.get(player.getCommandSenderName()); if (playerIdent != this)
+                 * // Safeguard against stupid mods who set UUID to null UserIdent playerIdent = UserIdent.byUsername.get(player.getName()); if (playerIdent != this)
                  * return playerIdent.getGameProfile();
                  */
             }

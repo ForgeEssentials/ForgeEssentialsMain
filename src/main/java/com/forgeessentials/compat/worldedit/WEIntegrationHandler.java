@@ -1,5 +1,6 @@
 package com.forgeessentials.compat.worldedit;
 
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.permission.PermissionLevel;
 import net.minecraftforge.permission.PermissionManager;
 
@@ -15,7 +16,6 @@ import com.sk89q.worldedit.forge.ForgeWorldEdit;
 public class WEIntegrationHandler
 {
 
-    @SuppressWarnings("unused")
     private CUIComms cuiComms;
 
     @SubscribeEvent

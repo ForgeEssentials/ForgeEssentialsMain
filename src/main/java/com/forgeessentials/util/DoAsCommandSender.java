@@ -56,9 +56,9 @@ public class DoAsCommandSender implements ICommandSender
     }
 
     @Override
-    public IChatComponent func_145748_c_()
+    public IChatComponent getDisplayName()
     {
-        return sender.getName();
+        return sender.getDisplayName();
     }
 
     @Override
@@ -72,12 +72,6 @@ public class DoAsCommandSender implements ICommandSender
     public boolean canCommandSenderUseCommand(int level, String command)
     {
         return true;
-    }
-
-    @Override
-    public ChunkCoordinates getPlayerCoordinates()
-    {
-        return sender.getPlayerCoordinates();
     }
 
     @Override
@@ -107,39 +101,28 @@ public class DoAsCommandSender implements ICommandSender
     }
 
 	@Override
-	public IChatComponent getDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public BlockPos getPosition() {
-		// TODO Auto-generated method stub
-		return null;
+		return sender.getPosition();
 	}
 
 	@Override
 	public Vec3 getPositionVector() {
-		// TODO Auto-generated method stub
-		return null;
+		return sender.getPositionVector();
 	}
 
 	@Override
 	public Entity getCommandSenderEntity() {
-		// TODO Auto-generated method stub
-		return null;
+		return sender.getCommandSenderEntity();
 	}
 
 	@Override
 	public boolean sendCommandFeedback() {
-		// TODO Auto-generated method stub
-		return false;
+		return sender.sendCommandFeedback();
 	}
 
 	@Override
 	public void setCommandStat(Type type, int amount) {
-		// TODO Auto-generated method stub
-		
+		sender.setCommandStat(type, amount);
 	}
 
 }

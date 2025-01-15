@@ -93,7 +93,7 @@ public class CommandDoAs extends ForgeEssentialsCommandBase
         EntityPlayerMP player = UserIdent.getPlayerByMatchOrUsername(sender, args[0]);
         if (player != null)
         {
-            ChatOutputHandler.chatWarning(player, Translator.format("Player %s is attempting to issue a command as you.", sender.getCommandSenderName()));
+            ChatOutputHandler.chatWarning(player, Translator.format("Player %s is attempting to issue a command as you.", sender.getName()));
             FMLCommonHandler.instance().getMinecraftServerInstance().getCommandManager().executeCommand(player, cmd.toString());
             ChatOutputHandler.chatConfirmation(sender, Translator.format("Successfully issued command as %s", args[0]));
         }

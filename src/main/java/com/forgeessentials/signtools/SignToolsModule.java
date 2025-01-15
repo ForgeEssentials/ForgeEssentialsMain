@@ -4,20 +4,19 @@ import net.minecraft.init.Items;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.fe.event.world.SignEditEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.permission.PermissionLevel;
 import net.minecraftforge.permission.PermissionManager;
-
-import org.apache.commons.lang3.StringUtils;
 
 import com.forgeessentials.core.ForgeEssentials;
 import com.forgeessentials.core.moduleLauncher.FEModule;
 import com.forgeessentials.core.moduleLauncher.config.ConfigLoaderBase;
-import com.forgeessentials.util.ServerUtil;
 import com.forgeessentials.util.events.FEModuleEvent.FEModuleInitEvent;
 import com.forgeessentials.util.events.FEModuleEvent.FEModuleServerInitEvent;
 import com.forgeessentials.util.output.ChatOutputHandler;
@@ -90,7 +89,7 @@ public class SignToolsModule extends ConfigLoaderBase
             return;
         }
 
-        TileEntity te = e.entityPlayer.worldObj.getTileEntity(e.x, e.y, e.z);
+        TileEntity te = e.entityPlayer.worldObj.getTileEntity(e.pos);
         if (te != null && te instanceof TileEntitySign)
         {
             if (allowSignEdit && e.entityPlayer.isSneaking())
@@ -100,28 +99,28 @@ public class SignToolsModule extends ConfigLoaderBase
                     if (e.entityPlayer.getCurrentEquippedItem().getItem().equals(Items.sign) &&
                             PermissionManager.checkPermission(e.entityPlayer, "fe.protection.use.minecraft.sign"))
                     {
-                        e.entityPlayer.func_146100_a(te);
+                        e.entityPlayer.openEditSign((TileEntitySign) te);
                         e.setCanceled(true);
                     }
                 }
 
             }
 
-            String[] signText = ((TileEntitySign) te).signText;
-            if (!signText[0].equals("[command]"))
+            IChatComponent[] signText = ((TileEntitySign) te).signText;
+            if (!signText[0].getUnformattedText().equals("[command]"))
             {
                 return;
             }
 
-            else
-            {
-                String send = StringUtils.join(ServerUtil.dropFirst(signText), " ");
-                if (send != null)
+                else
                 {
-                    MinecraftServer.getServer().getCommandManager().executeCommand(e.entityPlayer, send);
-                    e.setCanceled(true);
+                    String send = signText[1].getUnformattedText() + " " + signText[2].getUnformattedText() + " " + signText[3].getUnformattedText();
+                    if (send != null && MinecraftServer.getServer().getCommandManager() != null)
+                    {
+                        MinecraftServer.getServer().getCommandManager().executeCommand(e.entityPlayer, send);
+                        e.setCanceled(true);
+                    }
                 }
-            }
 
         }
 

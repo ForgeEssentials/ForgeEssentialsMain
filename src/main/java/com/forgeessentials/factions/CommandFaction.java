@@ -248,7 +248,7 @@ public class CommandFaction extends ParserCommandBase
                 try
                 {
                     Questioner.add(player, message, callback);
-                    arguments.confirm("Requested %s to accept your join request", player.getCommandSenderName());
+                    arguments.confirm("Requested %s to accept your join request", player.getName());
                     return;
                 }
                 catch (QuestionerStillActiveException e)

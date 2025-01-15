@@ -4,6 +4,7 @@ import com.forgeessentials.jscripting.wrapper.mc.entity.JsEntityPlayer;
 import com.forgeessentials.jscripting.wrapper.mc.event.JsEvent;
 
 import net.minecraft.command.ICommandSender;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 public class JsPlayerEvent<T extends PlayerEvent> extends JsEvent<T> {
 

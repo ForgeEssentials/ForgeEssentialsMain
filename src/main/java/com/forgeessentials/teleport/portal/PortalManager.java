@@ -12,6 +12,9 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.fe.event.entity.EntityPortalEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import com.forgeessentials.commons.selections.WorldPoint;
 import com.forgeessentials.core.misc.TeleportHelper;
@@ -98,7 +101,7 @@ public class PortalManager extends ServerEventHandler
     {
         if (FMLCommonHandler.instance().getEffectiveSide().isClient())
             return;
-        WorldPoint point = new WorldPoint(e.getPlayer().dimension, e.x, e.y, e.z);
+        WorldPoint point = new WorldPoint(e.getPlayer().dimension, e.pos);
         Portal portal = getPortalAt(point);
         if (portal != null && portal.hasFrame())
             e.setCanceled(true);

@@ -5,6 +5,9 @@ import java.io.IOException;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.permission.PermissionLevel;
 import net.minecraftforge.permission.PermissionManager;
 
@@ -41,7 +44,6 @@ import com.forgeessentials.util.output.LoggingHandler;
 
 
 
-import cpw.mods.fml.common.Loader;
 
 
 
@@ -74,6 +76,8 @@ public class ModulePermissions extends ConfigLoaderBase
         APIRegistry.perms = permissionHelper;
         PermissionManager.setPermissionProvider(permissionHelper);
 
+        
+        //TODO fix ftb ranks
         if (Loader.isModLoaded("serverutilities"))
         {
             try
@@ -96,7 +100,6 @@ public class ModulePermissions extends ConfigLoaderBase
         itemPermissionManager = new ItemPermissionManager();
 
         MinecraftForge.EVENT_BUS.register(this);
-        FMLCommonHandler.instance().bus().register(this);
 
         FECommandManager.registerCommand(new CommandZone());
         FECommandManager.registerCommand(new CommandPermissions());

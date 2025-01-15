@@ -262,7 +262,7 @@ public class CommandDrop extends ForgeEssentialsCommandBase
     @Override
     public void processCommandPlayer(EntityPlayerMP sender, String[] args)
     {
-        EntityPlayerMP playermp = UserIdent.getPlayerByMatchOrUsername(sender, sender.getCommandSenderName());
+        EntityPlayerMP playermp = UserIdent.getPlayerByMatchOrUsername(sender, sender.getName());
         processCommand(playermp, args);
     }
 

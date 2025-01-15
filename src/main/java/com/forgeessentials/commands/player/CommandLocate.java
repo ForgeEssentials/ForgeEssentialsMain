@@ -67,7 +67,7 @@ public class CommandLocate extends ForgeEssentialsCommandBase
 
         WorldPoint point = new WorldPoint(player);
         ChatOutputHandler.chatConfirmation(sender, Translator.format("%s is at %d, %d, %d in dim %d with gamemode %s", //
-                player.getCommandSenderName(), point.getX(), point.getY(), point.getZ(), point.getDimension(), //
+                player.getName(), point.getX(), point.getY(), point.getZ(), point.getDimension(), //
                 player.theItemInWorldManager.getGameType().getName()));
     }
 

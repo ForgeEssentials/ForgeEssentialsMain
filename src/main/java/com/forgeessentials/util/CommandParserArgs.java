@@ -388,7 +388,7 @@ public class CommandParserArgs
     public double parseDouble() throws CommandException
     {
         checkTabCompletion();
-        return CommandBase.parseDouble(sender, remove());
+        return CommandBase.parseDouble(remove());
     }
 
     public boolean parseBoolean() throws CommandException

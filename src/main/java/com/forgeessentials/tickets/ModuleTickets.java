@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.permission.PermissionLevel;
 import net.minecraftforge.permission.PermissionManager;
 
@@ -38,7 +41,7 @@ public class ModuleTickets
     public void load(FEModuleInitEvent e)
     {
         FECommandManager.registerCommand(new CommandTicket());
-        FMLCommonHandler.instance().bus().register(this);
+        MinecraftForge.EVENT_BUS.register(this);
         ForgeEssentials.getConfigManager().registerLoader("Tickets", new ConfigTickets());
     }
 
