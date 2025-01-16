@@ -116,7 +116,7 @@ public class CommandWorldBorder extends ParserCommandBase
         }
     }
 
-    public static void parseCenter(CommandParserArgs arguments, WorldBorder border)
+    public static void parseCenter(CommandParserArgs arguments, WorldBorder border) throws CommandException
     {
         if (arguments.isEmpty())
         {
@@ -145,7 +145,7 @@ public class CommandWorldBorder extends ParserCommandBase
         arguments.confirm("Worldborder center set to [%d, %d]", x, z);
     }
 
-    public static void parseRadius(CommandParserArgs arguments, WorldBorder border)
+    public static void parseRadius(CommandParserArgs arguments, WorldBorder border) throws CommandException
     {
         if (arguments.isEmpty())
         {

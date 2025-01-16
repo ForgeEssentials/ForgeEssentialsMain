@@ -278,8 +278,8 @@ public class TeleportHelper extends ServerEventHandler
             ident = UserIdent.get((EntityPlayer) e.entity);
         else if (e.entity instanceof EntityLiving)
             ident = APIRegistry.IDENT_NPC;
-        WorldPoint pointFrom = new WorldPoint(e.world, e.x, e.y, e.z);
-        WorldPoint pointTo = new WorldPoint(e.targetDimension, e.targetX, e.targetY, e.targetZ);
+        WorldPoint pointFrom = new WorldPoint(e.world, e.pos);
+        WorldPoint pointTo = new WorldPoint(e.targetDimension, e.pos);
         if (!APIRegistry.perms.checkUserPermission(ident, pointFrom, TELEPORT_PORTALFROM))
             e.setCanceled(true);
         if (!APIRegistry.perms.checkUserPermission(ident, pointTo, TELEPORT_PORTALTO))

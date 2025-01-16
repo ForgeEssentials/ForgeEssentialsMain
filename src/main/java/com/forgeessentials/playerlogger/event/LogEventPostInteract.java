@@ -28,9 +28,9 @@ public class LogEventPostInteract extends PlayerLoggerEvent<PlayerPostInteractEv
         // action.block = getBlock(block);
         // action.metadata = metadata;
         action.type = ActionBlockType.USE_RIGHT;
-        action.x = event.x;
-        action.y = event.y;
-        action.z = event.z;
+        action.x = event.pos.getX();
+        action.y = event.pos.getY();
+        action.z = event.pos.getZ();
         em.persist(action);
     }
     

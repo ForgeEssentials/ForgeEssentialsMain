@@ -24,7 +24,7 @@ public class MixinBlockEndPortal
     	if (entity.ridingEntity == null && entity.riddenByEntity == null && !world.isRemote)
         {
     		// TODO: get target coordinates somehow
-    		if (MinecraftForge.EVENT_BUS.post(new EntityPortalEvent(entity, world, pos, 1, 0 , 0, 0))) {
+    		if (MinecraftForge.EVENT_BUS.post(new EntityPortalEvent(entity, world, pos, 1, BlockPos.ORIGIN))) {
     			ci.cancel();
     		}
     	}else

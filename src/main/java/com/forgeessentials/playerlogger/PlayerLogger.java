@@ -76,6 +76,7 @@ import com.forgeessentials.playerlogger.event.LogEventPlayerEvent;
 import com.forgeessentials.playerlogger.event.LogEventPlayerPositions;
 import com.forgeessentials.playerlogger.event.LogEventPostInteract;
 import com.forgeessentials.playerlogger.event.LogEventWorldLoad;
+import com.forgeessentials.util.ServerUtil;
 import com.forgeessentials.util.events.ServerEventHandler;
 import com.forgeessentials.util.output.LoggingHandler;
 
@@ -388,7 +389,7 @@ public class PlayerLogger extends ServerEventHandler implements Runnable
         Integer id = blockTypeCache.get(block);
         if (id != null)
             return em.getReference(BlockData.class, id);
-        BlockData data = getBlock(GameData.getBlockRegistry().getNameForObject(block));
+        BlockData data = getBlock(ServerUtil.getBlockName(block));
         blockTypeCache.put(block, data.id);
         return data;
     }
@@ -660,7 +661,7 @@ public class PlayerLogger extends ServerEventHandler implements Runnable
             // Get only last state of all changes
             Map<Point, BlockSnapshot> changes = new HashMap<>();
             for (BlockSnapshot snapshot : ((BlockEvent.MultiPlaceEvent) event).getReplacedBlockSnapshots())
-                changes.put(new Point(snapshot.x, snapshot.y, snapshot.z), snapshot);
+                changes.put(new Point(snapshot.pos.getX(), snapshot.pos.getY(), snapshot.pos.getZ()), snapshot);
             for (BlockSnapshot snapshot : changes.values())
                 eventQueue.add(new LogEventPlace(new BlockEvent.PlaceEvent(snapshot, null, event.player)));
             startThread();

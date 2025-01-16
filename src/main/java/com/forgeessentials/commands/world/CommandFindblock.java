@@ -116,7 +116,7 @@ public class CommandFindblock extends ForgeEssentialsCommandBase implements Conf
         }
         else
         {
-            throw new TranslatedCommandException(getCommandUsage(sender));
+            return null;
         }
     }
 

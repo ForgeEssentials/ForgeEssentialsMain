@@ -12,8 +12,8 @@ import com.forgeessentials.util.events.PlayerChangedZone;
 import com.forgeessentials.util.events.ServerEventHandler;
 import com.forgeessentials.util.output.ChatOutputHandler;
 
-
-
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class PlotManager extends ServerEventHandler
 {

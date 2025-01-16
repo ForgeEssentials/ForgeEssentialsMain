@@ -23,6 +23,9 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
 
+import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
 
 
 

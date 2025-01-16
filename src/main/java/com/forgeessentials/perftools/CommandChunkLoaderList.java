@@ -8,6 +8,7 @@ import java.util.List;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.WorldServer;
@@ -181,7 +182,7 @@ public class CommandChunkLoaderList extends ForgeEssentialsCommandBase
     }
 
     @Override
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args)
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
     {
         if (args.length == 1)
         {

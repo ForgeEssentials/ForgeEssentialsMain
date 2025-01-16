@@ -11,26 +11,20 @@ import net.minecraftforge.fml.common.eventhandler.Cancelable;
 public class EntityPortalEvent extends EntityEvent
 {
 
-    public final World world;
+	public final World world;
 
     public final BlockPos pos;
 
+    public final BlockPos target;
+
     public final int targetDimension;
 
-    public final int targetX;
-
-    public final int targetY;
-
-    public final int targetZ;
-
-    public EntityPortalEvent(Entity entity, World world, BlockPos pos, int targetDimension, int targetX, int targetY, int targetZ)
+    public EntityPortalEvent(Entity entity, World world, BlockPos pos, int targetDimension, BlockPos target)
     {
         super(entity);
         this.world = world;
         this.pos = pos;
+        this.target = target;
         this.targetDimension = targetDimension;
-        this.targetX = targetX;
-        this.targetY = targetY;
-        this.targetZ = targetZ;
     }
 }

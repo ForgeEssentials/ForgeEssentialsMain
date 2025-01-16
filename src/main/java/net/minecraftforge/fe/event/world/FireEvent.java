@@ -32,14 +32,12 @@ public class FireEvent extends BlockEvent
     public static class Spread extends FireEvent
     {
 
-        public final int sourceX, sourceY, sourceZ;
+        public final BlockPos spreadPos;
 
-        public Spread(World world, BlockPos pos, int sourceX, int sourceY, int sourceZ)
+        public Spread(World world, BlockPos pos, BlockPos spreadPos)
         {
             super(world, pos);
-            this.sourceX = sourceX;
-            this.sourceY = sourceY;
-            this.sourceZ = sourceZ;
+            this.spreadPos = spreadPos;
         }
 
     }

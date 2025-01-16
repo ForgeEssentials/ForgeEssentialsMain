@@ -4,6 +4,7 @@ import net.minecraft.init.Items;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -60,14 +61,14 @@ public class SignToolsModule extends ConfigLoaderBase
         {
             for (int i = 0; i < e.text.length; i++)
             {
-                if (e.text[i].contains("&"))
+                if (e.text[i].getUnformattedText().contains("&"))
                 {
-                    e.text[i] = ChatOutputHandler.formatColors(e.text[i]);
+                    ChatComponentText text = new ChatComponentText(ChatOutputHandler.formatColors(e.text[i].getUnformattedText()));
+                    ChatOutputHandler.applyFormatting(text.getChatStyle(), ChatOutputHandler.enumChatFormattings("0123456789AaBbCcDdEeFfKkLlMmNnOoRr"));
+                    e.text[i] = text;
                 }
             }
-
         }
-
     }
 
     //TODO: Add a wrapper for SignChangeEvent (see https://github.com/CrucibleMC/Crucible/blob/master/patches/net/minecraft/network/NetHandlerPlayServer.java.patch#L1834)

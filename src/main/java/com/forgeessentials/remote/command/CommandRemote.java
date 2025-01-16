@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.event.ClickEvent;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
@@ -204,7 +205,7 @@ public class CommandRemote extends ForgeEssentialsCommandBase
     }
 
     @Override
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] vargs)
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] vargs, BlockPos pos)
     {
         try
         {
