@@ -169,7 +169,7 @@ public class JsWorld<T extends World> extends JsWrapper<T>
 
     public boolean canLightningStrikeAt(int x, int y, int z)
     {
-        return that.isRainingAt(new BlockPos(x, y, z));
+        return that.canLightningStrike(new BlockPos(x, y, z));
     }
 
     /**

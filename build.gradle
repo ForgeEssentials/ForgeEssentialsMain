@@ -10,6 +10,12 @@ buildscript {
 			name = "sonatype releases"
 			url = "https://oss.sonatype.org/content/repositories/releases/"
 		}
+
+        maven {
+            name = "sponge"
+            url = "https://repo.spongepowered.org/maven/"
+        }
+
 		mavenCentral()
 		mavenLocal()
 		maven {
@@ -25,12 +31,13 @@ buildscript {
 	dependencies {
 		classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
 		classpath "org.ajoberstar:gradle-git:0.12.0"
+        classpath 'org.spongepowered:mixingradle:0.4-SNAPSHOT'
 		//classpath("com.modrinth.minotaur:Minotaur:2.8.3")
 	}
 
 }
 plugins {
-	id 'com.github.johnrengelman.shadow' version '1.2.4'
+	id 'com.github.johnrengelman.shadow' version '4.0.4'
 	//id "com.matthewprenger.cursegradle" version "1.4.0"
 	//id "net.minecraftforge.gradle.forge" version "2.0.2"
 }
@@ -48,6 +55,8 @@ repositories {
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'org.spongepowered.mixin'
+
 import org.ajoberstar.grgit.Grgit
 import org.apache.tools.ant.filters.ReplaceTokens
 /************************************************************
@@ -133,7 +142,7 @@ project.afterEvaluate {
 minecraft {
 	version = "$project.minecraftVersion-$project.forgeVersion-$project.minecraftVersion"
 	runDir = "rundir"
-	mappings = "stable_22"
+    mappings = "snapshot_20160115"
 }
 /*
 apply plugin: "com.modrinth.minotaur"
@@ -209,7 +218,8 @@ dependencies {
 	/* serverLib "org.eclipse.persistence:eclipselink:2.6.0" */
 	
 	// WorldEdit
-	buildDep group: "com.sk89q.worldedit", name: "worldedit-forge-mc1.8.9", version: "6.1.1", classifier: "dev", changing: true
+    buildDep "com.sk89q.worldedit:worldedit-core:6.1.1-SNAPSHOT"
+    buildDep "com.sk89q.worldedit:worldedit-forge-mc1.8.9:6.1.1:dev"
 	buildDep files('lib/Baubles-1.8.9-1.1.3.0.jar')
 	//buildDep files('lib/ServerUtilities-2.0.2.jar')
 	includeMod files("lib/worldedit-forge-mc1.8.9-6.1.1-SNAPSHOT-dist.jar")
@@ -242,21 +252,25 @@ dependencies {
  */
 
 sourceSets {
-	utils {
-		compileClasspath = files(configurations.compile, sourceSets.api.output)
-	}
-	main {
-		compileClasspath = files(configurations.compile, sourceSets.api.output, sourceSets.utils.output)
-		ext.refMap = "mixins.forgeessentials.refmap.json"
-	}
-	client {
-		compileClasspath = files(configurations.compile, sourceSets.api.output, sourceSets.utils.output)
-		ext.refMap = "mixins.forgeessentials.client.refmap.json"
-	}
-
-	test {
-		compileClasspath = files(configurations.compile, sourceSets.api.output, sourceSets.utils.output, sourceSets.main.output)
-	}
+    def deps = [
+            configurations.forgeGradleMcDeps,
+            configurations.forgeGradleMc,
+            configurations.provided
+    ]
+    utils {
+        compileClasspath = files(configurations.compile, sourceSets.api.output)
+        compileClasspath += files deps
+    }
+    main {
+        compileClasspath = files(configurations.compile, sourceSets.api.output, sourceSets.utils.output)
+        compileClasspath += files deps
+        ext.refMap = "mixins.forgeessentials.refmap.json"
+    }
+    client {
+        compileClasspath = files(configurations.compile, sourceSets.api.output, sourceSets.utils.output)
+        compileClasspath += files deps
+        ext.refMap = "mixins.forgeessentials.client.refmap.json"
+    }
 }
 
 // Configure utils tokens
@@ -394,8 +408,7 @@ jar {
 		}
 	}
 
-    from serverRefMap
-
+    jar.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 	manifest {
 		from serverManifest
 	}
@@ -411,7 +424,7 @@ task clientJar (dependsOn: "clientClasses", type: Jar) {
 	
 	from sourceSets.client.output
 	from sourceSets.utils.output
-    from clientRefMap
+
 	configurations.shadeClient.copyRecursive().setTransitive(false).each { artifact ->
 		from (zipTree(artifact))
 	}
