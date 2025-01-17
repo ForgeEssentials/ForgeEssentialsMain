@@ -209,7 +209,7 @@ dependencies {
 	/* serverLib "org.eclipse.persistence:eclipselink:2.6.0" */
 	
 	// WorldEdit
-	buildDep group: "com.sk89q.worldedit", name: "worldedit-forge-mc1.8.9", version: "6.1.1-SNAPSHOT", classifier: "dev", changing: true
+	buildDep group: "com.sk89q.worldedit", name: "worldedit-forge-mc1.8.9", version: "6.1.1", classifier: "dev", changing: true
 	buildDep files('lib/Baubles-1.8.9-1.1.3.0.jar')
 	//buildDep files('lib/ServerUtilities-2.0.2.jar')
 	includeMod files("lib/worldedit-forge-mc1.8.9-6.1.1-SNAPSHOT-dist.jar")
