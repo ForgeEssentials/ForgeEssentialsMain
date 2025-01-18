@@ -38,7 +38,7 @@ buildscript {
 }
 plugins {
 	id 'com.github.johnrengelman.shadow' version '4.0.4'
-	//id "com.matthewprenger.cursegradle" version "1.4.0"
+	id "com.matthewprenger.cursegradle" version "1.4.0"
 	//id "net.minecraftforge.gradle.forge" version "2.0.2"
 }
 
@@ -87,7 +87,7 @@ targetCompatibility = 1.8
 ext.set 'srcFile',file("./tmp/$archivesBaseName-$minecraftVersion-$mod_base.$mod_major.$buildNumber-server.jar")
 ext.set 'clientSrcFile',file("./tmp/$archivesBaseName-$minecraftVersion-$mod_base.$mod_major.$buildNumber-client.jar")
 
-/*
+
 curseforge {
     apiKey = System.getenv("CF_APIKEY")
     if (apiKey) {
@@ -128,7 +128,7 @@ curseforge {
         forgeGradleIntegration = false
         javaIntegration = false
     }
-}*/
+}
 
 project.afterEvaluate {
     def task = tasks.findByPath("modrinth")
@@ -144,20 +144,20 @@ minecraft {
 	runDir = "rundir"
     mappings = "snapshot_20160115"
 }
-/*
-apply plugin: "com.modrinth.minotaur"
 
-modrinth {
-    token = System.getenv("MODRINTH_TOKEN")
-    projectId = "forge-essentials"
-    versionNumber = "$mod_base.$mod_major.$buildNumber"
-    versionType = project.releaseType
-    versionName = "$archivesBaseName-$minecraftVersion-$mod_base.$mod_major.$buildNumber"
-    uploadFile = project.srcFile
-    gameVersions = [minecraftVersion]
-    loaders = ["forge"]
-    changelog = project.changelog
-}*/
+//apply plugin: "com.modrinth.minotaur"
+//
+//modrinth {
+//    token = System.getenv("MODRINTH_TOKEN")
+//    projectId = "forge-essentials"
+//    versionNumber = "$mod_base.$mod_major.$buildNumber"
+//    versionType = project.releaseType
+//    versionName = "$archivesBaseName-$minecraftVersion-$mod_base.$mod_major.$buildNumber"
+//    uploadFile = project.srcFile
+//    gameVersions = [minecraftVersion]
+//    loaders = ["forge"]
+//    changelog = project.changelog
+//}
 
 // Configure shared manifest
 ext.sharedManifest = manifest {
